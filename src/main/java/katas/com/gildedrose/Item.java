@@ -8,6 +8,7 @@ public class Item {
 
 	public int quality;
 
+	//TODO add getter??
 	public Item(String name, int sellIn, int quality) {
 		this.name = name;
 		this.sellIn = sellIn;
