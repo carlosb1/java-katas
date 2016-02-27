@@ -6,7 +6,7 @@ import org.junit.Test;
 public class GildedRoseTest {
 
 	@Test
-	public void foo() {
+	public void testAddItem() {
 		Item[] items = new Item[] { new Item("foo", 0, 0) };
 		GildedRose app = new GildedRose(items);
 		app.updateQuality();
