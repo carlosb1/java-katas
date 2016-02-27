@@ -1,7 +1,7 @@
 package katas.com.gildedrose;
 
 public class Item {
-
+	//TODO change type of parameters
 	public String name;
 
 	public int sellIn;
