@@ -1,6 +1,9 @@
 # java-katas
 List of katas to practise TDD and refactoring
 
+##Prime Factors
+link to presentation: https://app.box.com/s/y5ef06is08lyyp76k83v5gl7jyd2ahss
+
 
 ##Gilded Rose Refactoring Kata
 
