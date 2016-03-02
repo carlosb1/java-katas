@@ -47,3 +47,5 @@ method and Items property static if you like, we'll cover for you).
 Just for clarification, an item can never have its Quality increase 
 above 50, however "Sulfuras" is a legendary item and as such its 
 Quality is 80 and it never alters.
+
+Useful links: https://jacerhea.wordpress.com/2012/11/25/taking-on-the-gilded-rose-kata/
