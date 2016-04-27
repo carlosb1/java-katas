@@ -1,6 +1,9 @@
 package katas.gildedrose;
 
 class GildedRose {
+	private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+	private static final String AGED_BRIE = "Aged Brie";
+	private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 	Item[] items;
 
 	public GildedRose(Item[] items) {
@@ -56,6 +59,7 @@ class GildedRose {
 					}
 				}
 			}
+
 		}
 	}
 
@@ -64,15 +68,15 @@ class GildedRose {
 	}
 
 	private boolean isBackstagePasses(int i) {
-		return items[i].name.equals("Backstage passes to a TAFKAL80ETC concert");
+		return items[i].name.equals(BACKSTAGE_PASSES);
 	}
 
 	private boolean isAgedBrie(int i) {
-		return items[i].name.equals("Aged Brie");
+		return items[i].name.equals(AGED_BRIE);
 	}
 
 	private boolean isSulfuras(int i) {
-		return items[i].name.equals("Sulfuras, Hand of Ragnaros");
+		return items[i].name.equals(SULFURAS);
 	}
 
 	private boolean checkMaxQuality(int i) {
