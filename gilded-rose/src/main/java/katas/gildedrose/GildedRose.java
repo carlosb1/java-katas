@@ -1,6 +1,8 @@
 package katas.gildedrose;
 
 class GildedRose {
+	private static final int MAX_QUALITY = 50;
+	private static final int MIN_QUALITY = 0;
 	private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
 	private static final String AGED_BRIE = "Aged Brie";
 	private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
@@ -80,10 +82,10 @@ class GildedRose {
 	}
 
 	private boolean checkMaxQuality(int i) {
-		return items[i].quality < 50;
+		return items[i].quality < MAX_QUALITY;
 	}
 
 	private boolean checkMinQuality(int i) {
-		return items[i].quality > 0;
+		return items[i].quality > MIN_QUALITY;
 	}
 }
