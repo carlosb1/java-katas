@@ -20,6 +20,7 @@ public class TexttestFixture {
 			days = Integer.parseInt(args[0]) + 1;
 		}
 
+		//TODO Add acceptance tests for this input
 		for (int i = 0; i < days; i++) {
 			System.out.println("-------- day " + i + " --------");
 			System.out.println("name, sellIn, quality");

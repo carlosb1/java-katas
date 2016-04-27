@@ -1,63 +1,77 @@
 package katas.gildedrose;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class GildedRose {
 	private static final int MAX_QUALITY = 50;
 	private static final int MIN_QUALITY = 0;
 	private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
 	private static final String AGED_BRIE = "Aged Brie";
 	private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
-	Item[] items;
+	List<Item> items;
 
-	public GildedRose(Item[] items) {
-		this.items = items;
+	// TODO pending to refactor text test fixture
+	public GildedRose(Item[] newItems) {
+		items = Arrays.asList(newItems);
+	}
+
+	public GildedRose() {
+		this.items = new ArrayList<Item>();
+	}
+
+	public GildedRose addItem(Item item) {
+		this.items.add(item);
+		return this;
 	}
 
 	public void updateQuality() {
-		for (int i = 0; i < items.length; i++) {
-			if (!isAgedBrie(i) && !isBackstagePasses(i)) {
-				if (checkMinQuality(i)) {
-					if (!isSulfuras(i)) {
-						decrementQuality(i);
+		for (Item item : items) {
+			if (!isAgedBrie(item) && !isBackstagePasses(item)) {
+				if (checkMinQuality(item)) {
+					if (!isSulfuras(item)) {
+						decrementQuality(item);
 					}
 				}
 			} else {
-				if (checkMaxQuality(i)) {
-					incrementQuality(i);
+				if (checkMaxQuality(item)) {
+					incrementQuality(item);
 
-					if (isBackstagePasses(i)) {
-						if (items[i].sellIn <= 10) {
-							if (checkMaxQuality(i)) {
-								incrementQuality(i);
+					if (isBackstagePasses(item)) {
+						if (item.sellIn <= 10) {
+							if (checkMaxQuality(item)) {
+								incrementQuality(item);
 							}
 						}
 
-						if (items[i].sellIn <= 5) {
-							if (checkMaxQuality(i)) {
-								incrementQuality(i);
+						if (item.sellIn <= 5) {
+							if (checkMaxQuality(item)) {
+								incrementQuality(item);
 							}
 						}
 					}
 				}
 			}
 
-			if (!isSulfuras(i)) {
-				decrementSellIn(i);
+			if (!isSulfuras(item)) {
+				decrementSellIn(item);
 			}
 
-			if (checkMinSellIn(i)) {
-				if (!isAgedBrie(i)) {
-					if (!isBackstagePasses(i)) {
-						if (checkMinQuality(i)) {
-							if (!isSulfuras(i)) {
-								decrementQuality(i);
+			if (checkMinSellIn(item)) {
+				if (!isAgedBrie(item)) {
+					if (!isBackstagePasses(item)) {
+						if (checkMinQuality(item)) {
+							if (!isSulfuras(item)) {
+								decrementQuality(item);
 							}
 						}
 					} else {
-						decrementQualityForBackstagePasses(i);
+						item.quality = item.quality - item.quality;
 					}
 				} else {
-					if (checkMaxQuality(i)) {
-						incrementQuality(i);
+					if (checkMaxQuality(item)) {
+						incrementQuality(item);
 					}
 				}
 			}
@@ -65,43 +79,39 @@ class GildedRose {
 		}
 	}
 
-	private void decrementQualityForBackstagePasses(int i) {
-		items[i].quality = items[i].quality - items[i].quality;
+	private void decrementSellIn(Item item) {
+		item.sellIn = item.sellIn - 1;
 	}
 
-	private void decrementSellIn(int i) {
-		items[i].sellIn = items[i].sellIn - 1;
+	private void incrementQuality(Item item) {
+		item.quality = item.quality + 1;
 	}
 
-	private void incrementQuality(int i) {
-		items[i].quality = items[i].quality + 1;
+	private void decrementQuality(Item item) {
+		item.quality = item.quality - 1;
 	}
 
-	private void decrementQuality(int i) {
-		items[i].quality = items[i].quality - 1;
+	private boolean checkMinSellIn(Item item) {
+		return item.sellIn < 0;
 	}
 
-	private boolean checkMinSellIn(int i) {
-		return items[i].sellIn < 0;
+	private boolean isBackstagePasses(Item item) {
+		return item.name.equals(BACKSTAGE_PASSES);
 	}
 
-	private boolean isBackstagePasses(int i) {
-		return items[i].name.equals(BACKSTAGE_PASSES);
+	private boolean isAgedBrie(Item item) {
+		return item.name.equals(AGED_BRIE);
 	}
 
-	private boolean isAgedBrie(int i) {
-		return items[i].name.equals(AGED_BRIE);
+	private boolean isSulfuras(Item item) {
+		return item.name.equals(SULFURAS);
 	}
 
-	private boolean isSulfuras(int i) {
-		return items[i].name.equals(SULFURAS);
+	private boolean checkMaxQuality(Item item) {
+		return item.quality < MAX_QUALITY;
 	}
 
-	private boolean checkMaxQuality(int i) {
-		return items[i].quality < MAX_QUALITY;
-	}
-
-	private boolean checkMinQuality(int i) {
-		return items[i].quality > MIN_QUALITY;
+	private boolean checkMinQuality(Item item) {
+		return item.quality > MIN_QUALITY;
 	}
 }
