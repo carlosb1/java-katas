@@ -31,7 +31,6 @@ public class GildedRoseAcceptanceTest {
 		}
 
 		public boolean equals(String valueToCompare) {
-			// System.out.println(outContent.toString());
 			return (outContent.toString().equals(valueToCompare));
 
 		}

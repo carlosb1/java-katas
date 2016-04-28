@@ -1,14 +1,12 @@
 package katas.gildedrose;
 
 public class Item {
-	// TODO change type of parameters
 	public String name;
 
 	public int sellIn;
 
 	public int quality;
 
-	// TODO add getter??
 	public Item(String name, int sellIn, int quality) {
 		this.name = name;
 		this.sellIn = sellIn;
