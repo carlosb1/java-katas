@@ -1,14 +1,12 @@
 *.class
-*.classpath
-*.project
+.classpath
+.project
+*/.class
+*/.classpath
+*/.project
 
-*/*.class
-*/*.classpath
-*/*.project
-
-./*/*.class
-./*/*.classpath
-./*/*.project
+gilded-rose/.classpath
+gilded-rose/.project
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
