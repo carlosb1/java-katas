@@ -31,37 +31,37 @@ class GildedRose {
 
 			/* BackstagePasses */
 			if (isBackstagePasses(item)) {
+				/* SellIn Control */
+				decrementSellIn(item);
+				if (checkMinSellIn(item)) {
+					dropToZero(item);
+				}
+
+				/* Quality Control */
 				if (checkMaxQuality(item)) {
 					incrementQuality(item);
 				}
 
-				if (checkMinSellIn(item)) {
-					item.quality = item.quality - item.quality;
-				}
-
-				if (item.sellIn <= 10) {
-					if (checkMaxQuality(item)) {
+				if (checkMaxQuality(item)) {
+					if (checSellInIncrementDouble(item)) {
 						incrementQuality(item);
 					}
-				}
-
-				if (item.sellIn <= 5) {
-					if (checkMaxQuality(item)) {
+					if (checSellInMinusTriple(item)) {
 						incrementQuality(item);
 					}
-				}
-			}
-			/* sulfurs */
-			if (!isSulfuras(item)) {
-				decrementSellIn(item);
-			}
 
+				}
+
+			}
 			/* agedBrie */
 			if (isAgedBrie(item)) {
-				if (checkMinSellIn(item)) {
-					if (checkMaxQuality(item)) {
-						incrementQuality(item);
-					}
+
+				// Sell In control
+				decrementSellIn(item);
+
+				/* Quality control */
+				if (checkMinSellIn(item) && checkMaxQuality(item)) {
+					incrementQuality(item);
 				}
 				if (checkMaxQuality(item)) {
 					incrementQuality(item);
@@ -70,6 +70,10 @@ class GildedRose {
 
 			/* other types */
 			if (!isAgedBrie(item) && !isBackstagePasses(item) && !isSulfuras(item)) {
+				/* Sell in control */
+				decrementSellIn(item);
+
+				/* Quality control */
 				if (checkMinSellIn(item) && checkMinQuality(item)) {
 					decrementQuality(item);
 				}
@@ -80,6 +84,18 @@ class GildedRose {
 
 		}
 
+	}
+
+	private void dropToZero(Item item) {
+		item.quality = 0;
+	}
+
+	private boolean checSellInMinusTriple(Item item) {
+		return item.sellIn <= 5;
+	}
+
+	private boolean checSellInIncrementDouble(Item item) {
+		return item.sellIn <= 10;
 	}
 
 	private void decrementSellIn(Item item) {
