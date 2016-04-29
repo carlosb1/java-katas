@@ -28,45 +28,73 @@ class GildedRose {
 
 	public void updateQuality() {
 		for (Item item : items) {
+			/* BackstagePasses */
+			if (isBackstagePasses(item)) {
+				/* SellIn Control */
+				decrementSellIn(item);
+				if (checkMinSellIn(item)) {
+					dropToZero(item);
+				}
+
+				/* Quality Control */
+				if (checkMaxQuality(item)) {
+					incrementQuality(item);
+				}
+
+				if (checkMaxQuality(item)) {
+					if (checSellInIncrementDouble(item)) {
+						incrementQuality(item);
+					}
+					if (checSellInMinusTriple(item)) {
+						incrementQuality(item);
+					}
+
+				}
+
+			}
+			/* agedBrie */
+			if (isAgedBrie(item)) {
+
+				// Sell In control
+				decrementSellIn(item);
+
+				/* Quality control */
+				if (checkMinSellIn(item) && checkMaxQuality(item)) {
+					incrementQuality(item);
+				}
+				if (checkMaxQuality(item)) {
+					incrementQuality(item);
+				}
+			}
+
+			/* other types */
 			if (!isAgedBrie(item) && !isBackstagePasses(item) && !isSulfuras(item)) {
+				/* Sell in control */
+				decrementSellIn(item);
+
+				/* Quality control */
+				if (checkMinSellIn(item) && checkMinQuality(item)) {
+					decrementQuality(item);
+				}
 				if (checkMinQuality(item)) {
 					decrementQuality(item);
 				}
 			}
 
-			if (isAgedBrie(item) || isBackstagePasses(item)) {
-				if (checkMaxQuality(item)) {
-					incrementQuality(item);
-					if (isBackstagePasses(item)) {
-						if (item.sellIn <= 10) {
-							incrementQuality(item);
-						}
-						if (item.sellIn <= 5) {
-							incrementQuality(item);
-						}
-					}
-				}
-			}
-
-			if (!isSulfuras(item)) {
-				decrementSellIn(item);
-			}
-
-			if (checkMinSellIn(item)) {
-				if (!isAgedBrie(item) && !isBackstagePasses(item) && !isSulfuras(item)) {
-					if (checkMinQuality(item)) {
-						decrementQuality(item);
-					} else {
-						item.quality = item.quality - item.quality;
-					}
-				} else {
-					if (checkMaxQuality(item)) {
-						incrementQuality(item);
-					}
-				}
-			}
-
 		}
+
+	}
+
+	private void dropToZero(Item item) {
+		item.quality = 0;
+	}
+
+	private boolean checSellInMinusTriple(Item item) {
+		return item.sellIn <= 5;
+	}
+
+	private boolean checSellInIncrementDouble(Item item) {
+		return item.sellIn <= 10;
 	}
 
 	private void decrementSellIn(Item item) {
