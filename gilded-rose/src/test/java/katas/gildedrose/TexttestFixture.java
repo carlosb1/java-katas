@@ -1,5 +1,7 @@
 package katas.gildedrose;
 
+import java.util.Arrays;
+
 public class TexttestFixture {
 	public static void main(String[] args) {
 		System.out.println("OMGHAI!");
@@ -13,14 +15,14 @@ public class TexttestFixture {
 				// this conjured item does not work properly yet
 				new Item("Conjured Mana Cake", 3, 6) };
 
-		GildedRose app = new GildedRose(items);
+		GildedRose app = new GildedRose(Arrays.asList(items));
 
 		int days = 2;
 		if (args.length > 0) {
 			days = Integer.parseInt(args[0]) + 1;
 		}
 
-		//TODO Add acceptance tests for this input
+		// TODO Add acceptance tests for this input
 		for (int i = 0; i < days; i++) {
 			System.out.println("-------- day " + i + " --------");
 			System.out.println("name, sellIn, quality");

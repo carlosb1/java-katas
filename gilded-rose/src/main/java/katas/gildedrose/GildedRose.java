@@ -1,7 +1,6 @@
 package katas.gildedrose;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 class GildedRose {
@@ -12,9 +11,8 @@ class GildedRose {
 	private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 	List<Item> items;
 
-	// TODO pending to refactor text test fixture
-	public GildedRose(Item[] newItems) {
-		items = Arrays.asList(newItems);
+	public GildedRose(List<Item> items) {
+		this.items = items;
 	}
 
 	public GildedRose() {
