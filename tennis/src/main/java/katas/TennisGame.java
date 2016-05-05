@@ -27,16 +27,22 @@ public class TennisGame {
 		return playerTwoPoints;
 	}
 
-	public final void playerOneScore() {
-		if (this.playerOnePoints == Points.ZERO) {
-			this.playerOnePoints = Points.FIFTEEN;
-		} else if (this.playerOnePoints == Points.FIFTEEN) {
-			this.playerOnePoints = Points.THIRTY;
+	private Points sumPoints(Points points) {
+		Points result = Points.ZERO;
+		if (points == Points.ZERO) {
+			result = Points.FIFTEEN;
+		} else if (points == Points.FIFTEEN) {
+			result = Points.THIRTY;
 		}
+		return result;
+	}
+
+	public final void playerOneScore() {
+		playerOnePoints = sumPoints(playerOnePoints);
 	}
 
 	public void playerTwoScore() {
-		this.playerTwoPoints = Points.FIFTEEN;
+		playerTwoPoints = sumPoints(playerTwoPoints);
 	}
 
 }

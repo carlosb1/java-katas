@@ -56,4 +56,12 @@ public class TennisGameTest {
 		assertTrue(points == Points.THIRTY);
 	}
 
+	@Test
+	public void getScoresTwoPlayerScoreThirty() {
+		game.playerTwoScore();
+		game.playerTwoScore();
+		Points points = game.getPlayerTwoScore();
+		assertTrue(points == Points.THIRTY);
+	}
+
 }
