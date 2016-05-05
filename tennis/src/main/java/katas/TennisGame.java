@@ -2,7 +2,7 @@ package katas;
 
 public class TennisGame {
 	public enum Status {
-		DEUCE, ONEPLAYER_WIN, TWOPLAYER_TWO, NOTFINISHED, ONEPLAYER_ADVANCE;
+		DEUCE, ONEPLAYER_WIN, TWOPLAYER_WIN, NOTFINISHED, ONEPLAYER_ADVANCE, TWOPLAYER_ADVANCE;
 	}
 
 	public enum Points {
@@ -65,12 +65,12 @@ public class TennisGame {
 		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
 			status = Status.DEUCE;
 		}
-		if (playerOnePoints == Points.ADVANCED) {
-			status = Status.ONEPLAYER_ADVANCE;
+		if (playerTwoPoints == Points.ADVANCED) {
+			status = Status.TWOPLAYER_ADVANCE;
 		}
 
 		if (playerTwoPoints == Points.WIN) {
-			status = Status.TWOPLAYER_TWO;
+			status = Status.TWOPLAYER_WIN;
 		}
 	}
 

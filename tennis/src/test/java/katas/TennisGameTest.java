@@ -145,6 +145,16 @@ public class TennisGameTest {
 	}
 
 	@Test
+	public void getStatusTwoPlayerAdvance() {
+		scoreMultipleTimesTwoPlayer(game, 3);
+		scoreMultipleTimesOnePlayer(game, 3);
+		game.playerTwoScore();
+
+		TennisGame.Status status = game.status();
+		assertTrue(status == TennisGame.Status.TWOPLAYER_ADVANCE);
+	}
+
+	@Test
 	public void getStatusIsDeuceAndNotFinished() {
 		scoreMultipleTimesTwoPlayer(game, 3);
 		scoreMultipleTimesOnePlayer(game, 3);
