@@ -129,8 +129,29 @@ public class TennisGameTest {
 	@Test
 	public void getStatusOnePlayerNotDeuce() {
 		scoreMultipleTimesOnePlayer(game, 3);
+
 		TennisGame.Status status = game.status();
 		assertTrue(status != TennisGame.Status.DEUCE);
+	}
+
+	// @Test
+	// public void getStatusOnePlayerAdvance() {
+	// scoreMultipleTimesTwoPlayer(game, 3);
+	// scoreMultipleTimesOnePlayer(game, 3);
+	// game.playerOneScore();
+	//
+	// TennisGame.Status status = game.status();
+	// assertTrue(status == TennisGame.Status.ONEPLAYER_ADVANCE);
+	// }
+
+	@Test
+	public void getStatusIsDeuceAndNotFinished() {
+		scoreMultipleTimesTwoPlayer(game, 3);
+		scoreMultipleTimesOnePlayer(game, 3);
+
+		TennisGame.Status status = game.status();
+		assertTrue(game.getPlayerOneScore() != Points.WIN);
+		assertFalse(game.isFinished());
 	}
 
 	@Test

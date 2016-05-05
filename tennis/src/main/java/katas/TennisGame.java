@@ -2,8 +2,7 @@ package katas;
 
 public class TennisGame {
 	public enum Status {
-		DEUCE, ONEPLAYER, TWOPLAYER, NOTFINISHED;
-
+		DEUCE, ONEPLAYER_WIN, TWOPLAYER_TWO, NOTFINISHED, ONEPLAYER_ADVANCE;
 	}
 
 	public enum Points {
@@ -29,6 +28,7 @@ public class TennisGame {
 		return playerTwoPoints;
 	}
 
+	// TODO add test for isFinshed
 	private Points sumPoints(Points points) {
 		Points result = Points.ZERO;
 		if (points == Points.ZERO) {
@@ -37,7 +37,7 @@ public class TennisGame {
 			result = Points.THIRTY;
 		} else if (points == Points.THIRTY) {
 			result = Points.FORTY;
-		} else if (points == Points.FORTY) {
+		} else if (points == Points.FORTY && status != Status.DEUCE) {
 			result = Points.WIN;
 		}
 		return result;
@@ -45,9 +45,18 @@ public class TennisGame {
 
 	public final void playerOneScore() {
 		playerOnePoints = sumPoints(playerOnePoints);
+		/*
+		 * if (playerOnePoints == Points.FORTY && status == Status.DEUCE) {
+		 * status = Status.ONEPLAYER_ADVANCE; }
+		 */
+
 	}
 
 	public void playerTwoScore() {
+		/*
+		 * if (playerTwoPoints == Points.FORTY && status == Status.DEUCE) {
+		 * status = Status.ONEPLAYER_ADVANCE; }
+		 */
 		playerTwoPoints = sumPoints(playerTwoPoints);
 	}
 
@@ -57,10 +66,10 @@ public class TennisGame {
 
 	public Status status() {
 		if (playerOnePoints == Points.WIN) {
-			status = Status.ONEPLAYER;
+			status = Status.ONEPLAYER_WIN;
 		}
 		if (playerTwoPoints == Points.WIN) {
-			status = Status.TWOPLAYER;
+			status = Status.TWOPLAYER_TWO;
 		}
 
 		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
