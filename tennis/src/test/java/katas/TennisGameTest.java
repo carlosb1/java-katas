@@ -1,5 +1,6 @@
 package katas;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -62,6 +63,12 @@ public class TennisGameTest {
 		game.playerTwoScore();
 		Points points = game.getPlayerTwoScore();
 		assertTrue(points == Points.THIRTY);
+	}
+
+	@Test
+	public void getWinnerIsNotFinishedMatch() {
+		boolean finish = game.isFinished();
+		assertFalse(finish);
 	}
 
 }
