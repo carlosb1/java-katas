@@ -2,7 +2,7 @@ package katas;
 
 public class TennisGame {
 	public enum Points {
-		ZERO(0);
+		ZERO(0), FIFTEEN(15);
 
 		private int points;
 
@@ -11,13 +11,23 @@ public class TennisGame {
 		}
 	}
 
-	// TODO add final classes
-	public Points getPlayerOneScore() {
+	private Points playerOnePoints;
+
+	public TennisGame() {
+		this.playerOnePoints = Points.ZERO;
+
+	}
+
+	public final Points getPlayerOneScore() {
+		return playerOnePoints;
+	}
+
+	public final Points getPlayerTwoScore() {
 		return Points.ZERO;
 	}
 
-	public Points getPlayerTwoScore() {
-		return Points.ZERO;
+	public final void playerOneScore() {
+		this.playerOnePoints = Points.FIFTEEN;
 	}
 
 }
