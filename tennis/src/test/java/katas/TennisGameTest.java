@@ -43,8 +43,8 @@ public class TennisGameTest {
 
 	@Test
 	public void getScoresTwoPlayerScoreFifteen() {
-		game.playerOneScore();
-		Points points = game.getPlayerOneScore();
+		game.playerTwoScore();
+		Points points = game.getPlayerTwoScore();
 		assertTrue(points == Points.FIFTEEN);
 	}
 

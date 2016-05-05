@@ -16,7 +16,7 @@ public class TennisGame {
 
 	public TennisGame() {
 		this.playerOnePoints = Points.ZERO;
-
+		this.playerTwoPoints = Points.ZERO;
 	}
 
 	public final Points getPlayerOneScore() {
@@ -24,7 +24,7 @@ public class TennisGame {
 	}
 
 	public final Points getPlayerTwoScore() {
-		return Points.ZERO;
+		return playerTwoPoints;
 	}
 
 	public final void playerOneScore() {
