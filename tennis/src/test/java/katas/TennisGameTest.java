@@ -66,21 +66,21 @@ public class TennisGameTest {
 	}
 
 	@Test
-	public void getScoresOnePlayerScoreFourty() {
+	public void getScoresOnePlayerScoreForty() {
 		game.playerOneScore();
 		game.playerOneScore();
 		game.playerOneScore();
 		Points points = game.getPlayerOneScore();
-		assertTrue(points == Points.FOURTY);
+		assertTrue(points == Points.FORTY);
 	}
 
 	@Test
-	public void getScoresTwoPlayerScoreFourty() {
+	public void getScoresTwoPlayerScoreForty() {
 		game.playerTwoScore();
 		game.playerTwoScore();
 		game.playerTwoScore();
 		Points points = game.getPlayerTwoScore();
-		assertTrue(points == Points.FOURTY);
+		assertTrue(points == Points.FORTY);
 	}
 
 	@Test

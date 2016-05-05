@@ -2,7 +2,7 @@ package katas;
 
 public class TennisGame {
 	public enum Points {
-		ZERO, FIFTEEN, THIRTY, WIN, FOURTY;
+		ZERO, FIFTEEN, THIRTY, WIN, FORTY;
 	}
 
 	private Points playerOnePoints;
@@ -28,8 +28,8 @@ public class TennisGame {
 		} else if (points == Points.FIFTEEN) {
 			result = Points.THIRTY;
 		} else if (points == Points.THIRTY) {
-			result = Points.FOURTY;
-		} else if (points == Points.FOURTY) {
+			result = Points.FORTY;
+		} else if (points == Points.FORTY) {
 			result = Points.WIN;
 		}
 		return result;
