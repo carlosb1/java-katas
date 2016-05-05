@@ -99,4 +99,18 @@ public class TennisGameTest {
 		assertTrue(finish);
 	}
 
+	@Test
+	public void getDeuceWithoutWinner() {
+		game.playerOneScore();
+		game.playerOneScore();
+		game.playerOneScore();
+
+		game.playerTwoScore();
+		game.playerTwoScore();
+		game.playerTwoScore();
+
+		TennisGame.Status status = game.status();
+		assertTrue(status == TennisGame.Status.DEUCE);
+	}
+
 }

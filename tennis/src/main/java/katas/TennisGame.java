@@ -1,16 +1,24 @@
 package katas;
 
 public class TennisGame {
+	public enum Status {
+		DEUCE, ONEPLAYER, TWOPLAYER, NOTFINISHED;
+
+	}
+
 	public enum Points {
 		ZERO, FIFTEEN, THIRTY, WIN, FORTY;
 	}
 
+	// TODO split users in two clases
 	private Points playerOnePoints;
 	private Points playerTwoPoints;
+	private Status status;
 
 	public TennisGame() {
 		this.playerOnePoints = Points.ZERO;
 		this.playerTwoPoints = Points.ZERO;
+		this.status = Status.DEUCE;
 	}
 
 	public final Points getPlayerOneScore() {
@@ -45,6 +53,10 @@ public class TennisGame {
 
 	public boolean isFinished() {
 		return (playerOnePoints == Points.WIN || playerTwoPoints == Points.WIN);
+	}
+
+	public Status status() {
+		return status;
 	}
 
 }
