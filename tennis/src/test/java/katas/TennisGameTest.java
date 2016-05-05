@@ -71,4 +71,14 @@ public class TennisGameTest {
 		assertFalse(finish);
 	}
 
+	@Test
+	public void getWinnerOnePlayerIsFinishedMatch() {
+		game.playerOneScore();
+		game.playerOneScore();
+		game.playerOneScore();
+		game.playerOneScore();
+		boolean finish = game.isFinished();
+		assertTrue(finish);
+	}
+
 }
