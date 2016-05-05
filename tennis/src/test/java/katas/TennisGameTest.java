@@ -66,6 +66,24 @@ public class TennisGameTest {
 	}
 
 	@Test
+	public void getScoresOnePlayerScoreFourty() {
+		game.playerOneScore();
+		game.playerOneScore();
+		game.playerOneScore();
+		Points points = game.getPlayerOneScore();
+		assertTrue(points == Points.FOURTY);
+	}
+
+	@Test
+	public void getScoresTwoPlayerScoreFourty() {
+		game.playerTwoScore();
+		game.playerTwoScore();
+		game.playerTwoScore();
+		Points points = game.getPlayerTwoScore();
+		assertTrue(points == Points.FOURTY);
+	}
+
+	@Test
 	public void getWinnerIsNotFinishedMatch() {
 		boolean finish = game.isFinished();
 		assertFalse(finish);

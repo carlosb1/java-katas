@@ -21,7 +21,6 @@ public class TennisGame {
 		return playerTwoPoints;
 	}
 
-	// TODO add case to implement fourty point
 	private Points sumPoints(Points points) {
 		Points result = Points.ZERO;
 		if (points == Points.ZERO) {
