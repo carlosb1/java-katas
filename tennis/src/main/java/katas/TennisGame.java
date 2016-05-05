@@ -18,7 +18,7 @@ public class TennisGame {
 	public TennisGame() {
 		this.playerOnePoints = Points.ZERO;
 		this.playerTwoPoints = Points.ZERO;
-		this.status = Status.DEUCE;
+		this.status = Status.NOTFINISHED;
 	}
 
 	public final Points getPlayerOneScore() {
@@ -45,10 +45,21 @@ public class TennisGame {
 
 	public final void playerOneScore() {
 		playerOnePoints = sumPoints(playerOnePoints);
+		// TODO duplicate code
+		if (playerOnePoints == Points.WIN) {
+			status = Status.ONEPLAYER;
+		}
+		if (playerOnePoints == Points.FORTY || playerTwoPoints == Points.FORTY) {
+			status = Status.DEUCE;
+		}
+
 	}
 
 	public void playerTwoScore() {
 		playerTwoPoints = sumPoints(playerTwoPoints);
+		if (playerTwoPoints == Points.WIN) {
+			status = Status.TWOPLAYER;
+		}
 	}
 
 	public boolean isFinished() {

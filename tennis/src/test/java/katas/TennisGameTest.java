@@ -100,7 +100,13 @@ public class TennisGameTest {
 	}
 
 	@Test
-	public void getDeuceWithoutWinner() {
+	public void getStatusNotFinisher() {
+		TennisGame.Status status = game.status();
+		assertTrue(status == TennisGame.Status.NOTFINISHED);
+	}
+
+	@Test
+	public void getStatusStartOnePlayerDeuce() {
 		game.playerOneScore();
 		game.playerOneScore();
 		game.playerOneScore();
@@ -108,6 +114,20 @@ public class TennisGameTest {
 		game.playerTwoScore();
 		game.playerTwoScore();
 		game.playerTwoScore();
+
+		TennisGame.Status status = game.status();
+		assertTrue(status == TennisGame.Status.DEUCE);
+	}
+
+	@Test
+	public void getStatusStartTwoPlayerDeuce() {
+		game.playerTwoScore();
+		game.playerTwoScore();
+		game.playerTwoScore();
+
+		game.playerOneScore();
+		game.playerOneScore();
+		game.playerOneScore();
 
 		TennisGame.Status status = game.status();
 		assertTrue(status == TennisGame.Status.DEUCE);
