@@ -22,6 +22,18 @@ public class TennisGameTest {
 		game = null;
 	}
 
+	private void scoreMultipleTimesOnePlayer(TennisGame game, int numberScores) {
+		for (int i = 0; i < numberScores; i++) {
+			game.playerOneScore();
+		}
+	}
+
+	private void scoreMultipleTimesTwoPlayer(TennisGame game, int numberScores) {
+		for (int i = 0; i < numberScores; i++) {
+			game.playerTwoScore();
+		}
+	}
+
 	@Test
 	public void getScoresOnePlayerZero() {
 		Points points = game.getPlayerOneScore();
@@ -131,6 +143,54 @@ public class TennisGameTest {
 
 		TennisGame.Status status = game.status();
 		assertTrue(status == TennisGame.Status.DEUCE);
+	}
+
+	@Test
+	public void oneTimeOnePlayer() {
+		scoreMultipleTimesOnePlayer(game, 1);
+		assertTrue(game.getPlayerOneScore() == Points.FIFTEEN);
+	}
+
+	@Test
+	public void twoTimesOnePlayer() {
+		scoreMultipleTimesOnePlayer(game, 2);
+		assertTrue(game.getPlayerOneScore() == Points.THIRTY);
+	}
+
+	@Test
+	public void threeTimesOnePlayer() {
+		scoreMultipleTimesOnePlayer(game, 3);
+		assertTrue(game.getPlayerOneScore() == Points.FORTY);
+	}
+
+	@Test
+	public void fourTimesOnePlayer() {
+		scoreMultipleTimesOnePlayer(game, 4);
+		assertTrue(game.getPlayerOneScore() == Points.WIN);
+	}
+
+	@Test
+	public void oneTimeTwoPlayer() {
+		scoreMultipleTimesTwoPlayer(game, 1);
+		assertTrue(game.getPlayerTwoScore() == Points.FIFTEEN);
+	}
+
+	@Test
+	public void twoTimesTwoPlayer() {
+		scoreMultipleTimesTwoPlayer(game, 2);
+		assertTrue(game.getPlayerTwoScore() == Points.THIRTY);
+	}
+
+	@Test
+	public void threeTimesTwoPlayer() {
+		scoreMultipleTimesTwoPlayer(game, 3);
+		assertTrue(game.getPlayerTwoScore() == Points.FORTY);
+	}
+
+	@Test
+	public void fourTimesTwoPlayer() {
+		scoreMultipleTimesTwoPlayer(game, 4);
+		assertTrue(game.getPlayerTwoScore() == Points.WIN);
 	}
 
 }
