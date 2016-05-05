@@ -6,7 +6,7 @@ public class TennisGame {
 	}
 
 	public enum Points {
-		ZERO, FIFTEEN, THIRTY, WIN, FORTY;
+		ZERO, FIFTEEN, THIRTY, WIN, FORTY, ADVANCED
 	}
 
 	// TODO split users in two clases
@@ -28,7 +28,6 @@ public class TennisGame {
 		return playerTwoPoints;
 	}
 
-	// TODO add test for isFinshed
 	private Points sumPoints(Points points) {
 		Points result = Points.ZERO;
 		if (points == Points.ZERO) {
@@ -37,27 +36,42 @@ public class TennisGame {
 			result = Points.THIRTY;
 		} else if (points == Points.THIRTY) {
 			result = Points.FORTY;
-		} else if (points == Points.FORTY && status != Status.DEUCE) {
-			result = Points.WIN;
+		} else if (points == Points.FORTY) {
+			if (status == Status.DEUCE) {
+				result = Points.ADVANCED;
+			} else {
+				result = Points.WIN;
+			}
 		}
 		return result;
+
 	}
 
 	public final void playerOneScore() {
 		playerOnePoints = sumPoints(playerOnePoints);
-		/*
-		 * if (playerOnePoints == Points.FORTY && status == Status.DEUCE) {
-		 * status = Status.ONEPLAYER_ADVANCE; }
-		 */
-
+		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
+			status = Status.DEUCE;
+		}
+		if (playerOnePoints == Points.ADVANCED) {
+			status = Status.ONEPLAYER_ADVANCE;
+		}
+		if (playerOnePoints == Points.WIN) {
+			status = Status.ONEPLAYER_WIN;
+		}
 	}
 
 	public void playerTwoScore() {
-		/*
-		 * if (playerTwoPoints == Points.FORTY && status == Status.DEUCE) {
-		 * status = Status.ONEPLAYER_ADVANCE; }
-		 */
 		playerTwoPoints = sumPoints(playerTwoPoints);
+		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
+			status = Status.DEUCE;
+		}
+		if (playerOnePoints == Points.ADVANCED) {
+			status = Status.ONEPLAYER_ADVANCE;
+		}
+
+		if (playerTwoPoints == Points.WIN) {
+			status = Status.TWOPLAYER_TWO;
+		}
 	}
 
 	public boolean isFinished() {
@@ -65,17 +79,6 @@ public class TennisGame {
 	}
 
 	public Status status() {
-		if (playerOnePoints == Points.WIN) {
-			status = Status.ONEPLAYER_WIN;
-		}
-		if (playerTwoPoints == Points.WIN) {
-			status = Status.TWOPLAYER_TWO;
-		}
-
-		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
-			status = Status.DEUCE;
-		}
-
 		return status;
 	}
 
