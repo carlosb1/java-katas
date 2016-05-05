@@ -2,7 +2,7 @@ package katas;
 
 public class TennisGame {
 	public enum Points {
-		ZERO(0), FIFTEEN(15);
+		ZERO(0), FIFTEEN(15), THIRTY(30);
 
 		private int points;
 
@@ -28,7 +28,11 @@ public class TennisGame {
 	}
 
 	public final void playerOneScore() {
-		this.playerOnePoints = Points.FIFTEEN;
+		if (this.playerOnePoints == Points.ZERO) {
+			this.playerOnePoints = Points.FIFTEEN;
+		} else if (this.playerOnePoints == Points.FIFTEEN) {
+			this.playerOnePoints = Points.THIRTY;
+		}
 	}
 
 	public void playerTwoScore() {
