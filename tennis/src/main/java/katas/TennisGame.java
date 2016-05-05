@@ -11,7 +11,12 @@ public class TennisGame {
 		}
 	}
 
+	// TODO add final classes
 	public Points getPlayerOneScore() {
+		return Points.ZERO;
+	}
+
+	public Points getPlayerTwoScore() {
 		return Points.ZERO;
 	}
 
