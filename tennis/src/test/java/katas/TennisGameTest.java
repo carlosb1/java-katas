@@ -63,34 +63,28 @@ public class TennisGameTest {
 
 	@Test
 	public void getScoresOnePlayerScoreThirty() {
-		game.playerOneScore();
-		game.playerOneScore();
+		scoreMultipleTimesOnePlayer(game, 2);
 		Points points = game.getPlayerOneScore();
 		assertTrue(points == Points.THIRTY);
 	}
 
 	@Test
 	public void getScoresTwoPlayerScoreThirty() {
-		game.playerTwoScore();
-		game.playerTwoScore();
+		scoreMultipleTimesTwoPlayer(game, 2);
 		Points points = game.getPlayerTwoScore();
 		assertTrue(points == Points.THIRTY);
 	}
 
 	@Test
 	public void getScoresOnePlayerScoreForty() {
-		game.playerOneScore();
-		game.playerOneScore();
-		game.playerOneScore();
+		scoreMultipleTimesOnePlayer(game, 3);
 		Points points = game.getPlayerOneScore();
 		assertTrue(points == Points.FORTY);
 	}
 
 	@Test
 	public void getScoresTwoPlayerScoreForty() {
-		game.playerTwoScore();
-		game.playerTwoScore();
-		game.playerTwoScore();
+		scoreMultipleTimesTwoPlayer(game, 3);
 		Points points = game.getPlayerTwoScore();
 		assertTrue(points == Points.FORTY);
 	}
@@ -103,10 +97,7 @@ public class TennisGameTest {
 
 	@Test
 	public void getWinnerOnePlayerIsFinishedMatch() {
-		game.playerOneScore();
-		game.playerOneScore();
-		game.playerOneScore();
-		game.playerOneScore();
+		scoreMultipleTimesOnePlayer(game, 4);
 		boolean finish = game.isFinished();
 		assertTrue(finish);
 	}
@@ -119,13 +110,8 @@ public class TennisGameTest {
 
 	@Test
 	public void getStatusStartOnePlayerDeuce() {
-		game.playerOneScore();
-		game.playerOneScore();
-		game.playerOneScore();
-
-		game.playerTwoScore();
-		game.playerTwoScore();
-		game.playerTwoScore();
+		scoreMultipleTimesOnePlayer(game, 3);
+		scoreMultipleTimesTwoPlayer(game, 3);
 
 		TennisGame.Status status = game.status();
 		assertTrue(status == TennisGame.Status.DEUCE);
@@ -133,13 +119,8 @@ public class TennisGameTest {
 
 	@Test
 	public void getStatusStartTwoPlayerDeuce() {
-		game.playerTwoScore();
-		game.playerTwoScore();
-		game.playerTwoScore();
-
-		game.playerOneScore();
-		game.playerOneScore();
-		game.playerOneScore();
+		scoreMultipleTimesTwoPlayer(game, 3);
+		scoreMultipleTimesOnePlayer(game, 3);
 
 		TennisGame.Status status = game.status();
 		assertTrue(status == TennisGame.Status.DEUCE);
