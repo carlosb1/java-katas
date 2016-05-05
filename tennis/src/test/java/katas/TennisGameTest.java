@@ -127,6 +127,13 @@ public class TennisGameTest {
 	}
 
 	@Test
+	public void getStatusOnePlayerNotDeuce() {
+		scoreMultipleTimesOnePlayer(game, 3);
+		TennisGame.Status status = game.status();
+		assertTrue(status != TennisGame.Status.DEUCE);
+	}
+
+	@Test
 	public void oneTimeOnePlayer() {
 		scoreMultipleTimesOnePlayer(game, 1);
 		assertTrue(game.getPlayerOneScore() == Points.FIFTEEN);

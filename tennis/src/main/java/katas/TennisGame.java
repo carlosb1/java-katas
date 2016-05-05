@@ -45,21 +45,10 @@ public class TennisGame {
 
 	public final void playerOneScore() {
 		playerOnePoints = sumPoints(playerOnePoints);
-		// TODO duplicate code
-		if (playerOnePoints == Points.WIN) {
-			status = Status.ONEPLAYER;
-		}
-		if (playerOnePoints == Points.FORTY || playerTwoPoints == Points.FORTY) {
-			status = Status.DEUCE;
-		}
-
 	}
 
 	public void playerTwoScore() {
 		playerTwoPoints = sumPoints(playerTwoPoints);
-		if (playerTwoPoints == Points.WIN) {
-			status = Status.TWOPLAYER;
-		}
 	}
 
 	public boolean isFinished() {
@@ -67,6 +56,17 @@ public class TennisGame {
 	}
 
 	public Status status() {
+		if (playerOnePoints == Points.WIN) {
+			status = Status.ONEPLAYER;
+		}
+		if (playerTwoPoints == Points.WIN) {
+			status = Status.TWOPLAYER;
+		}
+
+		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
+			status = Status.DEUCE;
+		}
+
 		return status;
 	}
 
