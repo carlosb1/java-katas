@@ -1,6 +1,7 @@
 package katas;
 
 public class TennisGame {
+
 	public enum Status {
 		DEUCE, ONEPLAYER_WIN, TWOPLAYER_WIN, NOTFINISHED, ONEPLAYER_ADVANCE, TWOPLAYER_ADVANCE;
 	}
@@ -42,6 +43,8 @@ public class TennisGame {
 			} else {
 				result = Points.WIN;
 			}
+		} else if (points == Points.ADVANCED) {
+			result = Points.WIN;
 		}
 		return result;
 
@@ -49,9 +52,17 @@ public class TennisGame {
 
 	public final void playerOneScore() {
 		playerOnePoints = sumPoints(playerOnePoints);
-		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
-			status = Status.DEUCE;
-		}
+		isDeuce();
+		updateOnePlayer();
+	}
+
+	public void playerTwoScore() {
+		playerTwoPoints = sumPoints(playerTwoPoints);
+		isDeuce();
+		updateTwoPlayer();
+	}
+
+	private void updateOnePlayer() {
 		if (playerOnePoints == Points.ADVANCED) {
 			status = Status.ONEPLAYER_ADVANCE;
 		}
@@ -60,11 +71,13 @@ public class TennisGame {
 		}
 	}
 
-	public void playerTwoScore() {
-		playerTwoPoints = sumPoints(playerTwoPoints);
+	private void isDeuce() {
 		if (playerOnePoints == Points.FORTY && playerTwoPoints == Points.FORTY) {
 			status = Status.DEUCE;
 		}
+	}
+
+	private void updateTwoPlayer() {
 		if (playerTwoPoints == Points.ADVANCED) {
 			status = Status.TWOPLAYER_ADVANCE;
 		}
