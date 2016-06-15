@@ -12,7 +12,12 @@ public class PhilosopherLunch {
 	}
 
 	public void addPhilosopher() {
-		this.numberOfPhilosophers = 1;
+		this.numberOfPhilosophers += 1;
+
+	}
+
+	public void leavePhilosopher() {
+		this.numberOfPhilosophers -= 1;
 
 	}
 

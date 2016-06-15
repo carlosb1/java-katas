@@ -30,4 +30,19 @@ public class PhilosopherProblemTest {
 		assertTrue(lunch.numberOfPhilosophers() == 1);
 	}
 
+	@Test
+	public void addTwoPhilosopherCorrectly() {
+		lunch.addPhilosopher();
+		lunch.addPhilosopher();
+		assertTrue(lunch.numberOfPhilosophers() == 2);
+	}
+
+	@Test
+	public void addAndRemovePhilosophersCorrectly() {
+		lunch.addPhilosopher();
+		lunch.addPhilosopher();
+		lunch.leavePhilosopher();
+		assertTrue(lunch.numberOfPhilosophers() == 1);
+	}
+
 }
