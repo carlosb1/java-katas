@@ -1,5 +1,7 @@
 package katas;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +21,13 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void initializeLunchCorrectly() {
-		equals(lunch.numberOfPhilosophers() == 0);
+		assertTrue(lunch.numberOfPhilosophers() == 0);
 	}
+
+	@Test
+	public void addOnePhilosopherCorrectly() {
+		lunch.addPhilosopher();
+		assertTrue(lunch.numberOfPhilosophers() == 1);
+	}
+
 }
