@@ -17,6 +17,7 @@
 	  <module>prime-factors</module>
 	  <module>gilded-rose</module>
     <module>tennis</module>
+    <module>java-philosophers-problem</module>
   </modules>
 
   <dependencies>
@@ -24,7 +25,7 @@
 	<groupId>junit</groupId>
 	<artifactId>junit</artifactId>
 	<version>4.12</version>
-      <scope>test</scope>
+	<scope>test</scope>
     </dependency>
   </dependencies>
 </project>
