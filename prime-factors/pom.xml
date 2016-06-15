@@ -18,10 +18,4 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
-  <parent>
-  	<groupId>katas</groupId>
-  	<artifactId>java-katas</artifactId>
-  	<version>1.0-SNAPSHOT</version>
-  </parent>
 </project>
