@@ -9,14 +9,14 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void initializeLunchCorrectly() {
-		lunch = new PhilosopherLunch();
+		lunch = new PhilosopherLunch(new MockLunchFactory());
 
 		assertTrue(lunch.numberOfPhilosophers() == 0);
 	}
 
 	@Test
 	public void addOnePhilosopherCorrectly() {
-		lunch = new PhilosopherLunch();
+		lunch = new PhilosopherLunch(new MockLunchFactory());
 
 		lunch.addPhilosopher();
 		assertTrue(lunch.numberOfPhilosophers() == 1);
@@ -24,7 +24,7 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void addTwoPhilosopherCorrectly() {
-		lunch = new PhilosopherLunch();
+		lunch = new PhilosopherLunch(new MockLunchFactory());
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		assertTrue(lunch.numberOfPhilosophers() == 2);
@@ -32,7 +32,7 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void addAndRemovePhilosophersCorrectly() {
-		lunch = new PhilosopherLunch();
+		lunch = new PhilosopherLunch(new MockLunchFactory());
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		lunch.leavePhilosopher();
@@ -43,6 +43,13 @@ public class PhilosopherProblemTest {
 	public void startOnePhilosopherCorrectly() {
 		lunch = new PhilosopherLunch(new MockLunchFactory());
 		lunch.addPhilosopher();
+	}
+
+	public void eatOnePhilospherCorrectly() {
+		lunch = new PhilosopherLunch(new MockLunchFactory());
+		lunch.addPhilosopher();
+		lunch.start();
+
 	}
 
 }
