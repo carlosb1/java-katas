@@ -5,14 +5,8 @@ import java.io.InputStream;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class FakeInputStream extends InputStream {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.io.InputStream#available()
-	 */
 	@Override
 	public int available() throws IOException {
-		// TODO Auto-generated method stub
 		return inputContent.size();
 	}
 

@@ -7,7 +7,7 @@ public class PhilosopherLunch {
 	private final LunchFactory factory;
 	private final PrintStream out;
 
-	public final static String MESSAGE_EAT = "I am eating";
+	public final static String MESSAGE_EAT = "I am eating Philosopher ";
 
 	public PhilosopherLunch(LunchFactory lunchFactory) {
 		this.factory = lunchFactory;
@@ -30,7 +30,9 @@ public class PhilosopherLunch {
 	}
 
 	public void start() {
-		this.out.print(MESSAGE_EAT);
+		for (int countPhilosopher = 1; countPhilosopher <= this.numberOfPhilosophers; countPhilosopher++) {
+			this.out.print(MESSAGE_EAT + countPhilosopher);
+		}
 	}
 
 }

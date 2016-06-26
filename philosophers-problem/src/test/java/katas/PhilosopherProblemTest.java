@@ -53,7 +53,19 @@ public class PhilosopherProblemTest {
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
 		lunch.start();
-		assertTrue(factory.getFakeOut().equals(PhilosopherLunch.MESSAGE_EAT));
+		assertTrue(factory.getFakeOut().equals(PhilosopherLunch.MESSAGE_EAT + "1"));
+	}
+
+	@Test(timeout = 100)
+	public void eatTwoPhilospherCorrectly() throws IOException {
+		MockLunchFactory factory = new MockLunchFactory();
+		lunch = new PhilosopherLunch(factory);
+		lunch.addPhilosopher();
+		lunch.addPhilosopher();
+		lunch.start();
+
+		assertTrue(factory.getFakeOut().contains(PhilosopherLunch.MESSAGE_EAT + "1"));
+		assertTrue(factory.getFakeOut().contains(PhilosopherLunch.MESSAGE_EAT + "2"));
 
 	}
 

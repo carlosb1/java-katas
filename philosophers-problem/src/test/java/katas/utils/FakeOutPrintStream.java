@@ -18,6 +18,10 @@ public final class FakeOutPrintStream {
 		return (outContent.toString().equals(valueToCompare));
 	}
 
+	public boolean contains(String valueToCompare) {
+		return (outContent.toString().contains(valueToCompare));
+	}
+
 	public PrintStream getOut() {
 		return out;
 	}
