@@ -2,9 +2,12 @@ package katas;
 
 public class Philosopher {
 	private boolean hungry;
+	private final int numberPhilosopher;
 
-	public Philosopher() {
+	public Philosopher(int numberPhilosopher) {
+		this.numberPhilosopher = numberPhilosopher;
 		this.hungry = true;
+
 	}
 
 	public boolean isHungry() {

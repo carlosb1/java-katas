@@ -22,7 +22,7 @@ public class MockLunchFactory extends LunchFactory {
 	}
 
 	public Philosopher makePhilosopher() {
-		return new Philosopher();
+		return new Philosopher(1);
 	}
 
 	public PrintStream makePrintStream() {

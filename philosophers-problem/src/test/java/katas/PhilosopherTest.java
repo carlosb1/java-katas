@@ -12,7 +12,7 @@ public class PhilosopherTest {
 
 	@Before
 	public void setUp() {
-		philosopher = new Philosopher();
+		philosopher = new Philosopher(1);
 	}
 
 	@After
