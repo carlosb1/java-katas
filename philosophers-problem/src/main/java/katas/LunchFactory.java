@@ -1,10 +1,17 @@
 package katas;
 
-public interface LunchFactory {
+import java.io.InputStream;
+import java.io.PrintStream;
+
+public abstract class LunchFactory {
 	// TODO test table
-	public Table getTable();
+	public abstract Table makeTable();
 
 	// TODO test philosopher
-	public Philosopher getPhilosopher();
+	public abstract Philosopher makePhilosopher();
+
+	public abstract PrintStream makePrintStream();
+
+	public abstract InputStream makeInputStream();
 
 }

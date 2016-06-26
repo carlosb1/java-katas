@@ -1,11 +1,17 @@
 package katas;
 
+import java.io.PrintStream;
+
 public class PhilosopherLunch {
 	private int numberOfPhilosophers;
 	private final LunchFactory factory;
+	private final PrintStream out;
+
+	public final static String MESSAGE_EAT = "I am eating";
 
 	public PhilosopherLunch(LunchFactory lunchFactory) {
 		this.factory = lunchFactory;
+		this.out = factory.makePrintStream();
 		this.numberOfPhilosophers = 0;
 	}
 
@@ -24,8 +30,7 @@ public class PhilosopherLunch {
 	}
 
 	public void start() {
-		// TODO Auto-generated method stub
-
+		this.out.print(MESSAGE_EAT);
 	}
 
 }

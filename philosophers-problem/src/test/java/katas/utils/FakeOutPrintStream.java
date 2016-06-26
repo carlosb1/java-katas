@@ -1,4 +1,4 @@
-package com.midokura.utils;
+package katas.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
