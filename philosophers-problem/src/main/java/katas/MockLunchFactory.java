@@ -10,10 +10,12 @@ import katas.utils.FakeOutPrintStream;
 public class MockLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;
+	private int numberOfCreatedPhilosophers;
 
 	public MockLunchFactory() throws IOException {
 		this.outPrintStream = new FakeOutPrintStream();
 		this.inputStream = new FakeInputStream();
+		this.numberOfCreatedPhilosophers = 0;
 
 	}
 
@@ -22,7 +24,7 @@ public class MockLunchFactory extends LunchFactory {
 	}
 
 	public Philosopher makePhilosopher() {
-		return new Philosopher(1);
+		return new Philosopher(++this.numberOfCreatedPhilosophers, this.outPrintStream.getOut());
 	}
 
 	public PrintStream makePrintStream() {

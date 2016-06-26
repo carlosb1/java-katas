@@ -53,7 +53,7 @@ public class PhilosopherProblemTest {
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
 		lunch.start();
-		assertTrue(factory.getFakeOut().equals(PhilosopherLunch.MESSAGE_EAT + "1"));
+		assertTrue(factory.getFakeOut().equals(Philosopher.MESSAGE_EAT + "1"));
 	}
 
 	@Test(timeout = 100)
@@ -63,8 +63,8 @@ public class PhilosopherProblemTest {
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		lunch.start();
-		assertTrue(factory.getFakeOut().contains(PhilosopherLunch.MESSAGE_EAT + "1"));
-		assertTrue(factory.getFakeOut().contains(PhilosopherLunch.MESSAGE_EAT + "2"));
+		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "1"));
+		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
 	}
 
 }
