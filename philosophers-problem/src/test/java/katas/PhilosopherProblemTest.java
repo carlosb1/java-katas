@@ -48,7 +48,7 @@ public class PhilosopherProblemTest {
 	}
 
 	@Test(timeout = 100)
-	public void eatOnePhilospherCorrectly() throws IOException {
+	public void eatOnePhilosopherCorrectly() throws IOException {
 		MockLunchFactory factory = new MockLunchFactory();
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
@@ -57,16 +57,14 @@ public class PhilosopherProblemTest {
 	}
 
 	@Test(timeout = 100)
-	public void eatTwoPhilospherCorrectly() throws IOException {
+	public void eatTwoPhilosopherCorrectly() throws IOException {
 		MockLunchFactory factory = new MockLunchFactory();
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		lunch.start();
-
 		assertTrue(factory.getFakeOut().contains(PhilosopherLunch.MESSAGE_EAT + "1"));
 		assertTrue(factory.getFakeOut().contains(PhilosopherLunch.MESSAGE_EAT + "2"));
-
 	}
 
 }
