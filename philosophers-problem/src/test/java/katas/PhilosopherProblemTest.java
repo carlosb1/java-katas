@@ -9,6 +9,11 @@ import org.junit.Test;
 
 import katas.utils.MockLunchFactory;
 
+/*
+ * Improvements add think status
+ * Add Syncronized version
+ * Add different type of concurrency process
+ */
 public class PhilosopherProblemTest {
 	private PhilosopherLunch lunch;
 
@@ -81,6 +86,8 @@ public class PhilosopherProblemTest {
 		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "1"));
 		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
 		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "3"));
+		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "4"));
+		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "5"));
 	}
 
 }
