@@ -23,7 +23,7 @@ public class PhilosopherTest {
 
 	@Before
 	public void setUp() {
-		philosopher = new Philosopher(1, outPrintStream.getOut());
+		philosopher = new Philosopher(1, outPrintStream.getOut(), new OneLunchService(1));
 	}
 
 	@After
