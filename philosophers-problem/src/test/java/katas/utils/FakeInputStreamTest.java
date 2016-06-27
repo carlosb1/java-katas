@@ -40,7 +40,6 @@ public class FakeInputStreamTest {
 			fail("It was not possible get the inputStream");
 		}
 		assertEquals(TEXT_EXAMPLE, result.toString());
-
 	}
 
 }

@@ -63,7 +63,7 @@ public class PhilosopherProblemTest {
 	}
 
 	@Test
-	public void eatTwoPhilosopherCorrectly() throws IOException {
+	public void eatTwoPhilosopherOneCorrectlyAndSecondNot() throws IOException {
 		MockLunchFactory factory = new MockLunchFactory();
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
