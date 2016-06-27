@@ -2,6 +2,8 @@ package katas;
 
 import java.io.PrintStream;
 
+import katas.servicetables.ServiceTable;
+
 public class Philosopher {
 	private boolean hungry;
 	private final int numberPhilosopher;

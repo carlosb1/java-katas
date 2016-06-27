@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import katas.OneLunchService;
+import katas.servicetables.OneLunchService;
 
 public class MockLunchFactoryTest {
 	private MockLunchFactory factory;

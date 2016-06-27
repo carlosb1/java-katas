@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import katas.servicetables.OneLunchService;
 import katas.utils.MockLunchFactory;
 
 /* TODO
  * Improvements 
- * Add think status
  * Add Syncronized version
  * Add different type of concurrency process
  */

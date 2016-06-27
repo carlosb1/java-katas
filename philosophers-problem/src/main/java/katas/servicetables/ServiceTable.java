@@ -1,6 +1,5 @@
-package katas;
+package katas.servicetables;
 
-//TODO tests for table
 public interface ServiceTable {
 	public boolean tryGetForks(int numberPhilosopher);
 

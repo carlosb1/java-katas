@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import katas.servicetables.OneLunchService;
 import katas.utils.FakeOutPrintStream;
 
 public class PhilosopherTest {

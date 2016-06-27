@@ -6,7 +6,7 @@ import java.io.PrintStream;
 
 import katas.LunchFactory;
 import katas.Philosopher;
-import katas.ServiceTable;
+import katas.servicetables.ServiceTable;
 
 public class MockLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;
