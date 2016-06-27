@@ -65,7 +65,7 @@ public class PhilosopherProblemTest {
 		lunch.addPhilosopher();
 		lunch.start();
 		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "1"));
-		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
+		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
 	}
 
 	@Test

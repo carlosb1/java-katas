@@ -20,7 +20,18 @@ public class PhilosopherLunch {
 	}
 
 	private boolean tryGetFork(int numberPhilosopher) {
-		return true;
+		int indexPhilosopher = numberPhilosopher - 1;
+		int leftFork = indexPhilosopher;
+		// TODO move this line to a method
+		int rightFork = (((indexPhilosopher - 1) % this.philosophers.size()) + this.philosophers.size()) % this.philosophers.size();
+		if (forks.get(leftFork) && forks.get(rightFork)) {
+			forks.set(leftFork, false);
+			forks.set(rightFork, false);
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	public int numberOfPhilosophers() {
