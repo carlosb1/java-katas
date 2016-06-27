@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import katas.utils.FakeInputStream;
 import katas.utils.FakeOutPrintStream;
 
+//TODO Add test for lunch factory
 public class MockLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;

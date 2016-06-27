@@ -1,5 +1,6 @@
 package katas;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -41,13 +42,13 @@ public class PhilosopherProblemTest {
 		assertTrue(lunch.numberOfPhilosophers() == 1);
 	}
 
-	@Test(timeout = 100)
+	@Test
 	public void startOnePhilosopherCorrectly() throws IOException {
 		lunch = new PhilosopherLunch(new MockLunchFactory());
 		lunch.addPhilosopher();
 	}
 
-	@Test(timeout = 100)
+	@Test
 	public void eatOnePhilosopherCorrectly() throws IOException {
 		MockLunchFactory factory = new MockLunchFactory();
 		lunch = new PhilosopherLunch(factory);
@@ -56,7 +57,7 @@ public class PhilosopherProblemTest {
 		assertTrue(factory.getFakeOut().equals(Philosopher.MESSAGE_EAT + "1"));
 	}
 
-	@Test(timeout = 100)
+	@Test
 	public void eatTwoPhilosopherCorrectly() throws IOException {
 		MockLunchFactory factory = new MockLunchFactory();
 		lunch = new PhilosopherLunch(factory);
@@ -65,6 +66,21 @@ public class PhilosopherProblemTest {
 		lunch.start();
 		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "1"));
 		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
+	}
+
+	@Test
+	public void eatMultiplePhilosopherCorrectlyAndWaitOne() throws IOException {
+		MockLunchFactory factory = new MockLunchFactory();
+		lunch = new PhilosopherLunch(factory);
+		lunch.addPhilosopher();
+		lunch.addPhilosopher();
+		lunch.addPhilosopher();
+		lunch.addPhilosopher();
+		lunch.addPhilosopher();
+		lunch.start();
+		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "1"));
+		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
+		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "3"));
 	}
 
 }
