@@ -9,8 +9,9 @@ import org.junit.Test;
 
 import katas.utils.MockLunchFactory;
 
-/*
- * Improvements add think status
+/* TODO
+ * Improvements 
+ * Add think status
  * Add Syncronized version
  * Add different type of concurrency process
  */

@@ -16,7 +16,6 @@ public class MockLunchFactory extends LunchFactory {
 		this.outPrintStream = new FakeOutPrintStream();
 		this.inputStream = new FakeInputStream();
 		this.numberOfCreatedPhilosophers = 0;
-
 	}
 
 	public Philosopher makePhilosopher() {

@@ -53,6 +53,8 @@ public class PhilosopherLunch {
 		for (Philosopher philosopher : this.philosophers) {
 			if (tryGetFork(philosopher.getId())) {
 				philosopher.eat();
+			} else {
+				philosopher.think();
 			}
 		}
 	}
