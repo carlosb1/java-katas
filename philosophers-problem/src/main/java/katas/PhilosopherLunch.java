@@ -20,13 +20,10 @@ public class PhilosopherLunch {
 	}
 
 	private boolean tryGetFork(int numberPhilosopher) {
-		int indexPhilosopher = numberPhilosopher - 1;
-		int leftFork = indexPhilosopher;
-		// TODO move this line to a method
-		int rightFork = (((indexPhilosopher - 1) % this.philosophers.size()) + this.philosophers.size()) % this.philosophers.size();
-		if (forks.get(leftFork) && forks.get(rightFork)) {
-			forks.set(leftFork, false);
-			forks.set(rightFork, false);
+		int pairForks[] = calculateForks(numberPhilosopher);
+		if (forks.get(pairForks[0]) && forks.get(pairForks[1])) {
+			forks.set(pairForks[0], false);
+			forks.set(pairForks[1], false);
 			return true;
 		} else {
 			return false;
@@ -34,13 +31,20 @@ public class PhilosopherLunch {
 
 	}
 
+	private int[] calculateForks(int numberPhilosopher) {
+		int indexPhilosopher = numberPhilosopher - 1;
+		int leftFork = indexPhilosopher;
+		int rightFork = (((indexPhilosopher - 1) % this.philosophers.size()) + this.philosophers.size()) % this.philosophers.size();
+		int values[] = { leftFork, rightFork };
+		return values;
+	}
+
 	public int numberOfPhilosophers() {
 		return this.philosophers.size();
 	}
 
 	public void addPhilosopher() {
-		// TODO move this new Philosopher in the factory class
-		this.philosophers.add(new Philosopher(this.philosophers.size() + 1, factory.makePrintStream()));
+		this.philosophers.add(factory.makePhilosopher());
 		// TODO move this new fork in factory class.
 		this.forks.add(new Boolean(true));
 		// this.forks.add(new ReentrantLock());

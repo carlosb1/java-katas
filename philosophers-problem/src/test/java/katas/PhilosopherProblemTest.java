@@ -7,20 +7,20 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import katas.utils.MockLunchFactory;
+
 public class PhilosopherProblemTest {
 	private PhilosopherLunch lunch;
 
 	@Test
 	public void initializeLunchCorrectly() throws IOException {
 		lunch = new PhilosopherLunch(new MockLunchFactory());
-
 		assertTrue(lunch.numberOfPhilosophers() == 0);
 	}
 
 	@Test
 	public void addOnePhilosopherCorrectly() throws IOException {
 		lunch = new PhilosopherLunch(new MockLunchFactory());
-
 		lunch.addPhilosopher();
 		assertTrue(lunch.numberOfPhilosophers() == 1);
 	}

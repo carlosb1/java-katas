@@ -24,7 +24,6 @@ public class Philosopher {
 		this.hungry = false;
 	}
 
-	// TODO add id for philosopher
 	public int getId() {
 		return this.numberPhilosopher;
 	}

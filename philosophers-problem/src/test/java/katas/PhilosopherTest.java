@@ -43,4 +43,9 @@ public class PhilosopherTest {
 		assertFalse(philosopher.isHungry());
 	}
 
+	@Test
+	public void philosopherIdTest() {
+		assertTrue(philosopher.getId() == 1);
+	}
+
 }

@@ -1,13 +1,12 @@
-package katas;
+package katas.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import katas.utils.FakeInputStream;
-import katas.utils.FakeOutPrintStream;
+import katas.LunchFactory;
+import katas.Philosopher;
 
-//TODO Add test for lunch factory
 public class MockLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;
@@ -18,10 +17,6 @@ public class MockLunchFactory extends LunchFactory {
 		this.inputStream = new FakeInputStream();
 		this.numberOfCreatedPhilosophers = 0;
 
-	}
-
-	public Table makeTable() {
-		return new Table();
 	}
 
 	public Philosopher makePhilosopher() {
