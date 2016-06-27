@@ -6,24 +6,23 @@ import java.io.PrintStream;
 
 import katas.LunchFactory;
 import katas.Philosopher;
-import katas.servicetables.ServiceTable;
+import katas.servicetables.OneLunchService;
 
 public class MockLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;
 	private int numberOfCreatedPhilosophers;
-	private ServiceTable serviceTable;
+	private OneLunchService oneLunchService;
 
-	public MockLunchFactory(ServiceTable serviceTable) throws IOException {
+	public MockLunchFactory(int numberOfForks) throws IOException {
 		this.outPrintStream = new FakeOutPrintStream();
 		this.inputStream = new FakeInputStream();
 		this.numberOfCreatedPhilosophers = 0;
-		this.serviceTable = serviceTable;
-
+		this.oneLunchService = new OneLunchService(numberOfForks);
 	}
 
 	public Philosopher makePhilosopher() {
-		Philosopher philosopher = new Philosopher(++this.numberOfCreatedPhilosophers, this.outPrintStream.getOut(), serviceTable);
+		Philosopher philosopher = new Philosopher(++this.numberOfCreatedPhilosophers, this.outPrintStream.getOut(), oneLunchService);
 		return philosopher;
 	}
 

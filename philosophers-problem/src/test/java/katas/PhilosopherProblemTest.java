@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import katas.servicetables.OneLunchService;
 import katas.utils.MockLunchFactory;
 
 /* TODO
@@ -21,21 +20,20 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void initializeLunchCorrectly() throws IOException {
-		lunch = new PhilosopherLunch(new MockLunchFactory(new OneLunchService(1)));
+		lunch = new PhilosopherLunch(new MockLunchFactory(1));
 		assertTrue(lunch.numberOfPhilosophers() == 0);
 	}
 
 	@Test
 	public void addOnePhilosopherCorrectly() throws IOException {
-		lunch = new PhilosopherLunch(new MockLunchFactory(new OneLunchService(1)));
-		;
+		lunch = new PhilosopherLunch(new MockLunchFactory(1));
 		lunch.addPhilosopher();
 		assertTrue(lunch.numberOfPhilosophers() == 1);
 	}
 
 	@Test
 	public void addTwoPhilosopherCorrectly() throws IOException {
-		lunch = new PhilosopherLunch(new MockLunchFactory(new OneLunchService(1)));
+		lunch = new PhilosopherLunch(new MockLunchFactory(1));
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		assertTrue(lunch.numberOfPhilosophers() == 2);
@@ -43,7 +41,7 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void addAndRemovePhilosophersCorrectly() throws IOException {
-		lunch = new PhilosopherLunch(new MockLunchFactory(new OneLunchService(1)));
+		lunch = new PhilosopherLunch(new MockLunchFactory(1));
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		lunch.leavePhilosopher();
@@ -52,13 +50,13 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void startOnePhilosopherCorrectly() throws IOException {
-		lunch = new PhilosopherLunch(new MockLunchFactory(new OneLunchService(1)));
+		lunch = new PhilosopherLunch(new MockLunchFactory(1));
 		lunch.addPhilosopher();
 	}
 
 	@Test
 	public void eatOnePhilosopherCorrectly() throws IOException {
-		MockLunchFactory factory = (new MockLunchFactory(new OneLunchService(2)));
+		MockLunchFactory factory = (new MockLunchFactory(2));
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
 		lunch.start();
@@ -67,7 +65,7 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void eatTwoPhilosopherOneCorrectlyAndSecondNot() throws IOException {
-		MockLunchFactory factory = (new MockLunchFactory(new OneLunchService(3)));
+		MockLunchFactory factory = (new MockLunchFactory(3));
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
@@ -78,7 +76,7 @@ public class PhilosopherProblemTest {
 
 	@Test
 	public void eatMultiplePhilosopherCorrectlyAndWaitOne() throws IOException {
-		MockLunchFactory factory = (new MockLunchFactory(new OneLunchService(5)));
+		MockLunchFactory factory = (new MockLunchFactory(5));
 
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();

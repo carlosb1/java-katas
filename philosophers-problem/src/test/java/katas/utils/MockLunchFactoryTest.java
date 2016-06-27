@@ -8,14 +8,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import katas.servicetables.OneLunchService;
-
 public class MockLunchFactoryTest {
 	private MockLunchFactory factory;
 
 	@Before
 	public void setUp() throws IOException {
-		factory = new MockLunchFactory(new OneLunchService(1));
+		factory = new MockLunchFactory(1);
 	}
 
 	@After
