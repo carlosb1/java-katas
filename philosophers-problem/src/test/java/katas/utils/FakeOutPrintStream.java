@@ -14,6 +14,11 @@ public final class FakeOutPrintStream {
 
 	}
 
+	// TODO add test
+	public String content() {
+		return (outContent.toString());
+	}
+
 	public boolean equals(String valueToCompare) {
 		return (outContent.toString().equals(valueToCompare));
 	}

@@ -13,8 +13,8 @@ import org.junit.Test;
 import katas.servicetables.OneLunchService;
 import katas.utils.FakeOutPrintStream;
 
-public class PhilosopherTest {
-	Philosopher philosopher;
+public class SimplePhilosopherTest {
+	SimplePhilosopher philosopher;
 	private static FakeOutPrintStream outPrintStream;
 
 	@BeforeClass
@@ -24,7 +24,7 @@ public class PhilosopherTest {
 
 	@Before
 	public void setUp() {
-		philosopher = new Philosopher(1, outPrintStream.getOut(), new OneLunchService(1));
+		philosopher = new SimplePhilosopher(1, outPrintStream.getOut(), new OneLunchService(1));
 	}
 
 	@After
@@ -40,13 +40,13 @@ public class PhilosopherTest {
 	@Test
 	public void philosopherEatTest() {
 		philosopher.eat();
-		assertTrue(outPrintStream.equals(Philosopher.MESSAGE_EAT + "1"));
+		assertTrue(outPrintStream.equals(SimplePhilosopher.MESSAGE_EAT + "1" + '\n'));
 		assertFalse(philosopher.isHungry());
 	}
 
 	@Test
 	public void philosopherIdTest() {
-		assertTrue(philosopher.getId() == 1);
+		assertTrue(philosopher.getNumberPhilosopher() == 1);
 	}
 
 }

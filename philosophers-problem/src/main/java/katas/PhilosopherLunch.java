@@ -12,6 +12,12 @@ public class PhilosopherLunch {
 		this.philosophers = new ArrayList<Philosopher>();
 	}
 
+	// TODO add test constructor
+	public PhilosopherLunch(LunchFactory lunchFactory, List<Philosopher> philosophers) {
+		this.factory = lunchFactory;
+		this.philosophers = philosophers;
+	}
+
 	public int numberOfPhilosophers() {
 		return this.philosophers.size();
 	}
@@ -22,7 +28,10 @@ public class PhilosopherLunch {
 	}
 
 	public void leavePhilosopher() {
-		this.philosophers.remove(this.philosophers.size() - 1);
+		int indexPhilosopher = this.philosophers.size() - 1;
+		Philosopher pilosopher = this.philosophers.get(indexPhilosopher);
+		pilosopher.leave();
+		this.philosophers.remove(indexPhilosopher);
 	}
 
 	public void start() {

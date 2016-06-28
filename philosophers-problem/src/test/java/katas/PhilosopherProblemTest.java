@@ -60,7 +60,7 @@ public class PhilosopherProblemTest {
 		lunch = new PhilosopherLunch(factory);
 		lunch.addPhilosopher();
 		lunch.start();
-		assertTrue(factory.getFakeOut().equals(Philosopher.MESSAGE_EAT + "1"));
+		assertTrue(factory.getFakeOut().equals(SimplePhilosopher.MESSAGE_EAT + "1" + '\n'));
 	}
 
 	@Test
@@ -70,8 +70,8 @@ public class PhilosopherProblemTest {
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		lunch.start();
-		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "1"));
-		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
+		assertTrue(factory.getFakeOut().contains(SimplePhilosopher.MESSAGE_EAT + "1" + '\n'));
+		assertFalse(factory.getFakeOut().contains(SimplePhilosopher.MESSAGE_EAT + "2" + '\n'));
 	}
 
 	@Test
@@ -85,11 +85,11 @@ public class PhilosopherProblemTest {
 		lunch.addPhilosopher();
 		lunch.addPhilosopher();
 		lunch.start();
-		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "1"));
-		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "2"));
-		assertTrue(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "3"));
-		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "4"));
-		assertFalse(factory.getFakeOut().contains(Philosopher.MESSAGE_EAT + "5"));
+		assertTrue(factory.getFakeOut().contains(SimplePhilosopher.MESSAGE_EAT + "1" + '\n'));
+		assertFalse(factory.getFakeOut().contains(SimplePhilosopher.MESSAGE_EAT + "2" + '\n'));
+		assertTrue(factory.getFakeOut().contains(SimplePhilosopher.MESSAGE_EAT + "3" + '\n'));
+		assertFalse(factory.getFakeOut().contains(SimplePhilosopher.MESSAGE_EAT + "4" + '\n'));
+		assertFalse(factory.getFakeOut().contains(SimplePhilosopher.MESSAGE_EAT + "5" + '\n'));
 	}
 
 }
