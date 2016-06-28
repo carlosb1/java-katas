@@ -3,12 +3,12 @@ package katas.servicetables;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeadlockService implements ServiceTable {
+public class DeadlockLiveLockService implements ServiceTable {
 
 	private final int numberOfForks;
 	private volatile List<Boolean> forks;
 
-	public DeadlockService(int numberOfForks) {
+	public DeadlockLiveLockService(int numberOfForks) {
 		this.numberOfForks = numberOfForks;
 		this.forks = new ArrayList<Boolean>();
 		for (int i = 0; i < numberOfForks; i++) {
