@@ -13,14 +13,8 @@ public class ConcurrentPhilosopher extends Thread implements Philosopher {
 	}
 
 	public void run() {
-		try {
-			while (!this.finish.get()) {
-				philosopher.start();
-				Thread.sleep(500);
-			}
-		} catch (InterruptedException e) {
-			// TODO how to manage exceptions
-			e.printStackTrace();
+		while (!this.finish.get()) {
+			philosopher.start();
 		}
 	}
 
