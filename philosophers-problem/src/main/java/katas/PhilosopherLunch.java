@@ -12,7 +12,6 @@ public class PhilosopherLunch {
 		this.philosophers = new ArrayList<Philosopher>();
 	}
 
-	// TODO add test constructor
 	public PhilosopherLunch(LunchFactory lunchFactory, List<Philosopher> philosophers) {
 		this.factory = lunchFactory;
 		this.philosophers = philosophers;

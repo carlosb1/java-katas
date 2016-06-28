@@ -15,6 +15,12 @@ public class OneLunchServiceTest {
 	}
 
 	@Test
+	public void lunchWithIncorrectIndexTryGetForkNotwork() {
+		oneLunchService = new OneLunchService(1);
+		assertFalse(oneLunchService.tryGetForks(-1));
+	}
+
+	@Test
 	public void lunchWithTwoForkNotwork() {
 		oneLunchService = new OneLunchService(2);
 		assertTrue(oneLunchService.tryGetForks(1));

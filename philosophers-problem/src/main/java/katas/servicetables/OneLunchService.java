@@ -24,6 +24,9 @@ public class OneLunchService implements ServiceTable {
 	}
 
 	public boolean tryGetForks(int numberPhilosopher) {
+		if (numberPhilosopher <= 0) {
+			return false;
+		}
 		if (forks.size() <= 1) {
 			return false;
 		}

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -14,7 +16,7 @@ import katas.utils.MockLunchFactory;
  * Add Syncronized version
  * Add different type of concurrency process
  */
-public class PhilosopherProblemTest {
+public class PhilosopherLunchTest {
 
 	private PhilosopherLunch lunch;
 
@@ -52,6 +54,18 @@ public class PhilosopherProblemTest {
 	public void startOnePhilosopherCorrectly() throws IOException {
 		lunch = new PhilosopherLunch(new MockLunchFactory(1));
 		lunch.addPhilosopher();
+	}
+
+	@Test
+	public void startOnePhilosopherWithInitializedListCorrectly() throws IOException {
+		final LunchFactory factory = new MockLunchFactory(1);
+		List<Philosopher> philosophers = new ArrayList<Philosopher>() {
+			{
+				add(factory.makePhilosopher());
+			}
+		};
+		lunch = new PhilosopherLunch(factory, philosophers);
+		assertTrue(lunch.numberOfPhilosophers() == 1);
 	}
 
 	@Test

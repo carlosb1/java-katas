@@ -3,6 +3,9 @@ package katas.servicetables;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO Add test if it is possible
+// test incorrect number of trygetForks
+//
 public class SynchronizedLunchService implements ServiceTable {
 
 	private final int numberOfForks;
@@ -25,8 +28,9 @@ public class SynchronizedLunchService implements ServiceTable {
 	}
 
 	public synchronized boolean tryGetForks(int numberPhilosopher) {
-		// TODO test incorrect number of trygetForks
-		// TODO check number incorrect of philosophers
+		if (numberPhilosopher < 0) {
+			return false;
+		}
 		if (forks.size() <= 1) {
 			return false;
 		}
@@ -42,8 +46,9 @@ public class SynchronizedLunchService implements ServiceTable {
 	}
 
 	public synchronized boolean tryReleaseForks(int numberPhilosopher) {
-		// TODO test incorrect number of trygetForks
-		// TODO check number incorrect of philosophers
+		if (numberPhilosopher < 0) {
+			return false;
+		}
 		if (forks.size() <= 1) {
 			return false;
 		}

@@ -14,7 +14,6 @@ public final class FakeOutPrintStream {
 
 	}
 
-	// TODO add test
 	public String content() {
 		return (outContent.toString());
 	}

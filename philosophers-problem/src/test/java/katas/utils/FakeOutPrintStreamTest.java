@@ -1,5 +1,6 @@
 package katas.utils;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -32,6 +33,18 @@ public class FakeOutPrintStreamTest {
 	public void printOutStringCorrectly() {
 		fakeOutprintStream.getOut().print(TEXT_EXAMPLE);
 		assertTrue(fakeOutprintStream.equals(TEXT_EXAMPLE));
+	}
+
+	@Test
+	public void getContentCorrectly() {
+		fakeOutprintStream.getOut().print(TEXT_EXAMPLE);
+		assertTrue(fakeOutprintStream.content().equals(TEXT_EXAMPLE));
+	}
+
+	@Test
+	public void getContentNotCorrectly() {
+		fakeOutprintStream.getOut().print(TEXT_EXAMPLE);
+		assertFalse(fakeOutprintStream.content().equals(TEXT_EXAMPLE + "error"));
 	}
 
 }
