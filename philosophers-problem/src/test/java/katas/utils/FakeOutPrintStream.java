@@ -1,3 +1,4 @@
+
 package katas.utils;
 
 import java.io.ByteArrayOutputStream;

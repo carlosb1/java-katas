@@ -26,11 +26,22 @@ public class SimplePhilosopher implements Philosopher {
 
 	public void eat() {
 		out.println(MESSAGE_EAT + numberPhilosopher);
+		try {
+			// simulate eat
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+		}
 		this.hungry = false;
 	}
 
 	public void think() {
 		out.println(MESSAGE_THINK + numberPhilosopher);
+		try {
+			// simulate eat
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+		}
+		this.hungry = true;
 	}
 
 	public int getNumberPhilosopher() {
@@ -38,7 +49,7 @@ public class SimplePhilosopher implements Philosopher {
 	}
 
 	public void start() {
-		if (serviceTable.tryGetForks(this.numberPhilosopher)) {
+		if (this.hungry && serviceTable.tryGetForks(this.numberPhilosopher)) {
 			try {
 				eat();
 			} finally {

@@ -1,4 +1,4 @@
-package katas.utils;
+package katas.utils.factories;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,24 +7,25 @@ import java.io.PrintStream;
 import katas.ConcurrentPhilosopher;
 import katas.LunchFactory;
 import katas.SimplePhilosopher;
-import katas.servicetables.SynchronizedLunchService;
+import katas.servicetables.DeadlockService;
+import katas.utils.FakeInputStream;
+import katas.utils.FakeOutPrintStream;
 
-public class MockConcurrentLunchFactory extends LunchFactory {
+public class MockErrorSyncLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;
 	private int numberOfCreatedPhilosophers;
-	private SynchronizedLunchService concurrentService;
+	private DeadlockService errorService;
 
-	public MockConcurrentLunchFactory(int numberOfForks) throws IOException {
+	public MockErrorSyncLunchFactory(int numberOfForks) throws IOException {
 		this.outPrintStream = new FakeOutPrintStream();
 		this.inputStream = new FakeInputStream();
 		this.numberOfCreatedPhilosophers = 0;
-
-		this.concurrentService = new SynchronizedLunchService(numberOfForks);
+		this.errorService = new DeadlockService(numberOfForks);
 	}
 
 	public ConcurrentPhilosopher makePhilosopher() {
-		SimplePhilosopher philosopher = new SimplePhilosopher(++this.numberOfCreatedPhilosophers, this.outPrintStream.getOut(), concurrentService);
+		SimplePhilosopher philosopher = new SimplePhilosopher(++this.numberOfCreatedPhilosophers, this.outPrintStream.getOut(), errorService);
 		ConcurrentPhilosopher concurrentPhilosopher = new ConcurrentPhilosopher(philosopher);
 		return concurrentPhilosopher;
 	}

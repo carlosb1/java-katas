@@ -12,7 +12,7 @@ import katas.LunchFactory;
 import katas.Philosopher;
 import katas.PhilosopherLunch;
 import katas.utils.FakeOutPrintStream;
-import katas.utils.MockConcurrentLunchFactory;
+import katas.utils.factories.MockConcurrentLunchFactory;
 
 public class PhilosopherServiceTablesTest {
 	private PhilosopherLunch lunch;
@@ -53,24 +53,5 @@ public class PhilosopherServiceTablesTest {
 		assertTrue(out.contains("I am eating, Philosopher 1"));
 		// System.out.println(out.content());
 	}
-
-	// @Test(timeout = 10000)
-	// public void twoPhilosopherCanEat() throws IOException,
-	// InterruptedException {
-	// MockLunchFactory lunchFactory = new MockLunchFactory(3);
-	// FakeOutPrintStream out = lunchFactory.getFakeOut();
-	//
-	// List<Philosopher> philosophers = createListOfPhilosophers(2,
-	// lunchFactory);
-	//
-	// lunch = new PhilosopherLunch(lunchFactory, philosophers);
-	// lunch.start();
-	// Thread.sleep(5000);
-	// // TODO add method to leave..
-	// philosophers.get(1).leave();
-	// philosophers.get(2).leave();
-	// // assertTrue(out.contains("I am thinking, Philosopher"));
-	// System.out.println(out.content());
-	// }
 
 }

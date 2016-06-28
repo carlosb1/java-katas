@@ -1,4 +1,4 @@
-package katas.utils;
+package katas.utils.factories;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +7,8 @@ import java.io.PrintStream;
 import katas.LunchFactory;
 import katas.SimplePhilosopher;
 import katas.servicetables.OneLunchService;
+import katas.utils.FakeInputStream;
+import katas.utils.FakeOutPrintStream;
 
 public class MockLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;

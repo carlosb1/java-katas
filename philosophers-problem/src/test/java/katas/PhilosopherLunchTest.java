@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import katas.utils.MockLunchFactory;
+import katas.utils.factories.MockLunchFactory;
 
 /* TODO
  * Improvements 
