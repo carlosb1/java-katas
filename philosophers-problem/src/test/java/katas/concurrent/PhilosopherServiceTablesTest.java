@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import katas.LunchFactory;
 import katas.Philosopher;
 import katas.PhilosopherLunch;
 import katas.utils.FakeOutPrintStream;
@@ -16,7 +17,7 @@ import katas.utils.MockConcurrentLunchFactory;
 public class PhilosopherServiceTablesTest {
 	private PhilosopherLunch lunch;
 
-	private List<Philosopher> createListOfPhilosophers(int numberOfPhilosophers, MockConcurrentLunchFactory factory) {
+	private List<Philosopher> createListOfPhilosophers(int numberOfPhilosophers, LunchFactory factory) {
 		List<Philosopher> philosophers = new ArrayList<Philosopher>();
 		for (int i = 0; i < numberOfPhilosophers; i++) {
 			philosophers.add(factory.makePhilosopher());
@@ -53,32 +54,23 @@ public class PhilosopherServiceTablesTest {
 		// System.out.println(out.content());
 	}
 
-	// @Test(timeout = 2000)
-	// @Test
+	// @Test(timeout = 10000)
 	// public void twoPhilosopherCanEat() throws IOException,
 	// InterruptedException {
-	// MockConcurrentLunchFactory lunchFactory = new
-	// MockConcurrentLunchFactory(3);
+	// MockLunchFactory lunchFactory = new MockLunchFactory(3);
 	// FakeOutPrintStream out = lunchFactory.getFakeOut();
-	// final ConcurrentPhilosopher concurrentPhilosopher =
-	// lunchFactory.makePhilosopher();
-	// final ConcurrentPhilosopher concurrentPhilosopher2 =
-	// lunchFactory.makePhilosopher();
-	// // TODO refactorization this object creation
-	// List<Philosopher> philosophers = new ArrayList<Philosopher>() {
-	// {
-	// add(concurrentPhilosopher);
-	// add(concurrentPhilosopher2);
-	// }
-	// };
+	//
+	// List<Philosopher> philosophers = createListOfPhilosophers(2,
+	// lunchFactory);
 	//
 	// lunch = new PhilosopherLunch(lunchFactory, philosophers);
 	// lunch.start();
 	// Thread.sleep(5000);
-	// concurrentPhilosopher.leave();
-	// concurrentPhilosopher2.leave();
+	// // TODO add method to leave..
+	// philosophers.get(1).leave();
+	// philosophers.get(2).leave();
 	// // assertTrue(out.contains("I am thinking, Philosopher"));
-	// // System.out.println(out.content());
+	// System.out.println(out.content());
 	// }
 
 }
