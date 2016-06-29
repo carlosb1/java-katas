@@ -7,21 +7,55 @@ import java.io.PrintStream;
 import katas.ConcurrentPhilosopher;
 import katas.LunchFactory;
 import katas.SimplePhilosopher;
+import katas.servicetables.DeadlockLiveLockService;
+import katas.servicetables.LockService;
+import katas.servicetables.ResourceHierarchyService;
+import katas.servicetables.ServiceTable;
 import katas.servicetables.SynchronizedLunchService;
 import katas.utils.FakeInputStream;
 import katas.utils.FakeOutPrintStream;
 
-public class MockConcurrentLunchFactory extends LunchFactory {
+public class ConcurrentLunchFactory extends LunchFactory {
+	// TODO add test
+	public enum TypeService {
+		Lock, ResourceHierarchy, Synchronized, Deadlock
+	};
+
+	private static class FactoryService {
+
+		public ServiceTable makeService(TypeService type, int numberOfForks) {
+			ServiceTable service;
+			switch (type) {
+
+			case Lock:
+				service = new LockService(numberOfForks);
+				break;
+			case ResourceHierarchy:
+				service = new ResourceHierarchyService(numberOfForks);
+				break;
+			case Deadlock:
+				service = new DeadlockLiveLockService(numberOfForks);
+				break;
+
+			default:
+				service = new SynchronizedLunchService(numberOfForks);
+			}
+
+			return service;
+		}
+	}
+
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;
 	private int numberOfCreatedPhilosophers;
-	private SynchronizedLunchService concurrentService;
+	private ServiceTable concurrentService;
 
-	public MockConcurrentLunchFactory(int numberOfForks) throws IOException {
+	public ConcurrentLunchFactory(int numberOfForks, TypeService type) throws IOException {
 		this.outPrintStream = new FakeOutPrintStream();
 		this.inputStream = new FakeInputStream();
 		this.numberOfCreatedPhilosophers = 0;
-		this.concurrentService = new SynchronizedLunchService(numberOfForks);
+
+		this.concurrentService = (new FactoryService()).makeService(type, numberOfForks);
 	}
 
 	public ConcurrentPhilosopher makePhilosopher() {

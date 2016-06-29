@@ -12,7 +12,8 @@ import katas.LunchFactory;
 import katas.Philosopher;
 import katas.PhilosopherLunch;
 import katas.utils.FakeOutPrintStream;
-import katas.utils.factories.MockConcurrentLunchFactory;
+import katas.utils.factories.ConcurrentLunchFactory;
+import katas.utils.factories.ConcurrentLunchFactory.TypeService;
 
 public class PhilosopherServiceTablesTest {
 	private PhilosopherLunch lunch;
@@ -29,7 +30,7 @@ public class PhilosopherServiceTablesTest {
 	// TODO create abstract factory
 	@Test(timeout = 2000)
 	public void onePhilosopherCannotEat() throws IOException, InterruptedException {
-		MockConcurrentLunchFactory lunchFactory = new MockConcurrentLunchFactory(1);
+		ConcurrentLunchFactory lunchFactory = new ConcurrentLunchFactory(1, TypeService.Synchronized);
 		FakeOutPrintStream out = lunchFactory.getFakeOut();
 		List<Philosopher> philosophers = createListOfPhilosophers(1, lunchFactory);
 		lunch = new PhilosopherLunch(lunchFactory, philosophers);
@@ -42,7 +43,7 @@ public class PhilosopherServiceTablesTest {
 
 	@Test(timeout = 2000)
 	public void onePhilosopherCanEat() throws IOException, InterruptedException {
-		MockConcurrentLunchFactory lunchFactory = new MockConcurrentLunchFactory(2);
+		ConcurrentLunchFactory lunchFactory = new ConcurrentLunchFactory(2, TypeService.Synchronized);
 		FakeOutPrintStream out = lunchFactory.getFakeOut();
 		List<Philosopher> philosophers = createListOfPhilosophers(1, lunchFactory);
 
