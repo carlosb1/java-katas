@@ -2,15 +2,20 @@ package katas.servicetables;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class ResourceHierarchyService implements ServiceTable {
+public class LockService implements ServiceTable {
+	private final ReentrantLock lock = new ReentrantLock();
+
 	private final int numberOfForks;
+	private volatile List<Boolean> forks;
 
-	private final List<Boolean> forks;
-
-	public ResourceHierarchyService(int numberOfForks) {
+	public LockService(int numberOfForks) {
 		this.numberOfForks = numberOfForks;
 		this.forks = new ArrayList<Boolean>();
+		for (int i = 0; i < numberOfForks; i++) {
+			this.forks.add(new Boolean(true));
+		}
 	}
 
 	private int[] calculateForks(int numberPhilosopher) {
@@ -29,24 +34,23 @@ public class ResourceHierarchyService implements ServiceTable {
 			return false;
 		}
 		int pairForks[] = calculateForks(numberPhilosopher);
-		/* try get lower first */
-		// TODO I have this fork
-		if (forks.get(pairForks[0])) {
-			forks.set(pairForks[0], false);
-		} else {
-			return false;
+		lock.lock();
+		try {
+			if (forks.get(pairForks[0]) && forks.get(pairForks[1])) {
+				forks.set(pairForks[0], false);
+				forks.set(pairForks[1], false);
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			lock.unlock();
 		}
-		if (forks.get(pairForks[1])) {
-			forks.set(pairForks[1], false);
-		} else {
-			return false;
-		}
-		return true;
 
 	}
 
 	public boolean tryReleaseForks(int numberPhilosopher) {
-		if (numberPhilosopher <= 0) {
+		if (numberPhilosopher < 0) {
 			return false;
 		}
 		if (forks.size() <= 1) {
@@ -54,9 +58,15 @@ public class ResourceHierarchyService implements ServiceTable {
 		}
 
 		int pairForks[] = calculateForks(numberPhilosopher);
-		forks.set(pairForks[0], true);
-		forks.set(pairForks[1], true);
-		return true;
+		lock.lock();
+		try {
+			forks.set(pairForks[0], true);
+			forks.set(pairForks[1], true);
+			return true;
+		} finally {
+			lock.unlock();
+		}
 
 	}
+
 }
