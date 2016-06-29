@@ -37,7 +37,7 @@ public class SimplePhilosopher implements Philosopher {
 	public void think() {
 		out.println(MESSAGE_THINK + numberPhilosopher);
 		try {
-			// simulate eat
+			// simulate think
 			Thread.sleep(50);
 		} catch (InterruptedException e) {
 		}
