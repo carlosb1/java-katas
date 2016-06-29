@@ -12,11 +12,13 @@ import katas.utils.FakeInputStream;
 import katas.utils.FakeOutPrintStream;
 
 public class MockLockLunchFactory extends LunchFactory {
+
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;
 	private int numberOfCreatedPhilosophers;
 	private LockService concurrentService;
 
+	// TODO add type of lock service in a factory method
 	public MockLockLunchFactory(int numberOfForks) throws IOException {
 		this.outPrintStream = new FakeOutPrintStream();
 		this.inputStream = new FakeInputStream();

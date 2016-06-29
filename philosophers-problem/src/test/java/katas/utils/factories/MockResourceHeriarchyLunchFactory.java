@@ -4,29 +4,31 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
+import katas.ConcurrentPhilosopher;
 import katas.LunchFactory;
 import katas.Philosopher;
 import katas.SimplePhilosopher;
-import katas.servicetables.OneLunchService;
+import katas.servicetables.ResourceHierarchyService;
 import katas.utils.FakeInputStream;
 import katas.utils.FakeOutPrintStream;
 
-public class MockLunchFactory extends LunchFactory {
+public class MockResourceHeriarchyLunchFactory extends LunchFactory {
 	private final FakeOutPrintStream outPrintStream;
 	private final FakeInputStream inputStream;
 	private int numberOfCreatedPhilosophers;
-	private OneLunchService oneLunchService;
+	private ResourceHierarchyService hierarchyService;
 
-	public MockLunchFactory(int numberOfForks) throws IOException {
+	public MockResourceHeriarchyLunchFactory(int numberOfForks) throws IOException {
 		this.outPrintStream = new FakeOutPrintStream();
 		this.inputStream = new FakeInputStream();
 		this.numberOfCreatedPhilosophers = 0;
-		this.oneLunchService = new OneLunchService(numberOfForks);
+		this.hierarchyService = new ResourceHierarchyService(numberOfForks);
 	}
 
 	public Philosopher makePhilosopher() {
-		SimplePhilosopher philosopher = new SimplePhilosopher(++this.numberOfCreatedPhilosophers, this.outPrintStream.getOut(), oneLunchService);
-		return philosopher;
+		SimplePhilosopher philosopher = new SimplePhilosopher(++this.numberOfCreatedPhilosophers, this.outPrintStream.getOut(), hierarchyService);
+		ConcurrentPhilosopher concurrentPhilosopher = new ConcurrentPhilosopher(philosopher);
+		return concurrentPhilosopher;
 	}
 
 	public PrintStream makePrintStream() {

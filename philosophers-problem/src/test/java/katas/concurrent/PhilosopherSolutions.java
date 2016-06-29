@@ -11,6 +11,7 @@ import katas.utils.FakeOutPrintStream;
 import katas.utils.factories.MockConcurrentLunchFactory;
 import katas.utils.factories.MockErrorSyncLunchFactory;
 import katas.utils.factories.MockLockLunchFactory;
+import katas.utils.factories.MockResourceHeriarchyLunchFactory;
 
 public class PhilosopherSolutions {
 
@@ -99,12 +100,28 @@ public class PhilosopherSolutions {
 		System.out.println(out.content());
 	}
 
+	public static void multiplePhilosopherResourceHierarchy() throws IOException, InterruptedException {
+		MockResourceHeriarchyLunchFactory lunchFactory = new MockResourceHeriarchyLunchFactory(5);
+		FakeOutPrintStream out = lunchFactory.getFakeOut();
+
+		List<Philosopher> philosophers = createListOfPhilosophers(5, lunchFactory);
+
+		PhilosopherLunch lunch = new PhilosopherLunch(lunchFactory, philosophers);
+		lunch.start();
+		Thread.sleep(1000);
+		philosophers.get(0).leave();
+		philosophers.get(1).leave();
+		System.out.println("------------------------------------------------------------------------");
+		System.out.println(out.content());
+	}
+
 	public static void main(String[] args) throws IOException, InterruptedException {
 		// twoPhilosopherErrorSynchronization();
 		// twoPhilosopherSynchronization();
 		// multiplePhilosopherErrorSynchronization();
 		// multiplePhilosopherSynchronization();
-		multiplePhilosopherLock();
+		// multiplePhilosopherLock();
+		multiplePhilosopherResourceHierarchy();
 	}
 
 }
