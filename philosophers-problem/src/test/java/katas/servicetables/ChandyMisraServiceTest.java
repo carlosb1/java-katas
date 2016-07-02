@@ -54,4 +54,28 @@ public class ChandyMisraServiceTest {
 		assertTrue(chandyMisraService.tryGetForks(1));
 	}
 
+	@Test
+	public void tryMultipleTimesWaitingWork() {
+		chandyMisraService = new ChandyMisraService(5, 5);
+		assertFalse(chandyMisraService.tryGetForks(1));
+		assertFalse(chandyMisraService.tryGetForks(2));
+		assertTrue(chandyMisraService.tryGetForks(1));
+	}
+
+	@Test
+	public void tryMultipleTimesWaitingWorkReleaseAndGiveCorrectly() {
+		chandyMisraService = new ChandyMisraService(5, 5);
+		assertFalse(chandyMisraService.tryGetForks(2));
+		assertFalse(chandyMisraService.tryGetForks(3));
+		assertTrue(chandyMisraService.tryGetForks(2));
+		assertFalse(chandyMisraService.tryGetForks(1));
+		assertTrue(chandyMisraService.tryReleaseForks(2));
+	}
+
+	@Test
+	public void tryReleaseIncorrectFork() {
+		chandyMisraService = new ChandyMisraService(1, 1);
+		assertFalse(chandyMisraService.tryReleaseForks(1));
+	}
+
 }

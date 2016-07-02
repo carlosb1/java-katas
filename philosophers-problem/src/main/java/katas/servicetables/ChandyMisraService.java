@@ -51,24 +51,41 @@ public class ChandyMisraService implements ServiceTable {
 	private boolean updateFork(int numberFork, int indexPhilosopher) {
 		InfoFork fork = forks.get(numberFork);
 		if (fork.available) {
-			fork.idPhilosopher = indexPhilosopher;
-			fork.available = false;
+			getFork(indexPhilosopher, fork);
 		} else {
 			if (isMyFork(indexPhilosopher, fork)) {
-				// TODO test case for give a dirty fork
 				if (checkGiveFork(fork)) {
-					fork.idPhilosopher = indexPhilosopher;
+					giveFork(fork);
 					return false;
 				}
-				fork.dirty = false;
-				fork.available = false;
+				useFork(fork);
+
 			} else {
-				fork.waitingPhilosopher = indexPhilosopher;
+				waitForFork(indexPhilosopher, fork);
 				return false;
 			}
 		}
 
 		return true;
+	}
+
+	private void waitForFork(int indexPhilosopher, InfoFork fork) {
+		fork.waitingPhilosopher = indexPhilosopher;
+	}
+
+	private void useFork(InfoFork fork) {
+		fork.dirty = false;
+		fork.available = false;
+	}
+
+	private void getFork(int indexPhilosopher, InfoFork fork) {
+		fork.idPhilosopher = indexPhilosopher;
+		fork.available = false;
+	}
+
+	private void giveFork(InfoFork fork) {
+		fork.idPhilosopher = fork.waitingPhilosopher;
+		fork.waitingPhilosopher = -1;
 	}
 
 	private boolean checkGiveFork(InfoFork fork) {
@@ -95,8 +112,7 @@ public class ChandyMisraService implements ServiceTable {
 		fork.available = true;
 		fork.dirty = true;
 		if (fork.waitingPhilosopher != -1) {
-			fork.idPhilosopher = fork.waitingPhilosopher;
-			fork.waitingPhilosopher = -1;
+			giveFork(fork);
 		}
 	}
 
@@ -107,7 +123,6 @@ public class ChandyMisraService implements ServiceTable {
 
 		int indexPhilosopher = numberPhilosopher - 1;
 		int pairForks[] = calculateForksNeighbours(indexPhilosopher);
-		// TODO test if something it is waiting a second fork
 		releaseFork(pairForks[0]);
 		releaseFork(pairForks[1]);
 
