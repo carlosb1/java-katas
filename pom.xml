@@ -14,10 +14,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <modules>
-	  <module>prime-factors</module>
-	  <module>gilded-rose</module>
+    <module>prime-factors</module>
+    <module>gilded-rose</module>
     <module>tennis</module>
-    <module>java-philosophers-problem</module>
+    <module>philosophers-problem</module>
+    <module>java-red-pencil</module>
   </modules>
 
   <dependencies>
