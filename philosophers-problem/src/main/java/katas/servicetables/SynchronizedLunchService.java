@@ -60,4 +60,9 @@ public class SynchronizedLunchService implements ServiceTable {
 		return true;
 	}
 
+	@Override
+	public void initializePhilosophers(int numberPhilosopher) {
+
+	}
+
 }

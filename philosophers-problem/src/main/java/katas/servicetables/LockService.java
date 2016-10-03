@@ -69,4 +69,9 @@ public class LockService implements ServiceTable {
 
 	}
 
+	@Override
+	public void initializePhilosophers(int numberPhilosopher) {
+
+	}
+
 }

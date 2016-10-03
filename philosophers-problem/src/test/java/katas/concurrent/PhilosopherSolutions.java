@@ -116,6 +116,24 @@ public class PhilosopherSolutions {
 		System.out.println(out.content());
 	}
 
+	public static void multiplePhilosopherChandyMisra() throws IOException, InterruptedException {
+		ConcurrentLunchFactory lunchFactory = new ConcurrentLunchFactory(5, TypeService.ResourceHierarchy);
+		FakeOutPrintStream out = lunchFactory.getFakeOut();
+
+		List<Philosopher> philosophers = createListOfPhilosophers(5, lunchFactory);
+
+		PhilosopherLunch lunch = new PhilosopherLunch(lunchFactory, philosophers);
+		lunch.start();
+		Thread.sleep(1000);
+		philosophers.get(0).leave();
+		philosophers.get(1).leave();
+		philosophers.get(2).leave();
+		philosophers.get(3).leave();
+		philosophers.get(4).leave();
+		System.out.println("------------------------------------------------------------------------");
+		System.out.println(out.content());
+	}
+
 	public static void main(String[] args) throws IOException, InterruptedException {
 		// twoPhilosopherErrorSynchronization();
 		// twoPhilosopherSynchronization();

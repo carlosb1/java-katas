@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import katas.ConcurrentPhilosopher;
 import katas.LunchFactory;
 import katas.SimplePhilosopher;
+import katas.servicetables.ChandyMisraService;
 import katas.servicetables.DeadlockLiveLockService;
 import katas.servicetables.LockService;
 import katas.servicetables.ResourceHierarchyService;
@@ -18,7 +19,7 @@ import katas.utils.FakeOutPrintStream;
 public class ConcurrentLunchFactory extends LunchFactory {
 	// TODO add test
 	public enum TypeService {
-		Lock, ResourceHierarchy, Synchronized, Deadlock
+		Lock, ResourceHierarchy, Synchronized, Deadlock, ChandyMisra
 	};
 
 	private static class FactoryService {
@@ -35,6 +36,9 @@ public class ConcurrentLunchFactory extends LunchFactory {
 				break;
 			case Deadlock:
 				service = new DeadlockLiveLockService(numberOfForks);
+				break;
+			case ChandyMisra:
+				service = new ChandyMisraService(numberOfForks);
 				break;
 
 			default:
@@ -56,6 +60,7 @@ public class ConcurrentLunchFactory extends LunchFactory {
 		this.numberOfCreatedPhilosophers = 0;
 
 		this.concurrentService = (new FactoryService()).makeService(type, numberOfForks);
+		this.concurrentService.initializePhilosophers(numberOfForks);
 	}
 
 	public ConcurrentPhilosopher makePhilosopher() {

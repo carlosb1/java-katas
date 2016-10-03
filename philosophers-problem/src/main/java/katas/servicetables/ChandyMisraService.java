@@ -23,12 +23,12 @@ public class ChandyMisraService implements ServiceTable {
 	private final int numberOfForks;
 	private volatile List<InfoFork> forks;
 
-	public ChandyMisraService(int numberOfForks, int numberOfPhilosophers) {
+	public ChandyMisraService(int numberOfForks) {
 		this.numberOfForks = numberOfForks;
 		this.forks = Stream.generate(InfoFork::new).limit(numberOfForks).collect(Collectors.toList());
+	}
 
-		/* initialize philosopher */
-		// TODO create a stream for this
+	public void initializePhilosophers(int numberOfPhilosophers) {
 		for (int numFork = 0; numFork < forks.size(); numFork++) {
 			int firstPhilosopher = numFork % numberOfPhilosophers;
 			int secondPhilosopher = (numFork + 1) % numberOfPhilosophers;

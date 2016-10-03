@@ -65,4 +65,9 @@ public class DeadlockLiveLockService implements ServiceTable {
 
 	}
 
+	@Override
+	public void initializePhilosophers(int numberPhilosopher) {
+
+	}
+
 }

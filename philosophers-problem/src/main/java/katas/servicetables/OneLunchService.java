@@ -47,4 +47,9 @@ public class OneLunchService implements ServiceTable {
 		return true;
 	}
 
+	@Override
+	public void initializePhilosophers(int numberPhilosopher) {
+
+	}
+
 }
