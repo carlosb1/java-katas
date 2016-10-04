@@ -58,4 +58,12 @@ public class ItemTest {
 		assertTrue(item.isPromotion() == true);
 	}
 
+	@Test
+	public void stopPromotionOk() {
+		item.incrementDays(30);
+		item.applyPromotion(0.9);
+		item.incrementDays(30);
+		assertTrue(item.isPromotion() == false);
+	}
+
 }

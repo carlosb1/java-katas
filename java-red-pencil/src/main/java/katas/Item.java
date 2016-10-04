@@ -2,6 +2,7 @@ package katas;
 
 public class Item {
 	private double previousPrice;
+
 	private int daysWithoutChanges;
 	private double price;
 	private boolean isPromoted;
@@ -13,10 +14,13 @@ public class Item {
 	public Item(double price) {
 		this.isPromoted = false;
 		this.price = price;
-		// TODO best method to avoid this null
 		this.previousPrice = -1.0;
 		this.daysWithoutChanges = 0;
 
+	}
+
+	public double getPreviousPrice() {
+		return previousPrice;
 	}
 
 	public double getPrice() {
@@ -25,14 +29,20 @@ public class Item {
 
 	public void applyPromotion(double price) {
 		double percentage = percentagePromotion(price);
-		// TODO refactor this condition
-		// TODO add guards
-		if (percentage >= 0.05 && percentage <= 0.3 && this.daysWithoutChanges >= 30) {
-			this.isPromoted = true;
-			this.daysWithoutChanges = 0;
-			this.previousPrice = this.price;
+		if (isFirstCondition(percentage)) {
+			setPromotion();
 		}
 		this.price = price;
+	}
+
+	private void setPromotion() {
+		this.isPromoted = true;
+		this.daysWithoutChanges = 0;
+		this.previousPrice = this.price;
+	}
+
+	private boolean isFirstCondition(double percentage) {
+		return percentage >= 0.05 && percentage <= 0.3 && this.daysWithoutChanges >= 30;
 	}
 
 	public boolean isPromotion() {
@@ -41,6 +51,10 @@ public class Item {
 
 	public void incrementDays(int days) {
 		this.daysWithoutChanges += days;
+		// TODO creates a variable
+		if (this.daysWithoutChanges >= 30) {
+			this.isPromoted = false;
+		}
 	}
 
 }
