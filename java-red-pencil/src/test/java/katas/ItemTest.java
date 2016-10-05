@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+//TODO test for go up prices
+//TODO add empty object
 public class ItemTest {
 	private Item item;
 
@@ -31,23 +33,26 @@ public class ItemTest {
 		assertTrue(item.getPrice() == 2.0);
 	}
 
+	// TODO change name for price
 	@Test
 	public void isNotActivatedPromotionOk() {
-		assertTrue(item.isPromotion() == false);
+		assertTrue(item.getPreviousPrice() == -1.0);
 	}
 
 	// TODO test, for small increasing
 	@Test
 	public void decrementPriceNotActivatedPromotion() {
 		item.applyPromotion(1.1);
-		assertTrue(item.isPromotion() == false);
+		assertTrue(item.getPreviousPrice() == -1);
+		assertTrue(item.getPrice() == 1.1);
 	}
 
 	// TODO first days
 	@Test
-	public void increasePriceNotActivatedPromotion() {
+	public void increasePriceActivePromotionFails() {
 		item.applyPromotion(0.9);
-		assertTrue(item.isPromotion() == false);
+		assertTrue(item.getPreviousPrice() == -1);
+		assertTrue(item.getPrice() == 0.9);
 	}
 
 	// TODO most tests for this condition
@@ -55,15 +60,17 @@ public class ItemTest {
 	public void decrementPriceAndDecrementDaysActivatePromotion() {
 		item.incrementDays(30);
 		item.applyPromotion(0.9);
-		assertTrue(item.isPromotion() == true);
+		assertTrue(item.getPreviousPrice() == 1.0);
+		assertTrue(item.getPrice() == 0.9);
 	}
 
 	@Test
-	public void stopPromotionOk() {
+	public void stopPromotionWithMoreThirstyDaysOk() {
 		item.incrementDays(30);
 		item.applyPromotion(0.9);
 		item.incrementDays(30);
-		assertTrue(item.isPromotion() == false);
+		assertTrue(item.getPreviousPrice() == -1.0);
+		assertTrue(item.getPrice() == 1.0);
 	}
 
 }
