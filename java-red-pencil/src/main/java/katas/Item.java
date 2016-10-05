@@ -1,41 +1,57 @@
 package katas;
 
 public class Item {
-	private double previousPrice;
+	private double previousPromotionPrice;
 
 	private int daysWithoutChanges;
 	private double price;
 
-	public double percentagePromotion(double newPrice) {
+	public double calculatePercentagePromotion(double newPrice) {
 		return (1.0 - ((1.0 * newPrice) / price));
 	}
 
 	public Item(double price) {
 		this.price = price;
-		this.previousPrice = -1.0;
+		this.previousPromotionPrice = -1.0;
 		this.daysWithoutChanges = 0;
 
 	}
 
-	public double getPreviousPrice() {
-		return previousPrice;
+	public double getPreviousPromotionPrice() {
+		return previousPromotionPrice;
 	}
 
 	public double getPrice() {
 		return price;
 	}
 
-	public void applyPromotion(double price) {
-		double percentage = percentagePromotion(price);
+	public void updatePrice(double price) {
+		if (price < 0.0) {
+			return;
+		}
+		if (isUpPrice(price)) {
+			disablePromotion();
+		}
+
+		double percentage = calculatePercentagePromotion(price);
 		if (isPromotion(percentage)) {
 			setPromotion();
 		}
 		this.price = price;
 	}
 
+	private boolean isUpPrice(double price) {
+		return previousPromotionPrice != -1 && price > this.previousPromotionPrice;
+	}
+
+	private void disablePromotion() {
+		this.price = previousPromotionPrice;
+		previousPromotionPrice = -1.0;
+	}
+
 	private void setPromotion() {
 		this.daysWithoutChanges = 0;
-		this.previousPrice = this.price;
+		this.previousPromotionPrice = this.price;
 	}
 
 	private boolean isPromotion(double percentage) {
@@ -44,18 +60,15 @@ public class Item {
 
 	public void incrementDays(int days) {
 		this.daysWithoutChanges += days;
-		// TODO creates a variable
 		if (this.daysWithoutChanges >= 30) {
-			// TODO create function for this if
 			if (areWeInAPromotion()) {
-				this.price = previousPrice;
-				previousPrice = -1.0;
+				disablePromotion();
 			}
 		}
 	}
 
 	private boolean areWeInAPromotion() {
-		return previousPrice != -1;
+		return previousPromotionPrice != -1;
 	}
 
 }

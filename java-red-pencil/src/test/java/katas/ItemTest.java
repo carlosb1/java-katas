@@ -6,8 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-//TODO test for go up prices
-//TODO add empty object
 public class ItemTest {
 	private Item item;
 
@@ -22,36 +20,39 @@ public class ItemTest {
 	}
 
 	@Test
-	public void checkPriceCorrectly() {
+	public void checkPriceOk() {
 		assertTrue(item.getPrice() == 1.0);
 	}
 
-	// TODO Is it possible update price without promotion
+	@Test
+	public void checkNegativePriceFails() {
+		item.updatePrice(-1.0);
+		assertTrue(item.getPrice() == 1.0);
+	}
+
 	@Test
 	public void updatePriceWithoutPromotionOk() {
-		item.applyPromotion(2.0);
+		item.updatePrice(2.0);
+		assertTrue(item.getPreviousPromotionPrice() == -1);
 		assertTrue(item.getPrice() == 2.0);
 	}
 
-	// TODO change name for price
 	@Test
 	public void isNotActivatedPromotionOk() {
-		assertTrue(item.getPreviousPrice() == -1.0);
+		assertTrue(item.getPreviousPromotionPrice() == -1.0);
 	}
 
-	// TODO test, for small increasing
 	@Test
 	public void decrementPriceNotActivatedPromotion() {
-		item.applyPromotion(1.1);
-		assertTrue(item.getPreviousPrice() == -1);
+		item.updatePrice(1.1);
+		assertTrue(item.getPreviousPromotionPrice() == -1);
 		assertTrue(item.getPrice() == 1.1);
 	}
 
-	// TODO first days
 	@Test
 	public void increasePriceActivePromotionFails() {
-		item.applyPromotion(0.9);
-		assertTrue(item.getPreviousPrice() == -1);
+		item.updatePrice(0.9);
+		assertTrue(item.getPreviousPromotionPrice() == -1);
 		assertTrue(item.getPrice() == 0.9);
 	}
 
@@ -59,18 +60,26 @@ public class ItemTest {
 	@Test
 	public void decrementPriceAndDecrementDaysActivatePromotion() {
 		item.incrementDays(30);
-		item.applyPromotion(0.9);
-		assertTrue(item.getPreviousPrice() == 1.0);
+		item.updatePrice(0.9);
+		assertTrue(item.getPreviousPromotionPrice() == 1.0);
 		assertTrue(item.getPrice() == 0.9);
 	}
 
 	@Test
 	public void stopPromotionWithMoreThirstyDaysOk() {
 		item.incrementDays(30);
-		item.applyPromotion(0.9);
+		item.updatePrice(0.9);
 		item.incrementDays(30);
-		assertTrue(item.getPreviousPrice() == -1.0);
+		assertTrue(item.getPreviousPromotionPrice() == -1.0);
 		assertTrue(item.getPrice() == 1.0);
 	}
 
+	@Test
+	public void goUpPriceItIsNotPromotionOk() {
+		item.incrementDays(30);
+		item.updatePrice(0.9);
+		item.updatePrice(1.1);
+		assertTrue(item.getPreviousPromotionPrice() == -1.0);
+		assertTrue(item.getPrice() == 1.1);
+	}
 }
