@@ -25,6 +25,10 @@ public class Item {
 		return price;
 	}
 
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public void updatePrice(double price) {
 		if (price < 0.0) {
 			return;

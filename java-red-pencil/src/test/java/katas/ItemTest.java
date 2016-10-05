@@ -19,9 +19,16 @@ public class ItemTest {
 		item = null;
 	}
 
+	// TODO Change name for test
 	@Test
 	public void checkPriceOk() {
 		assertTrue(item.getPrice() == 1.0);
+	}
+
+	@Test
+	public void setPriceOk() {
+		item.setPrice(1.1);
+		assertTrue(item.getPrice() == 1.1);
 	}
 
 	@Test
