@@ -82,4 +82,17 @@ public class ItemTest {
 		assertTrue(item.getPreviousPromotionPrice() == -1.0);
 		assertTrue(item.getPrice() == 1.1);
 	}
+
+	@Test
+	public void decrementPriceTwoTimesPromotionNotChangesOk() {
+		// TODO automatise this promotion use case
+		item.incrementDays(30);
+		item.updatePrice(0.9);
+		item.incrementDays(15);
+		item.updatePrice(0.8);
+		assertTrue(item.getPreviousPromotionPrice() == 1.0);
+		assertTrue(item.getPrice() == 0.8);
+		item.incrementDays(15);
+		assertTrue(item.getPreviousPromotionPrice() == -1);
+	}
 }

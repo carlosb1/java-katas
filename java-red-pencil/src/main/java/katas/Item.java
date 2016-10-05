@@ -60,6 +60,7 @@ public class Item {
 
 	public void incrementDays(int days) {
 		this.daysWithoutChanges += days;
+		// TODO add constants for these numbers
 		if (this.daysWithoutChanges >= 30) {
 			if (areWeInAPromotion()) {
 				disablePromotion();
