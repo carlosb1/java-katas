@@ -21,7 +21,7 @@ public class ItemTest {
 
 	// TODO Change name for test
 	@Test
-	public void checkPriceOk() {
+	public void getPriceOk() {
 		assertTrue(item.getPrice() == 1.0);
 	}
 
@@ -33,7 +33,7 @@ public class ItemTest {
 
 	@Test
 	public void isNotActivatedPromotionOk() {
-		assertTrue(item.getPreviousPromotionPrice() == -1.0);
+		assertTrue(item.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 	}
 
 }

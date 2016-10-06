@@ -1,23 +1,19 @@
 package katas;
 
 public class Item {
+	public static final double NOT_PROMOTION = -1.0;
+	private static final int MAX_DAYS_PROMOTION = 30;
 	private double previousPromotionPrice;
-
 	private int daysWithoutChanges;
+	private double price;
 
 	public int getDaysWithoutChanges() {
 		return daysWithoutChanges;
 	}
 
-	private double price;
-
-	public double calculatePercentagePromotion(double newPrice) {
-		return (1.0 - ((1.0 * newPrice) / price));
-	}
-
 	public Item(double price) {
 		this.price = price;
-		this.previousPromotionPrice = -1.0;
+		this.previousPromotionPrice = NOT_PROMOTION;
 		this.daysWithoutChanges = 0;
 
 	}
@@ -34,28 +30,9 @@ public class Item {
 		this.price = price;
 	}
 
-	public void updatePrice(double price) {
-		if (price < 0.0) {
-			return;
-		}
-		if (isUpPrice(price)) {
-			disablePromotion();
-		}
-
-		double percentage = calculatePercentagePromotion(price);
-		if (isPromotion(percentage)) {
-			setPromotion();
-		}
-		this.price = price;
-	}
-
-	private boolean isUpPrice(double price) {
-		return previousPromotionPrice != -1 && price > this.previousPromotionPrice;
-	}
-
 	public void disablePromotion() {
 		this.price = previousPromotionPrice;
-		previousPromotionPrice = -1.0;
+		previousPromotionPrice = NOT_PROMOTION;
 	}
 
 	public void setPromotion() {
@@ -63,14 +40,10 @@ public class Item {
 		this.previousPromotionPrice = this.price;
 	}
 
-	private boolean isPromotion(double percentage) {
-		return percentage >= 0.05 && percentage <= 0.3 && this.daysWithoutChanges >= 30;
-	}
-
 	public void incrementDays(int days) {
 		this.daysWithoutChanges += days;
 		// TODO add constants for these numbers
-		if (this.daysWithoutChanges >= 30) {
+		if (this.daysWithoutChanges >= MAX_DAYS_PROMOTION) {
 			if (areWeInAPromotion()) {
 				disablePromotion();
 			}

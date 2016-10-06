@@ -27,6 +27,6 @@ public class PromotionManager {
 
 	private boolean isUpPrice(double price, Item item) {
 		double previousPromotionPrice = item.getPreviousPromotionPrice();
-		return previousPromotionPrice != -1 && price > previousPromotionPrice;
+		return previousPromotionPrice != Item.NOT_PROMOTION && price > previousPromotionPrice;
 	}
 }
