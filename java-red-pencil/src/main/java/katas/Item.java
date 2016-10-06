@@ -40,7 +40,7 @@ public class Item {
 		this.previousPromotionPrice = this.price;
 	}
 
-	public void incrementDays(int days) {
+	public void addDaysWithoutChanges(int days) {
 		this.daysWithoutChanges += days;
 		// TODO add constants for these numbers
 		if (this.daysWithoutChanges >= MAX_DAYS_PROMOTION) {

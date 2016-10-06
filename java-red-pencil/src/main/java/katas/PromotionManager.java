@@ -7,9 +7,17 @@ public class PromotionManager {
 		}
 		if (isUpPrice(price, item)) {
 			item.disablePromotion();
+			item.setPrice(price);
+			return;
 		}
 
-		double percentage = calculatePercentagePromotion(price, item);
+		if (item.getPreviousPromotionPrice() != Item.NOT_PROMOTION && calculatePercPromotion(price, item.getPreviousPromotionPrice()) > 0.3) {
+			item.disablePromotion();
+			return;
+		}
+
+		double percentage = calculatePercPromotion(price, item.getPrice());
+
 		if (isPromotion(percentage, item)) {
 			item.setPromotion();
 		}
@@ -21,8 +29,8 @@ public class PromotionManager {
 		return percentage >= 0.05 && percentage <= 0.3 && item.getDaysWithoutChanges() >= 30;
 	}
 
-	public double calculatePercentagePromotion(double newPrice, Item item) {
-		return (1.0 - ((1.0 * newPrice) / item.getPrice()));
+	private double calculatePercPromotion(double newPrice, double oldPrice) {
+		return (1.0 - ((1.0 * newPrice) / oldPrice));
 	}
 
 	private boolean isUpPrice(double price, Item item) {

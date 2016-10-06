@@ -52,7 +52,7 @@ public class PromotionManagerTest {
 	// TODO most tests for this condition
 	@Test
 	public void decrementPriceAndDecrementDaysActivatePromotion() {
-		itemTest.incrementDays(30);
+		itemTest.addDaysWithoutChanges(30);
 		promotionManager.updatePrice(itemTest, 0.9);
 		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
 		assertTrue(itemTest.getPrice() == 0.9);
@@ -60,16 +60,16 @@ public class PromotionManagerTest {
 
 	@Test
 	public void stopPromotionWithMoreThirstyDaysOk() {
-		itemTest.incrementDays(30);
+		itemTest.addDaysWithoutChanges(30);
 		promotionManager.updatePrice(itemTest, 0.9);
-		itemTest.incrementDays(30);
+		itemTest.addDaysWithoutChanges(30);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 		assertTrue(itemTest.getPrice() == 1.0);
 	}
 
 	@Test
 	public void goUpPriceItIsNotPromotionOk() {
-		itemTest.incrementDays(30);
+		itemTest.addDaysWithoutChanges(30);
 		promotionManager.updatePrice(itemTest, 0.9);
 		promotionManager.updatePrice(itemTest, 1.1);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
@@ -79,14 +79,24 @@ public class PromotionManagerTest {
 	@Test
 	public void decrementPriceTwoTimesPromotionNotChangesOk() {
 		// TODO automatise this promotion use case
-		itemTest.incrementDays(30);
+		itemTest.addDaysWithoutChanges(30);
 		promotionManager.updatePrice(itemTest, 0.9);
-		itemTest.incrementDays(15);
+		itemTest.addDaysWithoutChanges(15);
 		promotionManager.updatePrice(itemTest, 0.8);
 		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
 		assertTrue(itemTest.getPrice() == 0.8);
-		itemTest.incrementDays(15);
+		itemTest.addDaysWithoutChanges(15);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+	}
+
+	@Test
+	public void reduceDuringPromotionAndEndImmediatelyOk() {
+		itemTest.addDaysWithoutChanges(30);
+		promotionManager.updatePrice(itemTest, 0.9);
+		promotionManager.updatePrice(itemTest, 0.5);
+
+		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+
 	}
 
 }
