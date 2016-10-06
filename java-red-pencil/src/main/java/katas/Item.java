@@ -4,6 +4,11 @@ public class Item {
 	private double previousPromotionPrice;
 
 	private int daysWithoutChanges;
+
+	public int getDaysWithoutChanges() {
+		return daysWithoutChanges;
+	}
+
 	private double price;
 
 	public double calculatePercentagePromotion(double newPrice) {
@@ -48,12 +53,12 @@ public class Item {
 		return previousPromotionPrice != -1 && price > this.previousPromotionPrice;
 	}
 
-	private void disablePromotion() {
+	public void disablePromotion() {
 		this.price = previousPromotionPrice;
 		previousPromotionPrice = -1.0;
 	}
 
-	private void setPromotion() {
+	public void setPromotion() {
 		this.daysWithoutChanges = 0;
 		this.previousPromotionPrice = this.price;
 	}
