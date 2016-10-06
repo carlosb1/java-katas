@@ -43,6 +43,7 @@ public class Item {
 	public void addDaysWithoutChanges(int days) {
 		this.daysWithoutChanges += days;
 		// TODO add constants for these numbers
+		// TODO move this logic
 		if (this.daysWithoutChanges >= MAX_DAYS_PROMOTION) {
 			if (areWeInAPromotion()) {
 				disablePromotion();
