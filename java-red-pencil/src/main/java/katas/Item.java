@@ -2,7 +2,7 @@ package katas;
 
 public class Item {
 	public static final double NOT_PROMOTION = -1.0;
-	private static final int MAX_DAYS_PROMOTION = 30;
+
 	private double previousPromotionPrice;
 	private int daysWithoutChanges;
 	private double price;
@@ -40,18 +40,12 @@ public class Item {
 		this.previousPromotionPrice = this.price;
 	}
 
+	// TODO move this method. It can be used for personal cases
 	public void addDaysWithoutChanges(int days) {
 		this.daysWithoutChanges += days;
-		// TODO add constants for these numbers
-		// TODO move this logic
-		if (this.daysWithoutChanges >= MAX_DAYS_PROMOTION) {
-			if (areWeInAPromotion()) {
-				disablePromotion();
-			}
-		}
 	}
 
-	private boolean areWeInAPromotion() {
+	public boolean areWeInAPromotion() {
 		return previousPromotionPrice != -1;
 	}
 

@@ -1,7 +1,14 @@
 package katas;
 
 public class PromotionManager {
-	public void updatePrice(Item item, double price) {
+	private static final int MAX_DAYS_PROMOTION = 30;
+	private Item item;
+
+	public PromotionManager(Item item) {
+		this.item = item;
+	}
+
+	public void updatePrice(double price) {
 		if (price < 0.0) {
 			return;
 		}
@@ -37,4 +44,15 @@ public class PromotionManager {
 		double previousPromotionPrice = item.getPreviousPromotionPrice();
 		return previousPromotionPrice != Item.NOT_PROMOTION && price > previousPromotionPrice;
 	}
+
+	public void addDays(int days) {
+		this.item.addDaysWithoutChanges(days);
+		if (item.getDaysWithoutChanges() >= MAX_DAYS_PROMOTION) {
+			if (item.areWeInAPromotion()) {
+				item.disablePromotion();
+			}
+		}
+
+	}
+
 }

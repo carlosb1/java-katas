@@ -12,8 +12,8 @@ public class PromotionManagerTest {
 
 	@Before
 	public void setUp() {
-		promotionManager = new PromotionManager();
 		itemTest = new Item(1.0);
+		promotionManager = new PromotionManager(itemTest);
 	}
 
 	@After
@@ -24,27 +24,27 @@ public class PromotionManagerTest {
 
 	@Test
 	public void checkNegativePriceFails() {
-		promotionManager.updatePrice(itemTest, -1.1);
+		promotionManager.updatePrice(-1.1);
 		assertTrue(itemTest.getPrice() == 1.0);
 	}
 
 	@Test
 	public void updatePriceWithoutPromotionOk() {
-		promotionManager.updatePrice(itemTest, 2.0);
+		promotionManager.updatePrice(2.0);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 		assertTrue(itemTest.getPrice() == 2.0);
 	}
 
 	@Test
 	public void decrementPriceNotActivatedPromotion() {
-		promotionManager.updatePrice(itemTest, 1.1);
+		promotionManager.updatePrice(1.1);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 		assertTrue(itemTest.getPrice() == 1.1);
 	}
 
 	@Test
 	public void increasePriceActivePromotionFails() {
-		promotionManager.updatePrice(itemTest, 0.9);
+		promotionManager.updatePrice(0.9);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 		assertTrue(itemTest.getPrice() == 0.9);
 	}
@@ -52,26 +52,26 @@ public class PromotionManagerTest {
 	// TODO most tests for this condition
 	@Test
 	public void decrementPriceAndDecrementDaysActivatePromotion() {
-		itemTest.addDaysWithoutChanges(30);
-		promotionManager.updatePrice(itemTest, 0.9);
+		promotionManager.addDays(30);
+		promotionManager.updatePrice(0.9);
 		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
 		assertTrue(itemTest.getPrice() == 0.9);
 	}
 
 	@Test
 	public void stopPromotionWithMoreThirstyDaysOk() {
-		itemTest.addDaysWithoutChanges(30);
-		promotionManager.updatePrice(itemTest, 0.9);
-		itemTest.addDaysWithoutChanges(30);
+		promotionManager.addDays(30);
+		promotionManager.updatePrice(0.9);
+		promotionManager.addDays(30);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 		assertTrue(itemTest.getPrice() == 1.0);
 	}
 
 	@Test
 	public void goUpPriceItIsNotPromotionOk() {
-		itemTest.addDaysWithoutChanges(30);
-		promotionManager.updatePrice(itemTest, 0.9);
-		promotionManager.updatePrice(itemTest, 1.1);
+		promotionManager.addDays(30);
+		promotionManager.updatePrice(0.9);
+		promotionManager.updatePrice(1.1);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 		assertTrue(itemTest.getPrice() == 1.1);
 	}
@@ -79,21 +79,21 @@ public class PromotionManagerTest {
 	@Test
 	public void decrementPriceTwoTimesPromotionNotChangesOk() {
 		// TODO automatise this promotion use case
-		itemTest.addDaysWithoutChanges(30);
-		promotionManager.updatePrice(itemTest, 0.9);
-		itemTest.addDaysWithoutChanges(15);
-		promotionManager.updatePrice(itemTest, 0.8);
+		promotionManager.addDays(30);
+		promotionManager.updatePrice(0.9);
+		promotionManager.addDays(15);
+		promotionManager.updatePrice(0.8);
 		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
 		assertTrue(itemTest.getPrice() == 0.8);
-		itemTest.addDaysWithoutChanges(15);
+		promotionManager.addDays(15);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 	}
 
 	@Test
 	public void reduceDuringPromotionAndEndImmediatelyOk() {
-		itemTest.addDaysWithoutChanges(30);
-		promotionManager.updatePrice(itemTest, 0.9);
-		promotionManager.updatePrice(itemTest, 0.5);
+		promotionManager.addDays(30);
+		promotionManager.updatePrice(0.9);
+		promotionManager.updatePrice(0.5);
 
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 
