@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class PromotionManager {
+	private static final int MAX_DAYS_WITHOUT_CHANGES = 30;
 	private static final int MAX_DAYS_PROMOTION = 30;
 	private final Queue<Double> historialOfPromotions;
 	private Item item;
@@ -36,16 +37,15 @@ public class PromotionManager {
 			return;
 		}
 
-		if (isPromotion(percentage, item)) {
+		if (isPromotion(percentage, item.getDaysWithoutChanges())) {
 			item.setPromotion();
 		}
 		item.setPrice(price);
 	}
 
 	// TODO add these days without
-	// TODO pass days without changes not all the objects
-	private boolean isPromotion(double percentage, Item item) {
-		return percentage >= 0.05 && percentage <= 0.3 && item.getDaysWithoutChanges() >= 30;
+	private boolean isPromotion(double percentage, double daysWithoutChanges) {
+		return percentage >= 0.05 && percentage <= 0.3 && daysWithoutChanges >= MAX_DAYS_WITHOUT_CHANGES;
 	}
 
 	private double calculatePercPromotion(double newPrice, double oldPrice) {
@@ -59,21 +59,15 @@ public class PromotionManager {
 
 	public void addDays(int days) {
 		this.item.addDaysWithoutChanges(days);
-		// TODO refactor this if
-		if (item.getDaysWithoutChanges() >= MAX_DAYS_PROMOTION) {
-			if (item.areWeInAPromotion()) {
+		if (item.areWeInAPromotion()) {
+			if (item.getDaysWithoutChanges() >= MAX_DAYS_PROMOTION) {
 				item.disablePromotion();
-				return;
 			}
-		}
-		// TODO add variable to specify this 30
-		if (item.getDaysWithoutChanges() >= 30) {
-			if (!item.areWeInAPromotion() && !this.historialOfPromotions.isEmpty()) {
+		} else {
+			if (item.getDaysWithoutChanges() >= MAX_DAYS_WITHOUT_CHANGES && !this.historialOfPromotions.isEmpty()) {
 				double newPrice = this.historialOfPromotions.poll();
 				this.updatePrice(newPrice);
-				return;
 			}
-
 		}
 
 	}
