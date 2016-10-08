@@ -31,21 +31,21 @@ public class PromotionManagerTest {
 	@Test
 	public void updatePriceWithoutPromotionOk() {
 		promotionManager.updatePrice(2.0);
-		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+		assertTrue(!itemTest.areWeInAPromotion());
 		assertTrue(itemTest.getPrice() == 2.0);
 	}
 
 	@Test
 	public void decrementPriceNotActivatedPromotion() {
 		promotionManager.updatePrice(1.1);
-		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+		assertTrue(!itemTest.areWeInAPromotion());
 		assertTrue(itemTest.getPrice() == 1.1);
 	}
 
 	@Test
 	public void increasePriceActivePromotionFails() {
 		promotionManager.updatePrice(0.9);
-		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+		assertTrue(!itemTest.areWeInAPromotion());
 		assertTrue(itemTest.getPrice() == 0.9);
 	}
 
@@ -63,7 +63,7 @@ public class PromotionManagerTest {
 		promotionManager.addDays(30);
 		promotionManager.updatePrice(0.9);
 		promotionManager.addDays(30);
-		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+		assertTrue(!itemTest.areWeInAPromotion());
 		assertTrue(itemTest.getPrice() == 1.0);
 	}
 
@@ -72,7 +72,7 @@ public class PromotionManagerTest {
 		promotionManager.addDays(30);
 		promotionManager.updatePrice(0.9);
 		promotionManager.updatePrice(1.1);
-		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+		assertTrue(!itemTest.areWeInAPromotion());
 		assertTrue(itemTest.getPrice() == 1.1);
 	}
 
@@ -86,7 +86,17 @@ public class PromotionManagerTest {
 		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
 		assertTrue(itemTest.getPrice() == 0.9);
 		promotionManager.addDays(15);
-		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+		assertTrue(!itemTest.areWeInAPromotion());
+	}
+
+	@Test
+	public void reduceDuringPromotionOk() {
+		promotionManager.addDays(30);
+		promotionManager.updatePrice(0.9);
+		promotionManager.updatePrice(0.95);
+		assertTrue(itemTest.getPrice() == 0.95);
+		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
+
 	}
 
 	@Test
@@ -94,7 +104,7 @@ public class PromotionManagerTest {
 		promotionManager.addDays(30);
 		promotionManager.updatePrice(0.9);
 		promotionManager.updatePrice(0.5);
-		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+		assertTrue(!itemTest.areWeInAPromotion());
 	}
 
 	@Test

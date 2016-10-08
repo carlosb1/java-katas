@@ -33,6 +33,8 @@ public class Item {
 	public void disablePromotion() {
 		this.price = previousPromotionPrice;
 		previousPromotionPrice = NOT_PROMOTION;
+		// TODO test to check this..
+		this.daysWithoutChanges = 0;
 	}
 
 	public void setPromotion() {
@@ -46,7 +48,7 @@ public class Item {
 	}
 
 	public boolean areWeInAPromotion() {
-		return previousPromotionPrice != -1;
+		return previousPromotionPrice != NOT_PROMOTION;
 	}
 
 }

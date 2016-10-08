@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class PromotionManager {
+	private static final double MIN_PERCENTAGE = 0.05;
+	private static final double MAX_PERCENTAGE = 0.3;
 	private static final int MAX_DAYS_WITHOUT_CHANGES = 30;
 	private static final int MAX_DAYS_PROMOTION = 30;
 	private final Queue<Double> historialOfPromotions;
@@ -18,56 +20,47 @@ public class PromotionManager {
 		if (price < 0.0) {
 			return;
 		}
-		if (isUpPrice(price, item)) {
-			item.disablePromotion();
-			item.setPrice(price);
-			return;
-		}
-
-		// TODO test for error not promotion case
-		if (item.getPreviousPromotionPrice() != Item.NOT_PROMOTION && calculatePercPromotion(price, item.getPreviousPromotionPrice()) > 0.3) {
-			item.disablePromotion();
-			return;
-		}
-
 		double percentage = calculatePercPromotion(price, item.getPrice());
+		if (item.areWeInAPromotion()) {
 
-		if (item.getPreviousPromotionPrice() != Item.NOT_PROMOTION && percentage >= 0.05 && percentage <= 0.3) {
-			this.historialOfPromotions.offer(price);
-			return;
+			if (price > item.getPreviousPromotionPrice()) {
+				item.disablePromotion();
+				item.setPrice(price);
+				return;
+			}
+
+			if (calculatePercPromotion(price, item.getPreviousPromotionPrice()) > MAX_PERCENTAGE) {
+				item.disablePromotion();
+				return;
+			}
+			if (IsACorrectPromotion(percentage)) {
+				this.historialOfPromotions.offer(price);
+				return;
+			}
 		}
 
-		if (isPromotion(percentage, item.getDaysWithoutChanges())) {
+		if (IsACorrectPromotion(percentage) && item.getDaysWithoutChanges() >= MAX_DAYS_WITHOUT_CHANGES) {
 			item.setPromotion();
 		}
 		item.setPrice(price);
 	}
 
-	// TODO add these days without
-	private boolean isPromotion(double percentage, double daysWithoutChanges) {
-		return percentage >= 0.05 && percentage <= 0.3 && daysWithoutChanges >= MAX_DAYS_WITHOUT_CHANGES;
+	private boolean IsACorrectPromotion(double percentage) {
+		return percentage >= MIN_PERCENTAGE && percentage <= MAX_PERCENTAGE;
 	}
 
 	private double calculatePercPromotion(double newPrice, double oldPrice) {
 		return (1.0 - ((1.0 * newPrice) / oldPrice));
 	}
 
-	private boolean isUpPrice(double price, Item item) {
-		double previousPromotionPrice = item.getPreviousPromotionPrice();
-		return previousPromotionPrice != Item.NOT_PROMOTION && price > previousPromotionPrice;
-	}
-
 	public void addDays(int days) {
 		this.item.addDaysWithoutChanges(days);
-		if (item.areWeInAPromotion()) {
-			if (item.getDaysWithoutChanges() >= MAX_DAYS_PROMOTION) {
-				item.disablePromotion();
-			}
-		} else {
-			if (item.getDaysWithoutChanges() >= MAX_DAYS_WITHOUT_CHANGES && !this.historialOfPromotions.isEmpty()) {
-				double newPrice = this.historialOfPromotions.poll();
-				this.updatePrice(newPrice);
-			}
+		if (item.areWeInAPromotion() && item.getDaysWithoutChanges() >= MAX_DAYS_PROMOTION) {
+			item.disablePromotion();
+		}
+		if (item.getDaysWithoutChanges() >= MAX_DAYS_WITHOUT_CHANGES && !this.historialOfPromotions.isEmpty()) {
+			double newPrice = this.historialOfPromotions.poll();
+			this.updatePrice(newPrice);
 		}
 
 	}
