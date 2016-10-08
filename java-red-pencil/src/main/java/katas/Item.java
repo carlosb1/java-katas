@@ -40,8 +40,8 @@ public class Item {
 		this.previousPromotionPrice = this.price;
 	}
 
-	// TODO move this method. It can be used for personal cases
-	public void addDaysWithoutChanges(int days) {
+	// FIXME, how to manage this function
+	protected void addDaysWithoutChanges(int days) {
 		this.daysWithoutChanges += days;
 	}
 

@@ -84,7 +84,7 @@ public class PromotionManagerTest {
 		promotionManager.addDays(15);
 		promotionManager.updatePrice(0.8);
 		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
-		assertTrue(itemTest.getPrice() == 0.8);
+		assertTrue(itemTest.getPrice() == 0.9);
 		promotionManager.addDays(15);
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
 	}
@@ -94,8 +94,18 @@ public class PromotionManagerTest {
 		promotionManager.addDays(30);
 		promotionManager.updatePrice(0.9);
 		promotionManager.updatePrice(0.5);
-
 		assertTrue(itemTest.getPreviousPromotionPrice() == Item.NOT_PROMOTION);
+	}
+
+	@Test
+	public void reduceDuringPromotionApplyAfterThirtytOk() {
+		promotionManager.addDays(30);
+		promotionManager.updatePrice(0.9);
+		promotionManager.updatePrice(0.8);
+		promotionManager.addDays(30);
+		promotionManager.addDays(30);
+		assertTrue(itemTest.getPrice() == 0.8);
+		assertTrue(itemTest.getPreviousPromotionPrice() == 1.0);
 
 	}
 
