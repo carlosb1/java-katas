@@ -47,7 +47,7 @@ public class Item {
 		this.daysWithoutChanges += days;
 	}
 
-	public boolean areWeInAPromotion() {
+	public boolean isPromoted() {
 		return previousPromotionPrice != NOT_PROMOTION;
 	}
 

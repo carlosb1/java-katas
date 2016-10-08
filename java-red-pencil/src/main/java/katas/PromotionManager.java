@@ -21,7 +21,7 @@ public class PromotionManager {
 			return;
 		}
 		double percentage = calculatePercPromotion(price, item.getPrice());
-		if (item.areWeInAPromotion()) {
+		if (item.isPromoted()) {
 
 			if (price > item.getPreviousPromotionPrice()) {
 				item.disablePromotion();
@@ -55,7 +55,7 @@ public class PromotionManager {
 
 	public void addDays(int days) {
 		this.item.addDaysWithoutChanges(days);
-		if (item.areWeInAPromotion() && item.getDaysWithoutChanges() >= MAX_DAYS_PROMOTION) {
+		if (item.isPromoted() && item.getDaysWithoutChanges() >= MAX_DAYS_PROMOTION) {
 			item.disablePromotion();
 		}
 		if (item.getDaysWithoutChanges() >= MAX_DAYS_WITHOUT_CHANGES && !this.historialOfPromotions.isEmpty()) {
