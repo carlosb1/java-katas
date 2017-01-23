@@ -34,8 +34,6 @@ public class Elevator implements ObserverBoard{
 
     public void start() {
             for (int i = 0; i < this.pressedButtons.size(); i++) {
-
-
                 if (this.state == State.MAINTENANCE) {
                     return;
                 }
@@ -44,13 +42,13 @@ public class Elevator implements ObserverBoard{
                     this.state = State.WAITING;
                 }
 
-
                 this.targetFloor = pressedButton[1];
                 if (targetFloor > this.currentFloor) {
                     this.state = State.GOINGUP;
                 } else if (targetFloor < this.currentFloor) {
                     this.state = State.GOINGDOWN;
                 }
+
                 //TODO can throws error from the engine
                 engine.move(currentFloor,pressedButton[1]);
                 this.currentFloor = pressedButton[1];
@@ -71,8 +69,9 @@ public class Elevator implements ObserverBoard{
     public void pressButton(int buttonFloor, int targetFloor) {
         Integer [] pressedButton = {buttonFloor, targetFloor};
         this.pressedButtons.add(pressedButton);
-        this.start();
-
+        if (this.state == State.WAITING) {
+            this.start();
+        }
 
     }
 
