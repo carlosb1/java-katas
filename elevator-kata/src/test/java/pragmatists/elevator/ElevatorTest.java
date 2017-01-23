@@ -9,9 +9,11 @@ public class ElevatorTest {
 
     private FakeDriverBoard driverBoard;
     private Elevator elevator;
+    private Engine engine;
     @Before
     public void setUp () {
-        elevator = new Elevator();
+        engine = new Engine();
+        elevator = new Elevator(engine);
         driverBoard = new FakeDriverBoard(elevator);
     }
 
@@ -56,7 +58,7 @@ public class ElevatorTest {
     @Test
     public void givenAnElevatorWhenGoingUpThenReachFloor() {
         this.driverBoard.pushButton(0,2);
-        this.driverBoard.reachFloor(2);
+ //       this.driverBoard.reachFloor(2);
         assertTrue(elevator.getState() == Elevator.State.WAITING);
     }
 
@@ -69,10 +71,10 @@ public class ElevatorTest {
     @Test
     public void givenAnElevatorWhenPushButtonAndHappensAnErrorThenIsStopped() {
         this.driverBoard.pushButton(1,3);
-        this.driverBoard.reachFloor(2);
+        //     this.driverBoard.reachFloor(2);
         this.driverBoard.throwsErrorEngine();
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
-        this.driverBoard.reachFloor(3);
+        //    this.driverBoard.reachFloor(3);
         assertTrue(elevator.getCurrentFloor() == 2);
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
     }
@@ -81,11 +83,10 @@ public class ElevatorTest {
     public void givenAnElevatorWhenPushMultipeButtonsThenReachAll() {
         this.driverBoard.pushButton(0,3);
         this.driverBoard.pushButton(2,4);
-        this.driverBoard.reachFloor(1);
-        this.driverBoard.reachFloor(2);
-        this.driverBoard.reachFloor(3);
+        //     this.driverBoard.reachFloor(1);
+//        this.driverBoard.reachFloor(3);
         assertTrue(elevator.getCurrentFloor() == 3);
-        this.driverBoard.reachFloor(4);
+        //     this.driverBoard.reachFloor(4);
         assertTrue(elevator.getCurrentFloor() == 4);
 
 
@@ -97,9 +98,6 @@ public class ElevatorTest {
         assertTrue(elevator.getCurrentFloor() == 0);
     }
 
-
-
-    //TODO test trying to push button
 
 
 

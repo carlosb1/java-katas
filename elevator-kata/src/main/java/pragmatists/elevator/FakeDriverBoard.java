@@ -20,10 +20,7 @@ public class FakeDriverBoard implements DriverBoard {
     }
 
     public void pushButton(int currentFloor, int targetFloor) {
-        this.board.pushButton(currentFloor, targetFloor);
-    }
-    public void reachFloor(int floor) {
-        this.board.reach(floor);
+        this.board.pressButton(currentFloor, targetFloor);
     }
 
 
