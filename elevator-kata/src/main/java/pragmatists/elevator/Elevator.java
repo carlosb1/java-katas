@@ -1,6 +1,7 @@
 package pragmatists.elevator;
 
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Elevator implements ObserverBoard{
 
@@ -9,6 +10,7 @@ public class Elevator implements ObserverBoard{
     private int targetFloor;
     LinkedList<Integer[]> pressedButtons;
     private Engine engine;
+    private AtomicBoolean stop;
 
     public enum State {GOINGUP, WAITING, GOINGDOWN, MAINTENANCE}
 
@@ -18,6 +20,7 @@ public class Elevator implements ObserverBoard{
         this.targetFloor = 0;
         this.engine = engine;
         this.pressedButtons = new LinkedList<Integer[]>();
+        this.stop = new AtomicBoolean(true);
     }
 
 
@@ -31,13 +34,17 @@ public class Elevator implements ObserverBoard{
     }
 
 
+    public void stop() {
+            this.stop.set(true);
+    }
 
     public void start() {
+        while (!stop.get()) {
             for (int i = 0; i < this.pressedButtons.size(); i++) {
                 if (this.state == State.MAINTENANCE) {
                     return;
                 }
-                Integer [] pressedButton = this.pressedButtons.get(i);
+                Integer[] pressedButton = this.pressedButtons.get(i);
                 if (this.currentFloor == this.targetFloor) {
                     this.state = State.WAITING;
                 }
@@ -50,11 +57,11 @@ public class Elevator implements ObserverBoard{
                 }
 
                 //TODO can throws error from the engine
-                engine.move(currentFloor,pressedButton[1]);
+                engine.move(currentFloor, pressedButton[1]);
                 this.currentFloor = pressedButton[1];
             }
             this.state = State.WAITING;
-
+        }
     }
 
 
@@ -69,10 +76,10 @@ public class Elevator implements ObserverBoard{
     public void pressButton(int buttonFloor, int targetFloor) {
         Integer [] pressedButton = {buttonFloor, targetFloor};
         this.pressedButtons.add(pressedButton);
-        if (this.state == State.WAITING) {
+/*        if (this.state == State.WAITING) {
             this.start();
         }
-
+        */
     }
 
 

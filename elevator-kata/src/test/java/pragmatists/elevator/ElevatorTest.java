@@ -12,7 +12,7 @@ public class ElevatorTest {
     private Engine engine;
     @Before
     public void setUp () {
-        engine = new Engine();
+        engine = new FakeEngine(driverBoard);
         elevator = new Elevator(engine);
         driverBoard = new FakeDriverBoard(elevator);
     }
@@ -20,9 +20,13 @@ public class ElevatorTest {
 
     @Test
     public void givenAnElevatorWhereStartsThenIsInGroundFloor () {
+        elevator.start();
+        elevator.stop();
         assertTrue(elevator.getCurrentFloor() == 0);
+
     }
 
+    /*
     @Test
     public void givenAnElevatorWhereStartsThenStateIsWaiting() {
         assertTrue(elevator.getState() == Elevator.State.WAITING);
@@ -97,7 +101,7 @@ public class ElevatorTest {
         this.driverBoard.pushButton(0,1);
         assertTrue(elevator.getCurrentFloor() == 0);
     }
-
+*/
 
 
 
