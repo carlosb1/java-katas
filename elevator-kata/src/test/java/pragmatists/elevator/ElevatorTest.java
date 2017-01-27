@@ -7,39 +7,37 @@ import static org.junit.Assert.assertTrue;
 
 public class ElevatorTest {
 
-    private FakeDriverBoard driverBoard;
     private Elevator elevator;
-    private Engine engine;
+    private FakeEngine engine;
     @Before
     public void setUp () {
-        engine = new FakeEngine(driverBoard);
+        engine = new FakeEngine();
         elevator = new Elevator(engine);
-        driverBoard = new FakeDriverBoard(elevator);
+        engine.setElevator(elevator);
     }
 
 
     @Test
     public void givenAnElevatorWhereStartsThenIsInGroundFloor () {
-        elevator.start();
-        elevator.stop();
         assertTrue(elevator.getCurrentFloor() == 0);
-
     }
 
-    /*
     @Test
     public void givenAnElevatorWhereStartsThenStateIsWaiting() {
         assertTrue(elevator.getState() == Elevator.State.WAITING);
     }
 
 
+
     //TODO it needs to check build
     @Test
     public void givenAnElevatorWhereStartsAndPushButtonThenIsMoving() {
-        this.driverBoard.pushButton(0,1);
+
+        //TODO set engine
+        this.elevator.pressButton(0,1);
         assertTrue(elevator.getState() == Elevator.State.GOINGUP);
     }
-
+  /*
     @Test
     public void givenAnElevatorWhereEnginehasErrorThenIsInMaintenance() {
         this.driverBoard.throwsErrorEngine();

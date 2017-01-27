@@ -3,7 +3,7 @@ package pragmatists.elevator;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Elevator implements ObserverBoard{
+public class Elevator{
 
     private State state;
     private int currentFloor;
@@ -20,7 +20,6 @@ public class Elevator implements ObserverBoard{
         this.targetFloor = 0;
         this.engine = engine;
         this.pressedButtons = new LinkedList<Integer[]>();
-        this.stop = new AtomicBoolean(true);
     }
 
 
@@ -34,12 +33,18 @@ public class Elevator implements ObserverBoard{
     }
 
 
-    public void stop() {
-            this.stop.set(true);
+    public void errorEngine() {
+        this.state = State.MAINTENANCE;
     }
 
-    public void start() {
-        while (!stop.get()) {
+    public void errorCloseDoors() {
+        this.state = State.MAINTENANCE;
+    }
+
+    public void pressButton(int buttonFloor, int targetFloor) {
+        Integer [] newPressedButton = {buttonFloor, targetFloor};
+        this.pressedButtons.add(newPressedButton);
+        if (this.state!=State.WAITING) {
             for (int i = 0; i < this.pressedButtons.size(); i++) {
                 if (this.state == State.MAINTENANCE) {
                     return;
@@ -62,24 +67,6 @@ public class Elevator implements ObserverBoard{
             }
             this.state = State.WAITING;
         }
-    }
-
-
-    public void errorEngine() {
-        this.state = State.MAINTENANCE;
-    }
-
-    public void errorCloseDoors() {
-        this.state = State.MAINTENANCE;
-    }
-
-    public void pressButton(int buttonFloor, int targetFloor) {
-        Integer [] pressedButton = {buttonFloor, targetFloor};
-        this.pressedButtons.add(pressedButton);
-/*        if (this.state == State.WAITING) {
-            this.start();
-        }
-        */
     }
 
 
