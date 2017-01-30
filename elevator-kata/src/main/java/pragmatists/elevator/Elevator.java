@@ -14,12 +14,16 @@ public class Elevator{
 
     public enum State {GOINGUP, WAITING, GOINGDOWN, MAINTENANCE}
 
-    public Elevator (Engine engine) {
+    public Elevator () {
         this.state =  State.WAITING;
         this.currentFloor = 0;
         this.targetFloor = 0;
-        this.engine = engine;
+        this.engine = new FakeEngine();
         this.pressedButtons = new LinkedList<Integer[]>();
+    }
+
+    public void setEngine(Engine engine )  {
+        this.engine = engine;
     }
 
 
@@ -44,29 +48,37 @@ public class Elevator{
     public void pressButton(int buttonFloor, int targetFloor) {
         Integer [] newPressedButton = {buttonFloor, targetFloor};
         this.pressedButtons.add(newPressedButton);
+
         if (this.state!=State.WAITING) {
-            for (int i = 0; i < this.pressedButtons.size(); i++) {
-                if (this.state == State.MAINTENANCE) {
-                    return;
-                }
-                Integer[] pressedButton = this.pressedButtons.get(i);
-                if (this.currentFloor == this.targetFloor) {
-                    this.state = State.WAITING;
-                }
-
-                this.targetFloor = pressedButton[1];
-                if (targetFloor > this.currentFloor) {
-                    this.state = State.GOINGUP;
-                } else if (targetFloor < this.currentFloor) {
-                    this.state = State.GOINGDOWN;
-                }
-
-                //TODO can throws error from the engine
-                engine.move(currentFloor, pressedButton[1]);
-                this.currentFloor = pressedButton[1];
-            }
-            this.state = State.WAITING;
+            return;
         }
+
+        for (int i = 0; i < this.pressedButtons.size(); i++) {
+            if (this.currentFloor == this.targetFloor) {
+                this.state = State.WAITING;
+            }
+
+            Integer[] pressedButton = this.pressedButtons.get(i);
+            this.targetFloor = pressedButton[1];
+
+
+            if (targetFloor > this.currentFloor) {
+                this.state = State.GOINGUP;
+            } else if (targetFloor < this.currentFloor) {
+                this.state = State.GOINGDOWN;
+            }
+
+            //TODO can throws error from the engine
+            //return if it could move
+            engine.move(currentFloor, pressedButton[1]);
+            if (this.state == State.MAINTENANCE) {
+                return;
+            }
+
+            this.currentFloor = pressedButton[1];
+        }
+        this.state = State.WAITING;
+
     }
 
 

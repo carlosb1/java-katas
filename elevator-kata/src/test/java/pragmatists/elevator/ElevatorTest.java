@@ -3,17 +3,16 @@ package pragmatists.elevator;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ElevatorTest {
 
     private Elevator elevator;
-    private FakeEngine engine;
     @Before
     public void setUp () {
-        engine = new FakeEngine();
-        elevator = new Elevator(engine);
-        engine.setElevator(elevator);
+        elevator = new Elevator();
     }
 
 
@@ -32,74 +31,92 @@ public class ElevatorTest {
     //TODO it needs to check build
     @Test
     public void givenAnElevatorWhereStartsAndPushButtonThenIsMoving() {
-
-        //TODO set engine
+        Engine engine =  (Integer fromFloor, Integer toFloor)  ->  {
+            assertTrue(elevator.getState() == Elevator.State.GOINGUP);
+        };
+        elevator.setEngine(engine);
         this.elevator.pressButton(0,1);
-        assertTrue(elevator.getState() == Elevator.State.GOINGUP);
     }
-  /*
+
     @Test
     public void givenAnElevatorWhereEnginehasErrorThenIsInMaintenance() {
-        this.driverBoard.throwsErrorEngine();
+        elevator.errorEngine();
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
     }
 
     @Test
     public void givenAnElevatorWhenDoorsHaveErrorThenIsInMaintenance() {
-        this.driverBoard.throwsErrorDoor();
+        elevator.errorCloseDoors();
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
     }
 
-    @Test
-    public void givenAnElevatorWhenGoingUpThenHappensErrorInEngine() {
-        this.driverBoard.pushButton(0,1);
-        this.driverBoard.throwsErrorEngine();
-        assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
-    }
+
 
     @Test
     public void givenAnElevatorWhenGoingUpThenReachFloor() {
-        this.driverBoard.pushButton(0,2);
- //       this.driverBoard.reachFloor(2);
+        Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
+            assertTrue(toFloor==2);
+        };
+        elevator.setEngine(engine);
+
+        this.elevator.pressButton(0,2);
         assertTrue(elevator.getState() == Elevator.State.WAITING);
     }
 
     @Test
     public void givenAnElevatorWhenPushButtonThenGoingDown() {
-        this.driverBoard.pushButton(0,-1);
-        assertTrue(elevator.getState() == Elevator.State.GOINGDOWN);
+        Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
+            assertEquals(elevator.getState(),Elevator.State.GOINGDOWN);
+        };
+
+        this.elevator.pressButton(0,-1);
+
     }
+
 
     @Test
     public void givenAnElevatorWhenPushButtonAndHappensAnErrorThenIsStopped() {
-        this.driverBoard.pushButton(1,3);
-        //     this.driverBoard.reachFloor(2);
-        this.driverBoard.throwsErrorEngine();
+
+        Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
+                if (fromFloor == 2 && toFloor == 3) {
+                    elevator.errorEngine();
+                }
+        };
+
+        elevator.setEngine(engine);
+        elevator.pressButton(1,3);
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
-        //    this.driverBoard.reachFloor(3);
-        assertTrue(elevator.getCurrentFloor() == 2);
+        elevator.pressButton(2,4);
+        assertTrue(elevator.getCurrentFloor() == 1);
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
     }
 
     @Test
     public void givenAnElevatorWhenPushMultipeButtonsThenReachAll() {
-        this.driverBoard.pushButton(0,3);
-        this.driverBoard.pushButton(2,4);
-        //     this.driverBoard.reachFloor(1);
-//        this.driverBoard.reachFloor(3);
-        assertTrue(elevator.getCurrentFloor() == 3);
-        //     this.driverBoard.reachFloor(4);
+        this.elevator.pressButton(0,3);
+        this.elevator.pressButton(2,4);
+
+        Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
+            if (fromFloor == 3 && toFloor ==4) {
+                assertTrue(elevator.getCurrentFloor() == 3);
+            }
+        };
+
+        elevator.setEngine(engine);
         assertTrue(elevator.getCurrentFloor() == 4);
 
 
     }
+
+
     @Test
     public void givenAnBrokenElevatorWhenPushButtonThenNotReact() {
-        this.driverBoard.throwsErrorEngine();
-        this.driverBoard.pushButton(0,1);
+        this.elevator.errorEngine();
+        this.elevator.pressButton(0,1);
         assertTrue(elevator.getCurrentFloor() == 0);
+        assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
     }
-*/
+
 
 
 
