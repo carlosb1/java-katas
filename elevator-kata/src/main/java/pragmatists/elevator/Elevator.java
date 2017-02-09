@@ -1,25 +1,26 @@
 package pragmatists.elevator;
 
 import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Elevator{
 
     private State state;
     private int currentFloor;
     private int targetFloor;
-    LinkedList<Integer[]> pressedButtons;
+    LinkedList<Integer> pressedButtons;
     private Engine engine;
-    private AtomicBoolean stop;
 
     public enum State {GOINGUP, WAITING, GOINGDOWN, MAINTENANCE}
 
     public Elevator () {
+        this(0);
+    }
+    public Elevator (int currentFloor) {
         this.state =  State.WAITING;
-        this.currentFloor = 0;
+        this.currentFloor = currentFloor;
         this.targetFloor = 0;
         this.engine = new FakeEngine();
-        this.pressedButtons = new LinkedList<Integer[]>();
+        this.pressedButtons = new LinkedList<Integer>();
     }
 
     public void setEngine(Engine engine )  {
@@ -45,41 +46,90 @@ public class Elevator{
         this.state = State.MAINTENANCE;
     }
 
-    public void pressButton(int buttonFloor, int targetFloor) {
-        Integer [] newPressedButton = {buttonFloor, targetFloor};
-        this.pressedButtons.add(newPressedButton);
-
-        if (this.state!=State.WAITING) {
+    //TODO no concurrent available
+    //TODO apply iterator pattern
+    public void addButton(int targetFloor) {
+        int index = 0;
+        while (index < this.pressedButtons.size() && this.pressedButtons.get(index) < targetFloor) {
+            index++;
+        }
+        if (index < this.pressedButtons.size()  && targetFloor == this.pressedButtons.get(index)) {
             return;
         }
+        this.pressedButtons.add(index,targetFloor);
+    }
 
-        for (int i = 0; i < this.pressedButtons.size(); i++) {
-            if (this.currentFloor == this.targetFloor) {
-                this.state = State.WAITING;
+    public int next() {
+        int index = this.pressedButtons.indexOf(currentFloor);
+        if (index+1==this.pressedButtons.size()) {
+            return -1;
+        }
+        return  this.pressedButtons.get(index+1);
+    }
+
+    private int previous() {
+        int index = this.pressedButtons.indexOf(currentFloor);
+        if (index-1<0) {
+            return -1;
+        }
+        return this.pressedButtons.get(index-1);
+    }
+
+    //TODO discard current button
+
+    public void pressButton (int targetFloor) {
+        if (State.WAITING== this.state) {
+            this.addButton(targetFloor);
+            if (currentFloor < targetFloor) {
+                up(targetFloor);
+            } else {
+                down(targetFloor);
             }
+        } else if (State.GOINGUP == this.state && currentFloor < targetFloor) {
+            this.addButton(targetFloor);
+        } else if (State.GOINGDOWN == this.state && currentFloor > targetFloor) {
+            this.addButton(targetFloor);
+        }
+    }
 
-            Integer[] pressedButton = this.pressedButtons.get(i);
-            this.targetFloor = pressedButton[1];
 
-
-            if (targetFloor > this.currentFloor) {
-                this.state = State.GOINGUP;
-            } else if (targetFloor < this.currentFloor) {
-                this.state = State.GOINGDOWN;
-            }
-
-            //TODO can throws error from the engine
-            //return if it could move
-            engine.move(currentFloor, pressedButton[1]);
+    public void up(int targetFloor) {
+        this.state = State.GOINGUP;
+        if (targetFloor > this.targetFloor) {
+            this.targetFloor = targetFloor;
+        }
+        int nextFloor = next();
+        while (nextFloor!=-1) {
+            this.engine.move(currentFloor,nextFloor);
             if (this.state == State.MAINTENANCE) {
                 return;
             }
-
-            this.currentFloor = pressedButton[1];
+            this.currentFloor = nextFloor;
+            nextFloor = next();
         }
         this.state = State.WAITING;
-
     }
+
+    public void down(int targetFloor) {
+        this.state = State.GOINGDOWN;
+        if (targetFloor < this.targetFloor) {
+            this.targetFloor = targetFloor;
+        }
+        int previousFloor = previous();
+        while (previousFloor!=-1) {
+            this.engine.move(currentFloor,previousFloor);
+            if (this.state == State.MAINTENANCE) {
+                return;
+            }
+            this.currentFloor = previousFloor;
+            previousFloor = previous();
+        }
+        this.state = State.WAITING;
+    }
+
+
+
+
 
 
 }

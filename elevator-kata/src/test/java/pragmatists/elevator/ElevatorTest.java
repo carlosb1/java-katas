@@ -35,7 +35,7 @@ public class ElevatorTest {
             assertTrue(elevator.getState() == Elevator.State.GOINGUP);
         };
         elevator.setEngine(engine);
-        this.elevator.pressButton(0,1);
+        this.elevator.pressButton(1);
     }
 
     @Test
@@ -59,17 +59,18 @@ public class ElevatorTest {
         };
         elevator.setEngine(engine);
 
-        this.elevator.pressButton(0,2);
+        this.elevator.pressButton(2);
         assertTrue(elevator.getState() == Elevator.State.WAITING);
     }
 
     @Test
     public void givenAnElevatorWhenPushButtonThenGoingDown() {
+        elevator = new Elevator(1);
         Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
             assertEquals(elevator.getState(),Elevator.State.GOINGDOWN);
         };
 
-        this.elevator.pressButton(0,-1);
+        this.elevator.pressButton(0);
 
     }
 
@@ -78,23 +79,22 @@ public class ElevatorTest {
     public void givenAnElevatorWhenPushButtonAndHappensAnErrorThenIsStopped() {
 
         Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
-                if (fromFloor == 2 && toFloor == 3) {
+                if (fromFloor == 0 && toFloor == 3) {
                     elevator.errorEngine();
                 }
         };
 
         elevator.setEngine(engine);
-        elevator.pressButton(1,3);
+        elevator.pressButton(3);
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
-        elevator.pressButton(2,4);
-        assertTrue(elevator.getCurrentFloor() == 1);
+        elevator.pressButton(4);
+        assertTrue(elevator.getCurrentFloor() == 0);
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
     }
 
     @Test
-    public void givenAnElevatorWhenPushMultipeButtonsThenReachAll() {
-        this.elevator.pressButton(0,3);
-        this.elevator.pressButton(2,4);
+    public void givenAnElevatorWhenPushMultipleButtonsThenReachAll() {
+
 
         Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
             if (fromFloor == 3 && toFloor ==4) {
@@ -103,6 +103,28 @@ public class ElevatorTest {
         };
 
         elevator.setEngine(engine);
+
+        this.elevator.pressButton(3);
+        this.elevator.pressButton(4);
+        assertTrue(elevator.getCurrentFloor() == 4);
+
+
+    }
+
+    @Test
+    public void givenAnElevatorWhenPushMultipleButtonsGoingUpThenReachGoingUp() {
+
+
+        Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
+            if (fromFloor == 2 && toFloor ==4) {
+                assertTrue(elevator.getCurrentFloor() == 3);
+            }
+        };
+
+        elevator.setEngine(engine);
+
+        this.elevator.pressButton(3);
+        this.elevator.pressButton(4);
         assertTrue(elevator.getCurrentFloor() == 4);
 
 
@@ -112,7 +134,7 @@ public class ElevatorTest {
     @Test
     public void givenAnBrokenElevatorWhenPushButtonThenNotReact() {
         this.elevator.errorEngine();
-        this.elevator.pressButton(0,1);
+        this.elevator.pressButton(1);
         assertTrue(elevator.getCurrentFloor() == 0);
         assertTrue(elevator.getState() == Elevator.State.MAINTENANCE);
     }
