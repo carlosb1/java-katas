@@ -1,13 +1,16 @@
 package pragmatists.elevator;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public class Elevator{
 
     private State state;
     private int currentFloor;
     private int targetFloor;
-    LinkedList<Integer> pressedButtons;
+    List<Integer> pressedButtons;
     private Engine engine;
 
     public enum State {GOINGUP, WAITING, GOINGDOWN, MAINTENANCE}
@@ -49,14 +52,8 @@ public class Elevator{
     //TODO no concurrent available
     //TODO apply iterator pattern
     public void addButton(int targetFloor) {
-        int index = 0;
-        while (index < this.pressedButtons.size() && this.pressedButtons.get(index) < targetFloor) {
-            index++;
-        }
-        if (index < this.pressedButtons.size()  && targetFloor == this.pressedButtons.get(index)) {
-            return;
-        }
-        this.pressedButtons.add(index,targetFloor);
+        this.pressedButtons.add(targetFloor);
+        this.pressedButtons = this.pressedButtons.stream().sorted().collect(toList());
     }
 
     public int next() {
@@ -126,11 +123,6 @@ public class Elevator{
         }
         this.state = State.WAITING;
     }
-
-
-
-
-
 
 }
 

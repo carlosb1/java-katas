@@ -1,6 +1,7 @@
 package pragmatists.elevator;
 
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -116,8 +117,11 @@ public class ElevatorTest {
 
 
         Engine engine =  (Integer fromFloor, Integer toFloor)  -> {
-            if (fromFloor == 2 && toFloor ==4) {
-                assertTrue(elevator.getCurrentFloor() == 3);
+            if (fromFloor == 0 && toFloor ==3) {
+                elevator.pressButton(0);
+            }
+            if (fromFloor == 3 && toFloor==0) {
+                Assert.fail();
             }
         };
 
