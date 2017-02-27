@@ -19,6 +19,7 @@
     <module>tennis</module>
     <module>philosophers-problem</module>
     <module>java-red-pencil</module>
+    <module>ordered-job-kata</module>
   </modules>
 
   <dependencies>
