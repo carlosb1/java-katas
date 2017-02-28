@@ -1,5 +1,6 @@
 package katas;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -11,21 +12,46 @@ import static junit.framework.Assert.assertTrue;
  */
 public class DispatcherTest {
 
+    private static class Job {
+        private final String id;
+        private String parent = new String();
+
+        public Job (String id)  {
+            this.id = id;
+        }
+        public Job(String id, String parent) {
+            this.id = id;
+            this.parent = parent;
+        }
+
+        public String toString() {
+            return  id+ " => "+parent;
+        }
+
+        public static Job makeInstance(String id) {
+            return new Job(id);
+        }
+
+
+    }
+
+    private Dispatcher dispatcher;
+
+    @Before
+    public void setUp() {
+        dispatcher = new Dispatcher();
+    }
 
     @Test
     public void givenAnOrderedThenReceiveAnEmptyListThenReturnsEmpty() {
-        Dispatcher dispatcher = new Dispatcher();
         assertTrue(dispatcher.order(new String()).size() == 0);
     }
 
     @Test
     public void givenAnOrderedThenAJobThenReturnsJobOk() {
-        //TODO move this object creation
-        Dispatcher dispatcher = new Dispatcher();
-        //TODO create job
-        List<String> result = dispatcher.order("a =>");
+        List<String> result = dispatcher.order(Job.makeInstance("a").toString());
         assertTrue(result.size() == 1 && result.get(0).equals("a"));
-
     }
+
 
 }
