@@ -1,30 +1,40 @@
 package katas;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Dispatcher
 {
 
+    public static final String SIGN_PARENT = "=>";
+
     public List<String> order(String input) {
         //TODO to java 8
-
-        String[] lines = input.split("\n");
-        for (String line: lines) {
-            StringTokenizer tokenizer = new StringTokenizer(line);
-            //TODO check malfformed string
-            if (!tokenizer.hasMoreTokens()) {
-                return Arrays.asList();
-            }
-            String firstValue = tokenizer.nextToken();
-            return Arrays.asList(firstValue);
+        if (input.length() == 0) {
+            return Arrays.asList();
         }
 
+        String[] lines = input.split("\n");
+        List<String> result = new ArrayList<String>();
+        for (String line: lines) {
+            StringTokenizer tokenizer = new StringTokenizer(line);
 
+            String value = tokenizer.nextToken();
+            if (!tokenizer.hasMoreTokens()) {
+                break;
+            }
 
-        return Arrays.asList();
+            String equalsToken = tokenizer.nextToken();
+            if (!equalsToken.equals(SIGN_PARENT)) {
+                break;
+            }
+
+            result.add(value);
+        }
+        return result;
     }
+
 }
