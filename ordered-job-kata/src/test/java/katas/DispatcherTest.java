@@ -58,7 +58,7 @@ public class DispatcherTest {
     }
 
     @Test
-    public void givenAnDispatcherWhereAddParentThenIgnoreIt() {
+    public void givenAnDispatcherWhereAddParentThenOk() {
         //TODO to complicate strings
         List<String> result = dispatcher.order("a => b\nb =>");
         assertTrue(result.size()==2 && result.get(0).equals("b") && result.get(1).equals("a"));
@@ -68,5 +68,11 @@ public class DispatcherTest {
     public void givenAnDispatcherWhereIncorrectParentThenIgnoreIt() {
         List<String> result = dispatcher.order("a => b\nc =>");
         assertTrue(result.size()==1);
+    }
+
+    @Test
+    public void givenAnDispatcherWhereAddParentAndThreeNodesThenOk() {
+        List<String> result = dispatcher.order("a =>\nb => c\nc =>");
+        assertTrue(result.size()==3);
     }
 }
