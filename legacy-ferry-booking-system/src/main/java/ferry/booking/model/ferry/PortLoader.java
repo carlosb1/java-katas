@@ -1,25 +1,22 @@
-package ferry.booking;
+package ferry.booking.model.ferry;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
+import ferry.booking.Constants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static ferry.booking.Util.readFileToString;
 
-public class Ports {
-
-    private final List<Port> ports = new ArrayList<>();
-
-    public Ports() {
-        try {
-            String json = readFileToString("/ports.txt");
+/**
+ * Created by carlos on 4/17/17.
+ */
+public class PortLoader {
+    public List<Port> load() throws IOException {
+            List<Port> ports = new ArrayList<Port>();
+            String json = readFileToString(Constants.PATH_PORTS);
             JSONArray arr = new JSONArray(json);
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject obj = arr.getJSONObject(i);
@@ -28,12 +25,6 @@ public class Ports {
                 p.name = obj.getString("Name");
                 ports.add(p);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Port> all() {
         return ports;
     }
 }

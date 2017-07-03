@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import ferry.booking.Program;
@@ -9,7 +10,7 @@ import org.junit.Test;
 public class SaffSqueeze {
 
     @Test
-    public void first_saff() {
+    public void first_saff() throws IOException {
         String expectedOutput = "Welcome to the Ferry Finding System\n" + "=======\n" + "Ferry Time Table\n" + "\n"
                 + "Departures from Port Ellen\n" + "\n"
                 + " --------------------------------------------------------------------------\n"

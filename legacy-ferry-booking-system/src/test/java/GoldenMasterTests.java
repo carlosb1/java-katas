@@ -18,12 +18,36 @@ public class GoldenMasterTests {
         WriteToFile("master.txt");
     }
 
+    private static void testCommands() {
+        Program.doCommand("help");
+        Program.doCommand("list ports");
+        Program.doCommand("search 2 3 00:00");
+        Program.doCommand("search 2 3 00:00");
+        Program.doCommand("book 10 2");
+        Program.doCommand("search 2 3 00:00");
+        Program.doCommand("book 10 10");
+        Program.doCommand("book 10 1");
+        Program.doCommand("search 1 2 01:00");
+        Program.doCommand("book 4 2");
+        Program.doCommand("book 6 8");
+        Program.doCommand("search 1 2 01:00");
+        Program.doCommand("search 1 3 01:00");
+        Program.doCommand("search 1 3 01:30");
+        Program.doCommand("book 5 16");
+        Program.doCommand("book 16 16");
+        Program.doCommand("search 1 3 00:00");
+        Program.doCommand("list bookings");
+    }
+
+
     private static void WriteToFile(String fileName) {
         PrintStream ps = null;
         try {
             ps = new PrintStream(new File(fileName));
-            Program.mainWithTestData(ps);
-        } catch (FileNotFoundException e) {
+            Program.start(ps);
+            testCommands();
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             ps.close();
         }
@@ -34,8 +58,10 @@ public class GoldenMasterTests {
         return new String(encoded, Charset.defaultCharset());
     }
 
+    //TODO change name, it doesnt follow any nomenclature
     @Test
     public void compare_to_golden_master() throws IOException {
+        //TODO MOVE TO CONSTANTS
         WriteToFile("test-run.txt");
         String master = readFile("master.txt");
         String tests = readFile("test-run.txt");

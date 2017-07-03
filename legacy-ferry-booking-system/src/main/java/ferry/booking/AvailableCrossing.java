@@ -1,5 +1,6 @@
 package ferry.booking;
 
+//TODO move struct in class
 public class AvailableCrossing {
 
     public String ferryName;

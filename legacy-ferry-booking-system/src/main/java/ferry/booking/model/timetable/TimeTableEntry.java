@@ -1,4 +1,4 @@
-package ferry.booking;
+package ferry.booking.model.timetable;
 
 public class TimeTableEntry {
 

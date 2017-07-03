@@ -1,5 +1,14 @@
 package ferry.booking;
 
+import ferry.booking.model.ferry.*;
+import ferry.booking.model.journey.Booking;
+import ferry.booking.model.timetable.TimeTableEntry;
+import ferry.booking.services.FerryAvailabilityService;
+import ferry.booking.services.JourneyBookingService;
+import ferry.booking.services.TimeTableService;
+import ferry.booking.model.timetable.TimeTableViewModelRow;
+import ferry.booking.model.timetable.TimeTableLoader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,35 +18,40 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+
+//TODO clean static methods
+//TODO move view classes from services
 public class Program {
 
     public static TimeTableService timeTableService;
     private static JourneyBookingService bookingService;
-    public static Ports ports;
+    public static List<Port> ports;
     private static FerryAvailabilityService ferryService;
     private static PrintStream out;
 
-    public static void wireUp() {
-        TimeTables timeTables = new TimeTables();
-        Ferries ferries = new Ferries();
-        Bookings bookings = new Bookings();
-        ports = new Ports();
-        ferryService = new FerryAvailabilityService(timeTables, new PortManager(ports, ferries));
-        bookingService = new JourneyBookingService(timeTables, bookings, ferryService);
-        timeTableService = new TimeTableService(timeTables, bookings, ferryService);
+    public static void wireUp() throws IOException {
+        List<Booking> bookings = new ArrayList<Booking>();
+        ports = (new PortLoader()).load();
+        List<TimeTableEntry> timetableEntries = new TimeTableLoader().load();
+        ferryService = new FerryAvailabilityService(timetableEntries,ports, new FerryLoader().load());
+        bookingService = new JourneyBookingService(timetableEntries, bookings, ferryService);
+        timeTableService = new TimeTableService(timetableEntries, ports, bookings, ferryService);
     }
 
     public static void main(String[] args) {
-        start(System.out);
-        commandLoop();
+        try {
+            start(System.out);
+            commandLoop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void mainWithTestData(PrintStream ps) {
-        start(ps);
-        testCommands();
+
     }
 
-    public static void start(PrintStream ps) {
+    public static void start(PrintStream ps) throws IOException {
         out = ps;
         wireUp();
 
@@ -45,32 +59,11 @@ public class Program {
         out.println("=======");
         out.println("Ferry Time Table");
 
-        List<Port> allPorts = ports.all();
-        List<TimeTableViewModelRow> timeTable = timeTableService.getTimeTable(allPorts);
+        List<TimeTableViewModelRow> timeTable = timeTableService.getTimeTable(ports);
 
-        displayTimetable(allPorts, timeTable);
+        displayTimetable(ports, timeTable);
     }
 
-    private static void testCommands() {
-        doCommand("help");
-        doCommand("list ports");
-        doCommand("search 2 3 00:00");
-        doCommand("search 2 3 00:00");
-        doCommand("book 10 2");
-        doCommand("search 2 3 00:00");
-        doCommand("book 10 10");
-        doCommand("book 10 1");
-        doCommand("search 1 2 01:00");
-        doCommand("book 4 2");
-        doCommand("book 6 8");
-        doCommand("search 1 2 01:00");
-        doCommand("search 1 3 01:00");
-        doCommand("search 1 3 01:30");
-        doCommand("book 5 16");
-        doCommand("book 16 16");
-        doCommand("search 1 3 00:00");
-        doCommand("list bookings");
-    }
 
     public static void displayTimetable(List<Port> ports, List<TimeTableViewModelRow> rows) {
         for (Port port : ports) {
@@ -111,7 +104,7 @@ public class Program {
         }
     }
 
-    private static void doCommand(String command) {
+    public static void doCommand(String command) {
         if (command.startsWith("search")) {
             search(command);
         } else if (command.startsWith("book")) {
@@ -119,7 +112,7 @@ public class Program {
         } else if (command.startsWith("list ports")) {
             out.println("Ports:");
             out.println("------");
-            for (Port port : ports.all()) {
+            for (Port port : ports) {
                 out.printf("%d - %s", port.id, port.name);
                 out.println();
             }

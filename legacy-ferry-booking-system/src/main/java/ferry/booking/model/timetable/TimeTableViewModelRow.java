@@ -1,4 +1,4 @@
-package ferry.booking;
+package ferry.booking.model.timetable;
 
 public class TimeTableViewModelRow {
 
@@ -8,5 +8,4 @@ public class TimeTableViewModelRow {
     public String startTime;
     public String journeyLength;
     public String arrivalTime;
-    public int journeyId;
 }

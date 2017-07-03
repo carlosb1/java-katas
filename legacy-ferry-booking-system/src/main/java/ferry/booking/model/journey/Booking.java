@@ -1,4 +1,4 @@
-package ferry.booking;
+package ferry.booking.model.journey;
 
 public class Booking {
 

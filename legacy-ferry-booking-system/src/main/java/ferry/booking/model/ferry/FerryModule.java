@@ -1,4 +1,6 @@
-package ferry.booking;
+package ferry.booking.model.ferry;
+
+import ferry.booking.model.timetable.TimeTableEntry;
 
 public class FerryModule {
 

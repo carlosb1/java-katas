@@ -1,4 +1,4 @@
-package ferry.booking;
+package ferry.booking.model.ferry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
