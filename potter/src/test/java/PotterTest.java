@@ -17,23 +17,31 @@ public class PotterTest {
 
     @Test
     public void should_be_initialised_empty() {
-            float price = potter.checkout();
+            double price = potter.checkout();
             Assert.assertEquals(0.f,price,0.01);
     }
 
     @Test
     public void should_be_add_one_book () {
-        potter.add(Potter.Books.BOOK1);
-        float price = potter.checkout();
+        potter.add(Potter.Book.BOOK1);
+        double price = potter.checkout();
         Assert.assertEquals(8,price,0.01);
     }
 
     @Test
     public void should_add_two_books ()  {
-        potter.add(Potter.Books.BOOK1);
-        potter.add(Potter.Books.BOOK1);
-        float price = potter.checkout();
+        potter.add(Potter.Book.BOOK1);
+        potter.add(Potter.Book.BOOK1);
+        double price = potter.checkout();
         Assert.assertEquals(16.0, price,0.01);
+    }
+
+    @Test
+    public void should_add_two_different_books () {
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK2);
+        double price = potter.checkout();
+        Assert.assertEquals(15.2,price,0.0001f);
     }
 
 

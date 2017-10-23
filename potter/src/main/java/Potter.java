@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class Potter {
-    public enum Books {
+
+    public enum Book {
         BOOK1,
         BOOK2,
         BOOK3,
@@ -7,20 +10,24 @@ public class Potter {
         BOOK5
     };
 
-
+    private final ArrayList books;
     private float price;
 
     public Potter () {
-        this.price = 0.f;
-
+        this.books = new ArrayList();
     }
 
-    public float checkout() {
-        return this.price;
+    public double checkout() {
+        long numberBooks = this.books.size();
+
+        long books1 = this.books.stream().filter(n -> n == Book.BOOK1).count();
+        long books2 = this.books.stream().filter(n -> n == Book.BOOK2).count();
+
+        return numberBooks*8.0;
     }
 
-    public void add(Books book1) {
+    public void add(Book book) {
 
-        this.price += 8.0f;
+        this.books.add(book);
     }
 }
