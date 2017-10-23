@@ -5,6 +5,7 @@ import org.junit.Test;
 
 
 
+
 public class PotterTest {
 
     Potter potter;
@@ -22,15 +23,15 @@ public class PotterTest {
 
     @Test
     public void should_be_add_one_book () {
-        potter.add("book1");
+        potter.add(Potter.Books.BOOK1);
         float price = potter.checkout();
         Assert.assertEquals(8,price,0.01);
     }
 
     @Test
     public void should_add_two_books ()  {
-        potter.add("book1");
-        potter.add("book1");
+        potter.add(Potter.Books.BOOK1);
+        potter.add(Potter.Books.BOOK1);
         float price = potter.checkout();
         Assert.assertEquals(16.0, price,0.01);
     }
