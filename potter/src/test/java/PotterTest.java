@@ -22,6 +22,5 @@ public class PotterTest {
 
         potter.add("book1");
         float price = potter.checkout();
-
     }
 }
