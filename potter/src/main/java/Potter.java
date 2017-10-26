@@ -19,7 +19,7 @@ public class Potter {
         this.books = new ArrayList<Potter.Book>();
     }
 
-    public static double ARRAY_DISCOUNTS  [] = {1.,0.95,0.9};
+    public static double ARRAY_DISCOUNTS  [] = {1.,0.95,0.9,0.8};
     public double checkout() {
         double price = 0.;
         long numberBooks = this.books.size();
