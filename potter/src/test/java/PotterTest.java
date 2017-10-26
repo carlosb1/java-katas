@@ -22,13 +22,6 @@ public class PotterTest {
     }
 
     @Test
-    public void should_be_add_one_book () {
-        potter.add(Potter.Book.BOOK1);
-        double price = potter.checkout();
-        Assert.assertEquals(8,price,0.01);
-    }
-
-    @Test
     public void should_add_two_books ()  {
         potter.add(Potter.Book.BOOK1);
         potter.add(Potter.Book.BOOK1);
@@ -43,6 +36,7 @@ public class PotterTest {
         double price = potter.checkout();
         Assert.assertEquals(15.2,price,0.0001f);
     }
+        /*
 
     @Test
     public void should_add_three_different_books_with_discount () {
@@ -53,5 +47,5 @@ public class PotterTest {
         Assert.assertEquals(21.6,price,0.0001f);
     }
 
-
+*/
 }
