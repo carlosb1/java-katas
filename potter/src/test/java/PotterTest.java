@@ -61,10 +61,21 @@ public class PotterTest {
         potter.add (Potter.Book.BOOK2);
         potter.add (Potter.Book.BOOK3);
         potter.add (Potter.Book.BOOK4);
-
         double price = potter.checkout();
         Assert.assertEquals(25.6,price,0.0001f);
     }
+    @Test
+    public void should_add_five_different_books_with_discount () {
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK2);
+        potter.add (Potter.Book.BOOK3);
+        potter.add (Potter.Book.BOOK4);
+        potter.add (Potter.Book.BOOK5);
+
+        double price = potter.checkout();
+        Assert.assertEquals(30.0,price,0.0001f);
+    }
+
 
 
 }
