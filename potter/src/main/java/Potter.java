@@ -33,6 +33,14 @@ public class Potter {
             price *= 0.95;
         }
 
+        long book3s = this.books.stream().filter(n -> n == Book.BOOK3).count();
+        if (book3s != 0 && book2s != 0 && book3s!=0) {
+            long numberBooks = this.books.size();
+            price = numberBooks*8.0;
+            price *= 0.90;
+        }
+
+
         return price;
     }
 
