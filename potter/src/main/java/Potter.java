@@ -19,26 +19,25 @@ public class Potter {
         this.books = new ArrayList<Potter.Book>();
     }
 
+    public static double ARRAY_DISCOUNTS  [] = {1.,0.95,0.9};
     public double checkout() {
         double price = 0.;
-        long book1s = this.books.stream().filter(n-> n == Book.BOOK1).count();
-        if (book1s !=0) {
-            long numberBooks = this.books.size();
-            price = numberBooks*8.0;
-        }
-        long book2s = this.books.stream().filter(n -> n == Book.BOOK2).count();
-        if (book2s != 0 && book1s != 0) {
-            long numberBooks = this.books.size();
-            price = numberBooks*8.0;
-            price *= 0.95;
+        long numberBooks = this.books.size();
+
+        if (numberBooks == 0 ) {
+            return price;
         }
 
-        long book3s = this.books.stream().filter(n -> n == Book.BOOK3).count();
-        if (book3s != 0 && book2s != 0 && book3s!=0) {
-            long numberBooks = this.books.size();
-            price = numberBooks*8.0;
-            price *= 0.90;
+        int typeBooks =0;
+        for (Potter.Book bookToCompare: Potter.Book.values())  {
+            long numberBook = this.books.stream().filter(n-> n == bookToCompare).count();
+            if (numberBook!=0) {
+                typeBooks+=1;
+            }
         }
+        price = numberBooks*8.0;
+        price *= ARRAY_DISCOUNTS[typeBooks-1];
+
 
 
         return price;
