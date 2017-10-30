@@ -12,7 +12,6 @@ public class Potter {
     };
 
     private final ArrayList<Potter.Book> books;
-    private float price;
 
 
     public Potter () {
@@ -21,28 +20,39 @@ public class Potter {
 
     public static double ARRAY_DISCOUNTS  [] = {1.,0.95,0.9,0.8,0.75};
     public double checkout() {
-        double price = 0.;
         long numberBooks = this.books.size();
 
         if (numberBooks == 0 ) {
-            return price;
+            return 0;
         }
 
-        int typeBooks =0;
-        for (Potter.Book bookToCompare: Potter.Book.values())  {
-            long numberBook = this.books.stream().filter(n-> n == bookToCompare).count();
-            if (numberBook!=0) {
-                typeBooks+=1;
+        double priceTotal = 0.;
+        boolean exit = false;
+       while (!exit) {
+            int typeBooks = 0;
+            for (Potter.Book bookToCompare : Potter.Book.values()) {
+                long numberBook = this.books.stream().filter(n -> n == bookToCompare).count();
+                if (numberBook != 0) {
+                    typeBooks += 1;
+                    this.books.remove(bookToCompare);
+                }
             }
+
+            if (typeBooks==0) {
+                exit = true;
+                continue;
+            }
+            double price = typeBooks * 8.0;
+            price *= ARRAY_DISCOUNTS[typeBooks - 1];
+            priceTotal+=price;
         }
-        price = numberBooks*8.0;
-        price *= ARRAY_DISCOUNTS[typeBooks-1];
 
 
 
-        return price;
+        return priceTotal;
     }
 
+    //TODO remove this function
     private boolean isLastElement(int index) {
         if (index == this.books.size()-1) {
             return true;

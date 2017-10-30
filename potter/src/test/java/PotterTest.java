@@ -71,11 +71,34 @@ public class PotterTest {
         potter.add (Potter.Book.BOOK3);
         potter.add (Potter.Book.BOOK4);
         potter.add (Potter.Book.BOOK5);
-
         double price = potter.checkout();
         Assert.assertEquals(30.0,price,0.0001f);
     }
 
+
+    @Test
+    public void should_add_two_different_books_two_times_with_discount () {
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK2);
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK2);
+        double price = potter.checkout();
+        Assert.assertEquals(30.4,price,0.0001f);
+    }
+
+    @Test
+    public void should_add_two_different_type_of_discounts () {
+        /* 21.6 */
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK2);
+        potter.add (Potter.Book.BOOK3);
+
+        /* 15.2 */
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK2);
+        double price = potter.checkout();
+        Assert.assertEquals(36.8,price,0.0001f);
+    }
 
 
 }
