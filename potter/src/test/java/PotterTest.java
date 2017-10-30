@@ -36,7 +36,7 @@ public class PotterTest {
         double price = potter.checkout();
         Assert.assertEquals(15.2,price,0.0001f);
     }
-    
+
 
     @Test
     public void should_add_three_different_books_not_consecutives_with_discount () {
@@ -93,6 +93,22 @@ public class PotterTest {
         double price = potter.checkout();
         Assert.assertEquals(36.8,price,0.0001f);
     }
+
+
+    @Test
+    public void should_add_a_different_type_of_discounts () {
+        /* 21.6 */
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK2);
+        potter.add (Potter.Book.BOOK3);
+
+        /* 16.0 */
+        potter.add (Potter.Book.BOOK1);
+        potter.add (Potter.Book.BOOK1);
+        double price = potter.checkout();
+        Assert.assertEquals(37.6,price,0.0001f);
+    }
+
 
 
 }
