@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Potter {
 
@@ -13,52 +12,60 @@ public class Potter {
 
     private final ArrayList<Potter.Book> books;
 
-
     public Potter () {
-        this.books = new ArrayList<Potter.Book>();
+        this.books = new ArrayList<>();
     }
 
-    public static double ARRAY_DISCOUNTS  [] = {1.,0.95,0.9,0.8,0.75};
-    public double checkout() {
-        long numberBooks = this.books.size();
+    public static double DISCOUNTS_FOR_NUMBER_DIFFERENT_BOOKS[] = {1.,0.95,0.9,0.8,0.75};
 
-        if (numberBooks == 0 ) {
+    public double checkout() {
+
+        if (!hasBooks()) {
             return 0;
         }
 
         double priceTotal = 0.;
         boolean exit = false;
-       while (!exit) {
-            int typeBooks = 0;
-            for (Potter.Book bookToCompare : Potter.Book.values()) {
-                long numberBook = this.books.stream().filter(n -> n == bookToCompare).count();
-                if (numberBook != 0) {
-                    typeBooks += 1;
-                    this.books.remove(bookToCompare);
-                }
-            }
-
-            if (typeBooks==0) {
+        while (!exit) {
+            int typeBooks = extractDiscountForNumTypesOfBooks();
+            if (!hasMoreBooks(typeBooks)) {
                 exit = true;
                 continue;
             }
-            double price = typeBooks * 8.0;
-            price *= ARRAY_DISCOUNTS[typeBooks - 1];
-            priceTotal+=price;
+            priceTotal += calculatePrice(typeBooks);
+
         }
-
-
 
         return priceTotal;
     }
 
-    //TODO remove this function
-    private boolean isLastElement(int index) {
-        if (index == this.books.size()-1) {
-            return true;
-        }
-        return false;
+    private boolean hasMoreBooks(int typeBooks) {
+        return typeBooks!=0;
     }
+
+    private double calculatePrice(int typeBooks) {
+        double price = typeBooks * 8.0;
+        price *= DISCOUNTS_FOR_NUMBER_DIFFERENT_BOOKS[typeBooks - 1];
+        return price;
+    }
+
+    private int extractDiscountForNumTypesOfBooks() {
+        int typeBooks = 0;
+        for (Book bookToCompare : Book.values()) {
+            long numberBook = this.books.stream().filter(n -> n == bookToCompare).count();
+            if (numberBook != 0) {
+                typeBooks += 1;
+                this.books.remove(bookToCompare);
+            }
+        }
+        return typeBooks;
+    }
+
+    private boolean hasBooks() {
+        long numberBooks = this.books.size();
+        return numberBooks != 0;
+    }
+
 
     public void add(Book book) {
         this.books.add(book);

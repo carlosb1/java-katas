@@ -78,8 +78,10 @@ public class PotterTest {
 
     @Test
     public void should_add_two_different_books_two_times_with_discount () {
+        /* 15.2 */
         potter.add (Potter.Book.BOOK1);
         potter.add (Potter.Book.BOOK2);
+        /* 15.2 */
         potter.add (Potter.Book.BOOK1);
         potter.add (Potter.Book.BOOK2);
         double price = potter.checkout();
