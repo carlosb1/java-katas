@@ -29,6 +29,8 @@ public class PotterTest {
         Assert.assertEquals(16.0, price,0.01);
     }
 
+
+
     @Test
     public void should_add_two_different_books_with_discount () {
         potter.add (Potter.Book.BOOK1);
@@ -76,6 +78,17 @@ public class PotterTest {
         Assert.assertEquals(30.0,price,0.0001f);
     }
 
+
+    @Test
+    public void should_add_two_same_books_and_two_differents ()  {
+        potter.add(Potter.Book.BOOK1);
+        potter.add(Potter.Book.BOOK1);
+        potter.add(Potter.Book.BOOK2);
+        potter.add(Potter.Book.BOOK3);
+
+        double price = potter.checkout();
+        Assert.assertEquals(31.2, price,0.0001);
+    }
 
 
 }

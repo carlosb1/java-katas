@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.*;
 
 public class Potter {
 
@@ -32,24 +36,21 @@ public class Potter {
         for (Potter.Book bookToCompare: Potter.Book.values())  {
             long numberBook = this.books.stream().filter(n-> n == bookToCompare).count();
             if (numberBook!=0) {
+                //TODO move to list
+                int [] indexes = IntStream.range(0,this.books.size()).filter(index -> this.books.get(index) == bookToCompare).toArray();
+                for (int index: indexes) {
+                }
+//                this.books.stream().filter(n-> n == bookToCompare).
                 typeBooks+=1;
             }
         }
         price = numberBooks*8.0;
         price *= ARRAY_DISCOUNTS[typeBooks-1];
 
-
-
         return price;
     }
 
-    private boolean isLastElement(int index) {
-        if (index == this.books.size()-1) {
-            return true;
-        }
-        return false;
-    }
-
+    //TODO move all code to checkout
     public void add(Book book) {
         this.books.add(book);
     }
