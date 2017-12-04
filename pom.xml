@@ -23,6 +23,7 @@
     <module>java-red-pencil</module>
     <module>ordered-job-kata</module>
     <module>potter</module>
+    <module>game_of_life</module>
   </modules>
 
   <dependencies>
