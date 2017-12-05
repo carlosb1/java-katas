@@ -23,6 +23,7 @@ public class Rules {
                 cellulas.add(new Cellula(cellula.x, cellula.y));
             }
 
+
         }
 
         return new Map(cellulas);
@@ -39,7 +40,7 @@ public class Rules {
     }
 
     private static boolean isLiveCellula(long numberNeighBours) {
-        return numberNeighBours == 2 || numberNeighBours == 3;
+        return numberNeighBours == 2 || numberNeighBours == 3 ;
     }
 
     }

@@ -53,6 +53,15 @@ public class MapTest {
         assertEquals(3,newMap.cellulas.size());
     }
 
+    @Test
+    public void should_initialize_relived_cellulas_play_and_live () {
+        final Map map = new Map();
+        final Map  nextMap = Rules.play(Rules.addCellula(map,new Cellula(0,0),new Cellula(1,0)));
+        final Map  next2Map = Rules.play(Rules.addCellula(nextMap,new Cellula(0,1),new Cellula(1,1),new Cellula(2,1)));
+        assertEquals(4,next2Map.cellulas.size());
+    }
+
+
 
 
 
