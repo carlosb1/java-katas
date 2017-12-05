@@ -23,9 +23,10 @@ public class MapTest {
         Cellula cellula1 = map.cellulas.get(0);
         Cellula cellula2 = map.cellulas.get(1);
         //TODO abstract this function
-//        if ((cellula2.y-cellula1.y)==1 && (cellula2.x - cellula1.x) == 0) {
+        if ((cellula2.y-cellula1.y)==1 && (cellula2.x - cellula1.x) == 0) {
             return new Map(Arrays.asList(cellula1, cellula2));
-//        }
+        }
+        return new Map(cellulas);
 
     }
 
@@ -59,7 +60,12 @@ public class MapTest {
         assertEquals(2,newMap.cellulas.size());
     }
 
-
+    @Test
+    public void should_initialize_two_separated_cellulas_play_and_dead () {
+        final Map map = new Map();
+        final Map  newMap = play(addCellula(map,new Cellula(0,0),new Cellula(0,2)));
+        assertEquals(0,newMap.cellulas.size());
+    }
 
 
 
