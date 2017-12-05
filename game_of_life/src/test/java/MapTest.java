@@ -54,7 +54,7 @@ public class MapTest {
     }
 
     @Test
-    public void should_initialize_two_cellulas_play_and_dead () {
+    public void should_initialize_two_cellulas_play_and_live() {
         final Map map = new Map();
         final Map  newMap = play(addCellula(map,new Cellula(0,0),new Cellula(0,1)));
         assertEquals(2,newMap.cellulas.size());
@@ -66,8 +66,6 @@ public class MapTest {
         final Map  newMap = play(addCellula(map,new Cellula(0,0),new Cellula(0,2)));
         assertEquals(0,newMap.cellulas.size());
     }
-
-
 
 
 
