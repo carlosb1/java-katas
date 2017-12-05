@@ -28,9 +28,11 @@ public class MapTest {
         for (Cellula cellula: map.cellulas) {
             List<Position> positionsToSearch = setUpPosicForNeighbours(cellula.x, cellula.y);
             long numberNeighBours = positionsToSearch.stream().filter(position -> hasItNeighbour(position, map.cellulas)).count();
+
             if (isLiveCellula(numberNeighBours)) {
                 cellulas.add(new Cellula(cellula.x, cellula.y));
             }
+
         }
 
         return new Map(cellulas);
@@ -84,6 +86,14 @@ public class MapTest {
         final Map  newMap = play(addCellula(map,new Cellula(0,0),new Cellula(1,0),new Cellula(1,1)));
         assertEquals(3,newMap.cellulas.size());
     }
+
+    @Test
+    public void should_initialize_more_three_cellulas_play_and_live () {
+        final Map map = new Map();
+        final Map  newMap = play(addCellula(map,new Cellula(0,0),new Cellula(1,0),new Cellula(1,1),new Cellula(0,1),new Cellula(0,2)));
+        assertEquals(3,newMap.cellulas.size());
+    }
+
 
 
 
