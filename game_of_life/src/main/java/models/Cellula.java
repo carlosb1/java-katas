@@ -1,7 +1,7 @@
 package models;
 
 public class Cellula {
-    enum State {Live, Dead};
+    public enum State {Live, Dead};
     public  State state;
     public final Integer x;
     public final Integer y;
