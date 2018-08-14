@@ -24,6 +24,7 @@
     <module>ordered-job-kata</module>
     <module>potter</module>
     <module>game_of_life</module>
+    <module>lift</module>
   </modules>
 
   <dependencies>
