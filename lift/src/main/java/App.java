@@ -1,4 +1,4 @@
-package $katas;
+
 
 /**
  * Hello world!
