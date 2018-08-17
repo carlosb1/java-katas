@@ -9,8 +9,7 @@ public class Lift {
         this.currentFloor = floor;
     }
 
-    //TODO change name for current floor
-    public int getFloor() {
+    public int getCurrentFloor() {
         return this.currentFloor;
     }
 
