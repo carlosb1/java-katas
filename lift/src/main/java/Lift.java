@@ -16,4 +16,8 @@ public class Lift {
     public void pusbButton(int floor) {
         this.currentFloor = floor;
     }
+
+    public Action getAction() {
+        return Action.Up;
+    }
 }
