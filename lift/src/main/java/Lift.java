@@ -1,19 +1,20 @@
+import com.sun.xml.internal.ws.api.pipe.Engine;
+
 public class Lift {
 
     private int currentFloor;
-    public Lift () {
-        this.currentFloor = 0;
-    }
+    private EngineDriver engineDriver;
 
-    public Lift(int floor) {
+    public Lift(int floor, EngineDriver engineDriver) {
         this.currentFloor = floor;
+        this.engineDriver = engineDriver;
     }
 
     public int getCurrentFloor() {
         return this.currentFloor;
     }
 
-    public void pusbButton(int floor) {
+    public void pushButton(int floor) {
         this.currentFloor = floor;
     }
 
