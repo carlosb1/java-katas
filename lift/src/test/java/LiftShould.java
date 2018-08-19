@@ -19,16 +19,13 @@ public class LiftShould
 
     @Test
     public void go_to_pushed_button_floor() {
-        lift = new Lift(0);
         lift.pusbButton(1);
         Assert.assertEquals(1, lift.getCurrentFloor());
     }
     @Test
     public void describe_action_when_moves() {
-        lift = new Lift(0);
         lift.pusbButton(1);
         Action  action = lift.getAction();
         Assert.assertEquals(Action.Up,action);
     }
-
 }
