@@ -16,4 +16,10 @@ public class EngineShould {
         engineDriver.onArrive(1);
         Assert.assertEquals(1, engineDriver.getCurrentFloor());
     }
+
+    @Test
+    public void be_notify_is_moving_engine() {
+        engineDriver.onStatus(EngineDriver.Status.MOVING);
+        Assert.assertEquals(EngineDriver.Status.MOVING, engineDriver.getStatus());
+    }
 }
