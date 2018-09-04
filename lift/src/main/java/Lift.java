@@ -16,6 +16,7 @@ public class Lift {
 
     public void pushButton(int floor) {
         this.currentFloor = floor;
+        engineDriver.onStatus(EngineDriver.Status.MOVING);
     }
 
     public Action getAction() {

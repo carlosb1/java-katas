@@ -6,8 +6,6 @@ import org.junit.Test;
 public class LiftShould
 {
 
-
-
     Lift lift;
     @Before
     public void setUp() {
@@ -35,8 +33,10 @@ public class LiftShould
     public void checks_lift_arrive_correctly() {
         EngineDriver engineDriver = new EngineDriver();
         lift = new Lift(0,engineDriver);
+        Assert.assertEquals(EngineDriver.Status.STOPPED, engineDriver.getStatus());
         lift.pushButton(1);
-        Action  action = lift.getAction();
+        Assert.assertEquals(EngineDriver.Status.MOVING,engineDriver.getStatus());
+
 
     }
 

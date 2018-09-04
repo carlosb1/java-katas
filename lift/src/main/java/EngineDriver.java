@@ -1,7 +1,7 @@
 public class EngineDriver {
 
     private int currentFloor;
-    private Status status;
+    private Status status = Status.STOPPED;
 
     public void onArrive(int floor) {
         this.currentFloor = floor;
@@ -19,5 +19,5 @@ public class EngineDriver {
         this.status = status;
     }
 
-    public enum Status {MOVING}
+    public enum Status {STOPPED, MOVING}
 }
