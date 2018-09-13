@@ -36,6 +36,8 @@ public class LiftShould
         Assert.assertEquals(EngineDriver.Status.STOPPED, engineDriver.getStatus());
         lift.pushButton(1);
         Assert.assertEquals(EngineDriver.Status.MOVING,engineDriver.getStatus());
+        engineDriver.onStatus(EngineDriver.Status.OPEN_DOORS);
+        Assert.assertEquals(Action.OPEN_DOORS, lift.getAction());
     }
 
 

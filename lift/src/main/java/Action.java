@@ -1,3 +1,3 @@
 public enum Action {
-    Up
+    OPEN_DOORS, Up
 }

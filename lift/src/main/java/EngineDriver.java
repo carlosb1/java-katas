@@ -25,5 +25,6 @@ public class EngineDriver {
         this.status = Status.MOVING;
     }
 
-    public enum Status {STOPPED, MOVING}
+    public enum Status {STOPPED, MOVING, OPEN_DOORS
+    }
 }

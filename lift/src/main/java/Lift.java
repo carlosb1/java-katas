@@ -20,6 +20,9 @@ public class Lift {
     }
 
     public Action getAction() {
+        if (this.engineDriver.getStatus() == EngineDriver.Status.OPEN_DOORS) {
+            return Action.OPEN_DOORS;
+        }
         return Action.Up;
     }
 }
